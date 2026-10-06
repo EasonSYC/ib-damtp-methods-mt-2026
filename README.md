@@ -1,5 +1,5 @@
-# cambridge-notes-template
+# ib-damtp-methods-mt-2026
 
-[![LaTeX Compile PDF](https://github.com/EasonSYC/cambridge-notes-template/actions/workflows/compile-pdf.yml/badge.svg)](https://github.com/EasonSYC/cambridge-notes-template/actions/workflows/compile-pdf.yml)
+[![LaTeX Compile PDF](https://github.com/EasonSYC/ib-damtp-methods-mt-2026/actions/workflows/compile-pdf.yml/badge.svg)](https://github.com/EasonSYC/ib-damtp-methods-mt-2026/actions/workflows/compile-pdf.yml)
 
-Template for typesetting my Cambridge notes.
+My notes for Cambridge Maths Part IB DAMTP Methods course, Michaelmas Term 2026, lectured by A. Ashton.
