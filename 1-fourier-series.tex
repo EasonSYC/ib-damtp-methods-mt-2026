@@ -101,12 +101,14 @@ Note that this is precisely the same as \autoref{eq:fourier-claim-coefficient} w
     \end{equation}
     where the coefficients which satisfy
     \begin{equation}
+        \label{eq:fourier-coefficient-definition}%
         \hat{f}_n = \frac{1}{L} \int_{0}^{L} f\pqty{\theta} \exp\pqty{- \frac{2 \pi i n \theta}{L}} \dd{\theta}
     \end{equation}
     are called the \term{complex Fourier coefficients} of \(f\).
 
     Instead of writing an equal sign, we often use the symbol
     \begin{equation}
+        \label{eq:forier-series-notation-sim}%
         f\pqty{\theta} \sim \sum_{n \in \ZZ} \hat{f}_n \exp\pqty{\frac{2 \pi i n \theta}{L}}
     \end{equation}
     which means that the right-hand side isthe Fourier series of the function on the left, \(f\).
@@ -220,3 +222,161 @@ It is always a good idea to draw the graph of the function \(f\) before calculat
 
     In this example, we indeed have an equality.
 \end{example}
+
+\subsection{Convergence of Fourier Series}
+
+\begin{definition}[Partial Fourier Series]
+    Let \(\functiondomain{f}{\RR}{\CC}\) be an \(L\)-periodic function. The \term{partial Fourier series} of \(f\) is defined by
+    \begin{equation}
+        \pqty{S_N f}\pqty{\theta} = \sum_{n = -N}^{N} \hat{f}_n e^{\flatfrac{2 \pi i n \theta}{L}},
+    \end{equation}
+    where \(\hat{f}_n\) is the \(n\)-th Fourier coefficient of \(f\), given in \autoref{eq:fourier-coefficient-definition}.
+\end{definition}
+
+We want to know whether \(S_N f \to f\) as \(N \to \infty\) -- but in what way, pointwise or uniformly?
+
+Recall that \term{pointwise convergence} means
+\begin{equation}
+    \label{eq:pointwise-convergence}%
+    \lim_{N \to \infty} \abs{S_N f\pqty{\theta} - f\pqty{\theta}} = 0\quad \forall \theta \in \cointv{0}{L},
+\end{equation}
+and  \term{uniform convergence} means
+\begin{equation}
+    \lim_{N \to \infty} \sup_{\theta \in \cointv{0}{L}} \abs{S_N f\pqty{\theta} - f\pqty{\theta}} = 0.
+\end{equation}
+
+We have another choice here: we have defined a \term{norm}, and \term{convergence in norm} means
+\begin{equation}
+    \label{eq:convergence-in-norm}%
+    \lim_{N \to \infty} \norm{S_N f - f}^2 = \lim_{N \to \infty} \int_{0}^{L} \abs{S_N f\pqty{\theta} - f\pqty{\theta}}^2 \dd{\theta} = 0.
+\end{equation}
+
+Unsurprisingly, convergence in norm in \autoref{eq:convergence-in-norm} is the nicest (because they are more natural for Fourier series), but we will focus on pointwise convergence, defined in \autoref{eq:pointwise-convergence}.
+
+\begin{proposition}[Convergence of Fourier Series at Points of Continuity]
+    \label{prop:fourier-series-convergence}%
+    Let \(\functiondomain{f}{\RR}{\CC}\) be \(L\)-periodic such that:
+    \begin{enumerate}
+        \item \(f\) is continuous on \(\cointv{0}{L}\), away from a finite number of jump discontinuities; and
+        \item \(\Re \pqty{f}\) and \(\Im \pqty{f}\) to have a finite number of maxima and minima on \(\cointv{0}{L}\).
+    \end{enumerate}
+
+    Then
+    \begin{equation}
+        \frac{1}{2} \bqty{f\pqty{\theta_+} + f\pqty{\theta_-}} = \lim_{N \to \infty} S_N f\pqty{\theta}
+    \end{equation}
+    where
+    \begin{equation}
+        f\pqty{\theta_{\pm}} = \lim_{\epsilon \to 0^{+}} f\pqty{\theta \pm \epsilon}.
+    \end{equation}
+\end{proposition}
+
+To put this in words, at points of continuity, we have \(S_N f\pqty{\theta} \to f\pqty{\theta}\) as \(N \to \infty\), since \(f\pqty{\theta} = f\pqty{\theta_{\pm}}\). However, at jump discontinuities, we get the \emph{average} value of \(f\) at the jump.
+
+\begin{definition}[Dirichlet Functions]
+    We call functions that have the properties in the above \autoref{prop:fourier-series-convergence} \term{Dirichlet functions}.
+\end{definition}
+
+We will deal solely with such functions, and so the notation in \autoref{eq:fourier-series-notation-sim}, the ``\(\sim\)'' symbol, means that the two sides are \emph{equal} at the points of continuity of \(f\), and the right-hand side gives an average of the left-hand side at jump discontinuities.
+
+\begin{example}
+    Let \(\functiondomain{f}{\RR}{\RR}\) be \(2\pi\)0periodic, such that
+    \begin{equation}
+        f\pqty{\theta} = \begin{cases}
+            +1, & 0 \leq \theta < \pi \\
+            -1, & \pi < \theta < 2 \pi.
+        \end{cases}
+    \end{equation}
+
+    Note that \(f\) is odd, so \(a_n = 0\) for all \(n \geq 0\), and
+    \begin{subequations}
+        \begin{align}
+            b_n &= \frac{2}{2\pi} \int_{0}^{2\pi} f\pqty{\theta} \sin\pqty{n \theta} \dd{\theta} \\
+            &= \frac{2}{\pi} \int_{0}^{\pi} \sin\pqty{n \theta} \dd{\theta} \\
+            &= \frac{2}{n \pi} \Bqty{1 - \pqty{-1}^n}.
+        \end{align}
+    \end{subequations}
+
+    So
+    \begin{equation}
+        f\pqty{\theta} \sim \frac{4}{\pi} \sum_{n \text{odd}, n > 0} \frac{\sin \pqty{n \theta}}{n}.
+    \end{equation}
+
+    Note if \(\theta = 0\), the Fourier series vanishes to \(0\), which is indeed the average value of \(f\) at the jump discontinuity.
+\end{example}
+
+\begin{proof}[Proof of \autoref{prop:fourier-series-convergence}]
+    We will only prove the result in the case where \(f\) is smooth, i.e., \(f \in \smoothClass\pqty{\RR}\). Also, by considering the translation \(g\pqty{\theta} = f\pqty{\theta + \theta_0}\), we can look only at the convergence at \(\theta = 0\). By means of a stretch, take \(L = 2\pi\) for simplicity of notation.
+
+    Consider
+    \begin{subequations}
+        \begin{align}
+            \pqty{S_N f} \pqty{0} &= \sum_{n = -N}^{N} \hat{f}_n e^{in \cdot 0}\\
+            &= \sum_{n = -N}^{N} \pqty{\frac{1}{2\pi} \int_{-\pi}^{\pi} f\pqty{\theta} e^{-in \theta} \dd{\theta}} \\
+            &= \frac{1}{2\pi} \int_{-\pi}^{\pi} f\pqty{\theta} \bqty{\sum_{n = -N}^{N} e^{-in \theta}} \dd{\theta}.
+        \end{align}
+    \end{subequations}
+
+    Note that the sum
+    \begin{equation}
+        \sum_{\abs{n} \leq N} e^{- i n \theta} = e^{i N \theta} \sum_{n = 0}^{2N} e^{- i n \theta} = \frac{\sin\bqty{\pqty{N + \flatfrac{1}{2}} \theta}}{\sin\pqty{\flatfrac{\theta}{2}}}
+    \end{equation}
+    and at the case \(\theta \in 2 \pi \ZZ\), the sum evaluates to \(2N + 1\).
+
+    Define the \term{Dirichlet kernel} \(D_N\) by
+    \begin{equation}
+        D_N\pqty{\theta} = \begin{cases}
+            \dfrac{\sin \bqty{\pqty{N + \flatfrac{1}{2}} \theta}}{\sin\pqty{\flatfrac{\theta}{2}}}, & \theta \in \RR \setminus 2 \pi \ZZ, \\
+            2N + 1, & \theta \in 2 \pi \ZZ.
+        \end{cases}
+    \end{equation}
+
+    Then note the following properties arising from the summation.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item \(D_N\) is smooth and \(2\pi\)-periodic (by observing the sum).
+        \item We have the integral
+        \begin{equation}
+            \int_{- \pi}^{\pi} D_N\pqty{\theta} \dd{\theta} = 2 \pi
+        \end{equation}
+        for every \(N \geq 0\).
+    \end{enumerate}
+
+    So
+    \begin{subequations}
+        \begin{align}
+            S_N f\pqty{0} - f\pqty{0} &= \frac{1}{2 \pi} \int_{-\pi}^{\pi} D_B\pqty{\theta} f\pqty{theta} \dd{\theta} - f\pqty{0} \\
+            &= \frac{1}{2 \pi} \int_{-\pi}^{\pi} D_N\pqty{\theta} \bqty{f\pqty{\theta} - f\pqty{0}} \dd{\theta} \\
+            &= \frac{1}{2 \pi} \int_{- \pi}^{\pi} \sin \bqty{\pqty{N + \frac{1}{2}} \theta} F\pqty{\theta} \dd{\theta} \label{eq:fourier-series-convergence-result-non-regular}%
+        \end{align}
+    \end{subequations}
+    where we define
+    \begin{equation}
+        F\pqty{\theta} = \frac{\theta}{\sin\pqty{\flatfrac{\theta}{2}}} \bqty{\frac{f\pqty{\theta} - f\pqty{0}}{\theta}}.
+    \end{equation}
+
+    If \(f \in \smoothClass\pqty{\RR}\), it follows that \(F \in \smoothClass\pqty{\RR}\), and hence
+    \begin{equation}
+        f\pqty{\theta} - f\pqty{0} = \int_{0}^{\theta} f'\pqty{t} \dd{t} = \theta \int_{0}^{1} f'\pqty{t \theta} \dd{t}.
+    \end{equation}
+
+    So integrating by parts, we get
+    \begin{subequations}
+        \begin{align}
+            \abs{S_N f\pqty{0} - f\pqty{0}} &= \frac{1}{2 \pi \pqty{N + \flatfrac{1}{2}}} \int_{- \pi}^{\pi} \abs{\cos\bqty{\pqty{N + \frac{1}{2}} \theta} F'\pqty{\theta}} \dd{\theta} \\
+            &\leq \frac{1}{2 \pi \pqty{N + \flatfrac{1}{2}}} \int_{- \pi}^{\pi} \abs{F'\pqty{\theta}} \dd{\theta} \\
+            &\to 0
+        \end{align}
+    \end{subequations}
+    as \(N \to \infty\).
+\end{proof}
+
+\begin{remark}
+    If \(f\) is not regular, we stop at \autoref{eq:fourier-series-convergence-result-non-regular}, and we may apply the Riemann--Lebesgue lemma to show that the integral vanishes as \(N \to \infty\).
+\end{remark}
+
+One might be tempted to say that if the function is integrable
+\begin{equation}
+    \int_{0}^{L} \abs{f\pqty{\theta}} \dd{\theta} < \infty,
+\end{equation}
+then the Fourier series converges to \(f\) almost everywhere. However, this is not necessarily true, as demonstrated by the Russian mathematician A. N. Kolmogorov in 1923, who constructed an integrable function whose Fourier series diverges almost everywhere.
