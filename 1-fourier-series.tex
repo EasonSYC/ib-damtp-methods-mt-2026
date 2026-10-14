@@ -380,3 +380,218 @@ One might be tempted to say that if the function is integrable
     \int_{0}^{L} \abs{f\pqty{\theta}} \dd{\theta} < \infty,
 \end{equation}
 then the Fourier series converges to \(f\) almost everywhere. However, this is not necessarily true, as demonstrated by the Russian mathematician A. N. Kolmogorov in 1923, who constructed an integrable function whose Fourier series diverges almost everywhere.
+
+\subsection{Even and Odd Extensions}
+
+Given \(\functiondomain{f}{\cointv{0}{L}}{\CC}\), we can extend it to a \(2L\)-periodic function on \(\RR\) in two ways. Introduce the \(2L\)-periodic functions defined by
+\begin{subequations}
+    \begin{align}
+        f_{\text{even}} \pqty{\theta} = \begin{cases}
+            f\pqty{\theta}, & \theta \in \cointv{0}{L}, \\
+            f\pqty{-\theta}, & \theta \in \cointv{-L}{0},
+        \end{cases} \\
+        f_{\text{odd}} \pqty{\theta} = \begin{cases}
+            f\pqty{\theta}, & \theta \in \cointv{0}{L}, \\
+            - f\pqty{-\theta}, & \theta \in \cointv{-L}{0}.
+        \end{cases}
+    \end{align}
+\end{subequations}
+
+Then the Fourier series of them look like
+\begin{subequations}
+    \begin{align}
+        f_{\text{even}} \pqty{\theta} &\sim \frac{1}{2} A_0 + \sum_{n = 1}^{\infty} A_n \cos \pqty{\frac{2 n \pi \theta}{2 L}}, \\
+        f_{\text{odd}} \pqty{\theta} &\sim \sum_{n = 1}^{\infty} B_n \sin \pqty{\frac{2 n \pi \theta}{2 L}},
+    \end{align}
+\end{subequations}
+where we have
+\begin{subequations}
+    \label{eq:cosine-series-coefficients}%
+    \begin{align}
+        A_n &= \frac{2}{2L} \int_{-L}^{L} f_{\text{even}}\pqty{\theta} \cos \pqty{\frac{2 n \pi \theta}{2 L}} \dd{\theta} \\
+        &= \frac{2}{L} \int_{0}^{L} f\pqty{\theta} \cos \pqty{\frac{n \pi \theta}{L}} \dd{\theta},
+    \end{align}
+\end{subequations}
+and
+\begin{subequations}
+    \label{eq:sine-series-coefficients}%
+    \begin{align}
+        B_n &= \frac{2}{2L} \int_{-L}^{L} f_{\text{odd}}\pqty{\theta} \sin \pqty{\frac{2 n \pi \theta}{2 L}} \dd{\theta} \\
+        &= \frac{2}{L} \int_{0}^{L} f\pqty{\theta} \sin \pqty{\frac{n \pi \theta}{L}} \dd{\theta}.
+    \end{align}
+\end{subequations}
+
+Note that \(f\pqty{\theta} = f_{\text{even}} \pqty{\theta} = f_{\text{odd}} \pqty{\theta}\), so these integrals only integrate \(f\) on our initially-defined range, and allows for two different Fourier series expansions of \(f\) on \(\cointv{0}{L}\).
+
+\begin{definition}[Sine/Cosine Series]
+    Given \(\functiondomain{f}{\cointv{0}{L}}{\CC}\), we define the \term{cosine series} and \term{sine series} of \(f\), respectively, by
+    \begin{subequations}
+        \begin{equation}
+            \frac{1}{2} A_0 + \sum_{n = 1}^{\infty} A_n \cos \pqty{\frac{n \pi \theta}{L}},
+        \end{equation}
+        \begin{equation}
+            \sum_{n = 1}^{\infty} B_n \sin \pqty{\frac{n \pi \theta}{L}},
+        \end{equation}
+    \end{subequations}
+    where the coefficients \(\Bqty{A_n, B_n}\) are given by \autoref{eq:cosine-series-coefficients} and \autoref{eq:sine-series-coefficients}.
+\end{definition}
+
+\begin{example}
+    Let \(\functiondomain{f}{\cointv{0}{1}}{\RR}\) with \(f\pqty{\theta} = 1\).
+
+    Then the \emph{sine} series will have coefficients
+    \begin{subequations}
+        \begin{align}
+            B_n &= \frac{2}{1} \int_{0}^{1} \sin\pqty{n \pi \theta} \dd{\theta} \\
+            &= \frac{2}{n \pi} \bqty{1 - \pqty{-1}^{n}}.
+        \end{align}
+    \end{subequations}
+
+    So if we restrict \(\theta \in \oointv{0}{1}\), we have
+    \begin{equation}
+        1 = \frac{4}{\pi} \sum_{n \text{ odd}, n > 0} \frac{\sin\pqty{n \pi \theta}}{n}.
+    \end{equation}
+
+    Now for the \emph{cosine} series, the coefficients are given by \(A_0 = 2\) and \(A_n = 0\) for \(n > 0\). Hence,
+    \begin{equation}
+        1 = \frac{1}{2} \cdot 2 + 0.
+    \end{equation}
+\end{example}
+
+\subsection{Regularity and Decay of Fourier Coefficients}
+
+Fourier series are infinite sums, so we would hope that the terms tend to zero in the sum.
+
+A non-examinable fact is the following.
+
+\small
+
+\begin{theorem}[Non-Examinable: Riemann--Lebesgue Lemma]
+    \label{thm:riemann-lebesgue-lemma}%
+    If the function \(f\) is integrable, where
+    \begin{equation}
+        \int_{0}^{L} \abs{f\pqty{\theta}} \dd{\theta} < \infty,
+    \end{equation}
+    then
+    \begin{equation}
+        \int_{0}^{L} f\pqty{\theta} e^{- i \lambda \theta} \dd{\theta} \to 0
+    \end{equation}
+    as \(\abs{\lambda} \to \infty\).
+\end{theorem}
+
+Take \(\lambda = \flatfrac{2 \pi n}{L}\), and we get \(\hat{f}_n \to 0\) as \(n \to \pminfty\). Hence, we have \(a_n = \hat{f}_n + \hat{f}_{-n} \to 0\), and \(b_n = i \pqty{\hat{f}_n - \hat{f}_{-n}} \to 0\) as \(n \to \infty\).
+
+\vspace{1em}
+\normalsize
+
+Suppose now that \(\functiondomain{f}{\RR}{\CC}\) is \(L\)-periodic, and \(k\)-times continuously differentiable. Then, using integration by part, we have
+\begin{subequations}
+    \begin{align}
+        \hat{f}_n &= \frac{1}{L} \int_{0}^{L} f\pqty{\theta} e^{- \flatfrac{2 \pi i n \theta}{L}} \dd{\theta} \\
+        &= \rightbar{\pqty{- \frac{L}{2 \pi i n}} \frac{f\pqty{\theta}}{L} e^{- \flatfrac{2 \pi i n \theta}{L}}}_{\theta = 0^+}{L^-} + \pqty{\frac{L}{2 \pi i n}} \frac{1}{L} \int_{0}^{L} f'\pqty{\theta} e^{- \flatfrac{2 \pi i n \theta}{L}} \dd{\theta}.
+    \end{align}
+\end{subequations}
+
+Since \(f\) is continuous, we have \(f\pqty{L^-} = f\pqty{0^-} = f\pqty{0^+}\), so the boundary term vanishes. Continuing \(k\)-times, we have
+\begin{equation}
+    \hat{f}_n = \pqty{\frac{L}{2 \pi i n}}^k \frac{1}{L} \int_{0}^{L} f^{\pqty{k}} \pqty{\theta} e^{- \flatfrac{2 \pi i n \theta}{L}} \dd{\theta}
+\end{equation}
+while this integral here is \(\littleO\pqty{1}\) by \autoref{thm:riemann-lebesgue-lemma} (Riemann--Lebesgue Lemma). Hence, we have
+\begin{equation}
+    \hat{f}_n = \littleO\pqty{\frac{1}{n^k}}
+\end{equation}
+and more regularity gives more decay. If it is true that
+\[
+    \int_{0}^{L} \abs{f^{\pqty{n + 1}} \pqty{\theta}} \dd{\theta} < \infty,
+\]
+then we get
+\[
+    \hat{f}_n = \littleO\pqty{\frac{1}{n^{k + 1}}}
+\]
+
+\subsection{Term-Wise Differentiation}
+
+Let \(\functiondomain{f}{\RR}{\CC}\) be \(L\)-periodic, and assume \(f\) is continuously differentiable on \(\oointv{0}{L}\) with \(f'\) bounded. Our question is what can we get from the Fourier series of \(f'\)?
+
+Set \(g = f'\). Then
+\begin{subequations}
+    \begin{align}
+        \hat{g}_n &= \frac{1}{L} \int_{0}^{L} f'\pqty{\theta} e^{-\flatfrac{2 \pi i n \theta}{L}} \dd{\theta} \\
+        &= \rightbar{\frac{1}{L} f\pqty{\theta} e^{- \flatfrac{2 \pi i n \theta}{L}}}_{\theta = 0^+}^{L^-} + \pqty{\frac{2 \pi i n}{L}} \frac{1}{L} \int_{0}^{L} f\pqty{\theta} e^{- \flatfrac{2 \pi i n \theta}{L}} \dd{\theta} \\
+        &= \frac{f\pqty{L^-} - f\pqty{0^+}}{L} + \pqty{\frac{2 \pi i n}{L}} \hat{f}_n.
+    \end{align}
+\end{subequations}
+
+If, in addition, we assume that \(f\) is continuous at the endpoints \(0\) and \(L\) (which means on the whole of \(\RR\)), then \(f\pqty{L^-} = f\pqty{0^-} = f\pqty{0^+}\), so
+\begin{equation}
+    \hat{g}_n = \pqty{\frac{2 \pi i n}{L}} \hat{f}_n
+\end{equation}
+hence
+\begin{subequations}
+    \begin{align}
+        f'\pqty{\theta} = g\pqty{\theta} &\sim \sum_{n \in \ZZ} \pqty{\frac{2 \pi i n}{L}} \hat{f}_n e^{\flatfrac{2 \pi i n \theta}{L}} \\
+        &= \sum_{n \in \ZZ} \dv{\theta} \pqty{\hat{f}_n e^{\flatfrac{2 \pi i n \theta}{L}}}. 
+    \end{align}
+\end{subequations}
+
+Hence, term-wise differentiation is valid provided the function is continuous.
+
+\subsection{Parseval's Theorem}
+
+Suppose \(\functiondomain{f, g}{\RR}{\CC}\) are \(L\)-periodic, with
+\begin{subequations}
+    \begin{align}
+        f\pqty{\theta} &\sim \sum_{n \in \ZZ} \hat{f}n e_n\pqty{\theta}, \\
+        g\pqty{\theta} &\sim \sum_{n \in \ZZ} \hat{g}_n e_n\pqty{\theta},
+    \end{align}
+\end{subequations}
+where we define
+\begin{equation}
+    e_n\pqty{\theta} = e^{\flatfrac{2 \pi i n \theta}{L}}.
+\end{equation}
+
+Then, the inner product is given by
+\begin{subequations}
+    \begin{align}
+        \inner{f}{g} &= \sum_{n, m \in \ZZ} \hat{f}_n \conjugate{\hat{g}_n} \inner{e_n}{e_m} \\
+        &= L \sum_{n \in \ZZ} \hat{f}_n \conjugate{\hat{g}_n},
+    \end{align}
+\end{subequations}
+i.e.,
+\begin{equation}
+    \label{eq:parsevals-theorem-1}%
+    \frac{1}{L} \int_{0}^{L} f\pqty{\theta} \conjugate{g\pqty{\theta}} \dd{\theta} = \sum_{n \in \ZZ} \hat{f}_n \conjugate{\hat{g}_n},
+\end{equation}
+and in particular,
+\begin{equation}
+    \label{eq:parsevals-theorem-2}%
+    \frac{1}{L} \int_{0}^{L} \abs{f\pqty{\theta}}^2 \dd{\theta} = \sum_{n \in \ZZ} \abs{\hat{f}_n}^2.
+\end{equation}
+
+\begin{theorem}[Parseval's Theorem]
+    \autoref{eq:parsevals-theorem-1} and \autoref{eq:parsevals-theorem-2} are known as \term{Parseval's theorem}.
+\end{theorem}
+
+\begin{example}
+    \(\functiondomain{f}{\RR}{\RR}\) is \(2\pi\)-periodic, with \(f\pqty{\theta} = \theta\) on \(\cointv{-\pi}{\pi}\). Then the Fourier series is given by
+    \begin{equation}
+        f\pqty{\theta} \sim \sum_{n \neq 0} \frac{i \pqty{-1}^n}{n} e^{i n \theta}.
+    \end{equation}
+    and hence by \autoref{eq:parsevals-theorem-2} (Parseval's Theorem),
+    \begin{equation}
+        \frac{\pi^2}{3} = \frac{1}{2\pi} \int_{- \pi}^{\pi} \theta^2 \dd{\theta} = \sum_{n \neq 0} \frac{1}{n^2} = 2 \sum_{n = 1}^[\infty] \frac{1}{n^2},
+    \end{equation}
+    which reduces to
+    \begin{equation}
+        \sum_{n = 1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6} = \rightbar{\sum_{n = 1}^{\infty} \frac{1}{n^s}}_{s = 2} = \zeta\pqty{2}.
+    \end{equation}
+
+    More generally, if we set \(f\pqty{\theta} = \theta^k\) for \(k \in \NN\), this allows us to compute \(\zeta\pqty{2k}\), for example, \(\zeta\pqty{4} = \flatfrac{\pi^4}{960}\).
+\end{example}
+
+One may attempt to find positive integers \(a, b \in \NN\), such that
+\begin{equation}
+    \zeta\pqty{3} = \sum_{n = 1}^{\infty} \frac{1}{n^3} = \frac{a}{b} \pi^3.
+\end{equation}
+
+This is left as an exercise to the reader.
