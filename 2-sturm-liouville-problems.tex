@@ -1,0 +1,189 @@
+\section{Sturm--Liouville Problems}
+
+\subsection{Abstract Eigenvalue Problems}
+
+Recall from \textit{IA Vectors and Matrices}, a \term{linear map} \(\functiondomain{A}{V_N}{V_N}\) is called \term{Hermitian} if \(\vb{x} \vdot A \vb{y} = \pqty{A \vb{x}} \vdot \vb{y}\) for all \(\vb{x}, \vb{y} \in V_N\), where we use the complex inner product given by
+\begin{equation}
+    \vb{x} \vdot \vb{y} = \sum_{i=1}^N x_i \conjugate{y_i} = \vb{x}\transpose \vb{y}\conjstar
+\end{equation}
+This is equivalent, in matrix notation, saying that \(A = A\hermitian\). Hermitian maps have the following properties.
+
+\begin{enumerate}[label=(\roman*)]
+    \item Eigenvalues of Hermitian maps are real.
+    \item Eigenvectors of Hermitian maps corresponding to distinct eigenvalues are orthogonal.
+    \item There exists a set \(\Bqty{\vb{y}_n}_{n = 1}^{N}\) of eigenvectors such that every \(\vb{x} \in V_N\) can be written as
+    \begin{subequations}
+        \begin{equation}
+            \vb{x} = \sum_{n = 1}^{N} \hat{x}_n \vb{y}_n
+        \end{equation}
+        where
+        \begin{equation}
+            \hat{x}_n = \frac{\vb{x} \vdot \vb{y}_n}{\vb{y}_n \vdot \vb{y}_n} = \frac{\vb{x} \vdot \vb{y}_n}{\norm{\vb{y}_n}^2}.
+        \end{equation}
+    \end{subequations}
+\end{enumerate}
+
+Our question is, does this generalise in the following way?
+
+Let \(V\) be a vector space of functions \(\functiondomain{f}{\ccintv{a}{b}}{\RR}\) (\(V\) will be a subspace of \(\contClass{2}{\ccintv{a}{b}}\)). Equip \(V\) with the \term{inner product}
+\begin{equation}
+    \inner[w]{f}{g} = \int_{a}^{b} f\pqty{x} \conjugate{g\pqty{x}} w\pqty{x} \dd{x},
+\end{equation}
+where \(w\pqty{x}\) is real and \(w > 0\) on \(\oointv{a}{b}\), referred to as the \term{weight function}. Define the \term{norm}
+\begin{equation}
+    \norm[w]{f} = \sqrt{\inner[w]{f}{f}},
+\end{equation}
+and we write
+\begin{equation}
+    \inner[1]{f}{g} = \inner{f}{g}.
+\end{equation}
+
+\begin{definition}[Self-Adjoint Operator]
+    A linear operator \(L\) on \(V\) is called \term{self-adjoint} on \(\pqty{V, \inner[w]{\cdot}{\cdot}}\), if
+    \begin{equation}
+        \inner[w]{L y_1}{y_2} = \inner[w]{y_1}{L y_2}
+    \end{equation}
+    for all \(y_1, y_2 \in V\).
+\end{definition}
+
+We say \(\pqty{\lambda, y} \in \CC \times \pqty{V \setminus \Bqty{0}}\) is an \term{eigenvalue-eigenfunction pair} for \(L\), if \(Ly = \lambda_y\).
+
+\begin{proposition}[Properties of Self-Adjoint Operators]
+    If \(L\) is self-adjoint on \(\pqty{V, \inner[w]{\cdot}{\cdot}}\), then:
+    \begin{enumerate}[label=(\roman*)]
+        \item eigenvalues of \(L\) are real;
+        \item eigenfunctions of \(L\) corresponding to distinct eigenvalues are orthogonal with respect to \(\inner[w]{\cdot}{\cdot}\);
+        \item there exists a set \(\Bqty{y_n}_{n = 1}^{\infty}\) of eigenfunctions such that every \(f \in V\) can be written as
+        \begin{equation}
+            f = \sum_{n = 1}^{\infty} \hat{f}_n y_n,
+        \end{equation}
+        where
+        \begin{equation}
+            \hat{f}_n = \frac{\inner[w]{f}{y_n}}{\inner[w]{y_n}{y_n}} = \frac{\inner[w]{f}{y_n}}{\norm[w]{y_n}^2}.
+        \end{equation}
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item Suppose \(L y = \lambda y\) for \(y \neq 0\). Then
+        \begin{subequations}
+            \begin{align}
+                \pqty{\lambda - \conjugate{\lambda}} \norm[w]{y}^2 &= \pqty{\lambda - \conjugate{\lambda}} \inner[w]{y}{y} \\
+                &= \inner[w]{\lambda y}{y} - \inner[w]{y}{\lambda y} \\
+                &= \inner[w]{Ly}{y} - \inner[w]{y}{Ly} \\
+                &= 0,
+            \end{align}
+        \end{subequations}
+        since \(L\) is self-adjoint. So \(\lambda = \conjugate{\lambda}\), i.e. \(\lambda \in \RR\).
+
+        \item Suppose \(L y_1 = \lambda_1 y_1\) and \(L y_2 = \lambda_2 y_2\) for \(y_1, y_2 \neq 0\) and \(\lambda_1 \neq \lambda_2\). Then
+        \begin{subequations}
+            \begin{align}
+                \pqty{\lambda_1 - \lambda_2} \inner[w]{y_1}{y_2} &= \inner[w]{\lambda_1 y_1}{y_2} - \inner[w]{y_1}{\lambda_2 y_2} \\
+                &= \inner[w]{Ly_1}{y_2} - \inner[w]{y_1}{Ly_2} \\
+                &= 0,
+            \end{align}
+        \end{subequations}
+        since \(L\) is self-adjoint. So \(\inner[w]{y_1}{y_2} = 0\).
+
+        \item This proof is left as an exercise to the reader. In particular, the famous mathematician David Hilbert says it is true, so it must be true.
+    \end{enumerate}
+\end{proof}
+
+\small
+Essentially, at the end of \textit{II Linear Analysis} we may prove that
+\begin{equation}
+    \norm[w]{f - \sum_{n = 1}^{N} \hat{f}_n y_n} \to 0
+\end{equation}
+as \(n \to \infty\).
+\normalsize
+
+\subsection{Self-Adjointness and Boundary Conditions}
+
+We will study problems of the form
+\begin{equation}
+    Ly = \lambda_y \qfor a < x < b
+\end{equation}
+and with some supplementary boundary conditions at \(x = a\) and \(x = b\). Here, we restrict \(L\) to be a special type of differential operator.
+
+\begin{definition}[Sturm--Liouville Operator]
+    A \term{Sturm--Liouville operator} is a second-order differential operator of the form
+    \begin{equation}
+        L y = \frac{1}{w} \bqty{- \dv{x}  \pqty{p \dv{x}} y + q y},
+    \end{equation}
+    where \(p, q\) and \(w\) are real-valued functions, and \(p\) and \(w\) are positive on \(\oointv{a}{b}\). We call \(w\) the \term{weight function associated with \(L\)}.
+\end{definition}
+
+Rearranging gives the common form of a Sturm--Liouville problem:
+\begin{equation}
+    - \dv{x} \bqty{p \dv{y}{x}} + qy = \lambda w y
+\end{equation}
+on \(a < x < b\).
+
+We will impose boundary conditions by forcing \(y\) to belong to some vector space \(V\).
+
+\begin{definition}[Singular and Non-Singular Endpoints]
+    Given a Sturm--Liouville operator on \(\oointv{a}{b}\), we say an endpoint \(c \in \Bqty{a, b}\) is \term{singular} if \(p\pqty{c} = 0\), and \term{non-singular} otherwise.
+\end{definition}
+
+We will only specify boundary conditions at non-singular endpoints. At non-singular endpoints, we will impose real, homogeneous boundary conditions of the form
+\begin{equation}
+    \alpha_c y\pqty{c} + \beta_c y'\pqty{c} = 0,
+\end{equation}
+where \(\alpha_c, \beta_c \in \RR\) and \(\alpha^2_c + \beta^2_c \neq 0\). Note that if \(y_1, y_2\) satisfy boundary conditions of this form, then so does \(c_1 y_1 + c_2 y_2\) for constants \(c_1, c_2\), i.e., we got a vector space structure.
+
+So given Sturm--Liouville operator, we work on a vector space of the form
+\begin{equation}
+    V = \set{y \in \contClass{2}\pqty{\ccintv{a}{b}}}{y \text{ satisfies real, homogeneous boundary conditions at non-singular endpoints}}
+\end{equation}
+
+We equip \(V\) with an inner product \(\inner[w]{\cdot}{\cdot}\), where \(w\) is the weight function associated with \(L\). 
+
+\begin{example}
+    Consider the Sturm--Liouville problem
+    \begin{equation}
+        - \dv{x} \bqty{\cos \pqty{\frac{x}{2}} \dv{y}{x}} + \sin \pqty{\frac{x}{2}} y = \lambda y
+    \end{equation}
+    where \(p = \cos \pqty{\flatfrac{x}{2}},  q = \sin \pqty{\flatfrac{x}{2}}, w = 1\). A suitable vector space would be
+    \begin{equation}
+        V = \set{y \in \contClass{2}\pqty{\ccintv{0}{\pi}}}{y\pqty{0} = 0}.
+    \end{equation}
+
+    Note that \(p\pqty{\pi} = 0\), \(p\pqty{0} \neq 0\) so only the endpoint \(0\) is non-singular. The inner product is therefore given by
+    \begin{equation}
+        \innerproduct{f}{g} = \int_{0}^{\pi} f\pqty{x} \conjugate{g\pqty{x}} \dd{x}.
+    \end{equation}
+\end{example}
+
+\begin{proposition}
+    Let \(V\) be a vector space associated with a Sturm--Liouville operator \(L\) on \(\oointv{a}{b}\). Then \(L\) is self-adjoint on \(\pqty{V, \inner[w]{\cdot}{\cdot}}\), where \(w\) is a weight function corresponding to \(L\).
+\end{proposition}
+
+\begin{proof}
+    Take \(y_1, y_2 \in \contClass{2} \pqty{\ccintv{a}{b}}\). Then we have
+    \begin{subequations}
+        \label{eq:sturm-ioiville-self-adjointness}%
+        \begin{align}
+            \inner[w]{L y_1}{y_2} - \inner[w]{y_1}{L y_2} &= \int_{a}^{b} \frac{1}{w} \bqty{- \pqty{p y_1'}' + q y_1} \conjugate{y_2} w \dd{x} - \int_{a}^{b} y_1 \frac{1}{w} \bqty{- \pqty{p \conjugate{y_2}'}' + q \conjugate{y_2}} w \dd{x} \\
+            &= \int_{a}^{b} \bqty{y_1 \pqty{p \conjugate{y_2}'}' - \pqty{p y_1'}' \conjugate{y_2}} \dd{x} \\
+            &= \int_{a}^{b} \bqty{p \pqty{y_1 \conjugate{y_2}' - y_1' \conjugate{y_2}}}' \dd{x} \\
+            &= \bqty{p \pqty{x} W\pqty{y_1, \conjugate{y_2}}}_{x = a}^{b}, \label{eq:sturm-liouville-wronskian}%
+        \end{align}
+    \end{subequations}
+    where \(W\pqty{x}\) is the \term{Wronskian} of \(y_1\) and \(y_2\) (recall from \textit{IA Differential Equations}).
+
+    Now assume \(y_1, y_2 \in V\). If \(c \in \Bqty{a, b}\) is singular, then \(p \pqty{c} = 0\), i.e., the right-hand side of \autoref{eq:sturm-liouville-wronskian} vanishes at \(x = c\).
+
+    If \(c \in \Bqty{a, b}\) is non-singular, they behave boundary conditions of the form
+    \begin{equation}
+        \alpha_c y\pqty{c} + \beta_c y'\pqty{c} = 0,
+    \end{equation}
+    where \(\alpha_c, \beta_c \in \RR\) and \(\alpha_c^2 + \beta_c^2 \neq 0\).Since \(\alpha_c\) and \(\beta_c\) are real, \(\conjugate{y}\) also solves this equation. So we have
+    \begin{equation}
+        \pmqty{y_1\pqty{c} & y_1'\pqty{c} \\ \conjugate{y_2}\pqty{c} & \conjugate{y_2}'\pqty{c}} \pmqty{\alpha_c \\ \beta_c} = 0.
+    \end{equation}
+    at this non-singular endpoint. Since \(\alpha_c^2 + \beta_c^2 \neq 0\), the vector \(\pmqty{\alpha_c \\ \beta_c}\) is non-zero, and so the determinant of the matrix, which is exactly \(W\pqty{y_1, \conjugate{y_2}}\pqty{c}\), must vanish. So at a non-singular endpoint, the right-hand side of \autoref{eq:sturm-liouville-wronskian} also vanishes.
+
+    This shows that the left-hand side of \autoref{eq:sturm-ioiville-self-adjointness} vanishes, i.e., \(L\) is self-adjoint on \(\pqty{V, \inner[w]{\cdot}{\cdot}}\).
+\end{proof}
