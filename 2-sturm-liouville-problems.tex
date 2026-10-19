@@ -339,6 +339,38 @@ Divide through by \(\alpha\pqty{x} > 0\), and we multiply this by an integrating
     \end{equation}
     so \(\mu \cot \pqty{\mu} = -1\). We may solve this by observing the intersection of the graphs of \(\tan \mu\) and \(- \mu\).
 
+    \begin{figure}[ht!]
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis lines = middle,
+                xlabel = {\(\mu\)},
+                ylabel = {\(y\)},
+                xmin = 0, xmax = 3*pi,
+                ymin = -10, ymax = 8,
+                xtick = {0, pi/2, pi, 3*pi/2, 2*pi, 5*pi/2, 3*pi},
+                xticklabels = {\(0\), \(\frac{\pi}{2}\), \(\pi\), \(\frac{3\pi}{2}\), \(2\pi\), \(\frac{5\pi}{2}\), \(3\pi\)},
+                samples = 1000,
+                smooth,
+                width = 12cm,
+                height = 10cm,
+                grid = both,
+                unbounded coords = jump,
+                restrict y to domain = -9:8,
+                legend style = {at = {(0.98, 0.98)}, anchor = north east},
+            ]
+                \addplot[thick, blue, domain = 0.01:3*pi] {tan(deg(x))};
+                \addlegendentry{\(\tan \mu\)}
+                \addplot[thick, red, domain = 0:3*pi] {-x};
+                \addlegendentry{\(-\mu\)}
+                \addplot[only marks, mark = *, mark size = 1.5pt, black]
+                    coordinates {(2.02876, -2.02876) (4.91318, -4.91318) (7.978665, -7.978665)};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{Graphs of \(\tan \mu\) and \(-\mu\)}
+        \label{fig:tan-minus-mu}%
+    \end{figure}
+
     We get an infinite sequence of eigenvalues \(\lambda_n\)
     \begin{equation}
         \lambda_n = 1 + \mu_n^2.
