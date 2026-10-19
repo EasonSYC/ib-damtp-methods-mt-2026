@@ -110,13 +110,14 @@ and with some supplementary boundary conditions at \(x = a\) and \(x = b\). Here
 \begin{definition}[Sturm--Liouville Operator]
     A \term{Sturm--Liouville operator} is a second-order differential operator of the form
     \begin{equation}
-        L y = \frac{1}{w} \bqty{- \dv{x}  \pqty{p \dv{x}} y + q y},
+        L y = \frac{1}{w} \bqty{- \dv{x}  \pqty{p \dv{y}{x}}  + q y},
     \end{equation}
     where \(p, q\) and \(w\) are real-valued functions, and \(p\) and \(w\) are positive on \(\oointv{a}{b}\). We call \(w\) the \term{weight function associated with \(L\)}.
 \end{definition}
 
 Rearranging gives the common form of a Sturm--Liouville problem:
 \begin{equation}
+    \label{eq:sturm-liouville-problem}%
     - \dv{x} \bqty{p \dv{y}{x}} + qy = \lambda w y
 \end{equation}
 on \(a < x < b\).
@@ -152,7 +153,7 @@ We equip \(V\) with an inner product \(\inner[w]{\cdot}{\cdot}\), where \(w\) is
 
     Note that \(p\pqty{\pi} = 0\), \(p\pqty{0} \neq 0\) so only the endpoint \(0\) is non-singular. The inner product is therefore given by
     \begin{equation}
-        \innerproduct{f}{g} = \int_{0}^{\pi} f\pqty{x} \conjugate{g\pqty{x}} \dd{x}.
+        \inner{f}{g} = \int_{0}^{\pi} f\pqty{x} \conjugate{g\pqty{x}} \dd{x}.
     \end{equation}
 \end{example}
 
@@ -187,3 +188,182 @@ We equip \(V\) with an inner product \(\inner[w]{\cdot}{\cdot}\), where \(w\) is
 
     This shows that the left-hand side of \autoref{eq:sturm-ioiville-self-adjointness} vanishes, i.e., \(L\) is self-adjoint on \(\pqty{V, \inner[w]{\cdot}{\cdot}}\).
 \end{proof}
+
+\subsection{The Strum--Liouville Eigenvalue Problem}
+
+Recall we will be studying problems of the form \autoref{eq:sturm-liouville-problem} on \(a < x < b\), where \(y \in V\) is a subset of \(\contClass{2}\pqty{\ccintv{a}{b}}\) with real, homogeneous boundary conditions, and equipped with an inner product.
+
+Note that we can assume elements of \(V\) are real without loss of generality, since if \(Ly = \lambda y\) for some \(y = u + iv\), then \(Lu = \lambda u\) and \(Lv = \lambda v\), since \(p, q, u\) and \(\lambda\) are real. So for \(y_1, y_2 \in V\), we may drop the complex conjugate in the inner product, giving
+\begin{equation}
+    \inner[w]{f}{g} = \int_{a}^{b} f\pqty{x} g\pqty{x} w\pqty{x} \dd{x}.
+\end{equation}
+
+Since \(L\) is self-adjoint on \(\pqty{V, \inner[w]{\cdot}{\cdot}}\), we know there is some set of eigenfunction/eigenvalue pairs \(\pqty{\lambda_n, y_n}_{n = 1}^{\infty} \in \RR \times \pqty{V \setminus \Bqty{0}}\), such that \(L y_n = \lambda_n y_n\), and that
+\begin{equation}
+    \int_{a}^{b} y_m\pqty{x} y_n\pqty{x} w\pqty{x} \dd{x} = 0
+\end{equation}
+if \(\lambda_n \neq \lambda_m\), and for \(f \in V\), we can write
+\begin{subequations}
+\begin{equation}
+    f\pqty{x} = \sum_{n = 1}^{\infty} \hat{f}_n y_n\pqty{x},
+\end{equation}
+where
+\begin{equation}
+    \hat{f_n} = \frac{\inner[w]{f}{y_n}}{\norm[w]{y_n}^2}.
+\end{equation}
+\end{subequations}
+
+It will turn out for Sturm--Liouville problems, eigenvalues are bounded below and can be ordered, so that \(\lambda_1 < \lambda_2 < \lambda_3 < \ldots\), and as \(n \to \infty\), we have \(\lambda_n \to \infty\).
+
+\begin{example}
+    Consider the Sturm--Liouville Problem
+    \begin{equation}
+        \begin{aligned}
+            -y'' &= \lambda y \\
+            y\pqty{0} &= 0, \\
+            y\pqty{L} &= 0.
+        \end{aligned}
+    \end{equation}
+
+    So \(p = 1, q = 0, w = 1\) and
+    \begin{equation}
+        V = \set{y \in \contClass{2}\pqty{\ccintv{0}{L}}}{y\pqty{0} = 0, y\pqty{L} = 0}.
+    \end{equation}
+
+    It is clear that \(\lambda > 0\) for non-trivial solutions (proof will be left to the reader), and \(y\) is of the form
+    \begin{equation}
+        y = A \sin \pqty{\sqrt{\lambda} x} + B \cos \pqty{\sqrt{\lambda} x}.
+    \end{equation}
+
+    Boundary condition at \(x = 0\) gives \(B = 0\). Boundary condition at \(x = L\) gives \(A \sin \pqty{\sqrt{\lambda} L} = 0\), so \(\sqrt{\lambda L} = n \pi\) for \(n = 1, 2, \ldots\).
+
+    Then the eigenvalues are given by
+    \begin{subequations}
+    \begin{equation}
+        \lambda_n = \pqty{\frac{n^2 \pi^2}{L^2}}
+    \end{equation}
+    and the eigenfunctions are given by
+    \begin{equation}
+        y_n = \sin \pqty{\frac{n \pi x}{L}}
+    \end{equation}
+    \end{subequations}
+    for \(n = 1, 2, \ldots\).
+
+    Note that the eigenfunctions are indeed orthogonal, giving
+    \begin{equation}
+        \inner{y_m}{y_n} = \int_{0}^{L} \sin \pqty{\frac{m \pi x}{L}} \sin \pqty{\frac{n \pi x}{L}} \dd{x} = \frac{L}{2} \kronecker_{mn}.
+    \end{equation}
+
+    For any \(f \in V\), we can indeed write \(f\) as
+    \begin{subequations}
+    \begin{equation}
+        f\pqty{x} = \sum_{n = 1}^{\infty} \hat{f}_n \sin \pqty{\frac{n \pi x}{L}},
+    \end{equation}
+    where
+    \begin{equation}
+        \hat{f}_n = \frac{2}{L} \int_{0}^{L} f\pqty{x} \sin \pqty{\frac{n \pi x}{L}} \dd{x}.
+    \end{equation}
+    \end{subequations}
+    which is the sine series expansion of \(f\) on \(\cointv{0}{L}\), as in \autoref{eq:sine-series-coefficients}.
+\end{example}
+
+\subsection{Reduction to Sturm--Liouville Form}
+
+Consider a generic eigenvalue problem of the form
+\begin{equation}
+    \label{eq:generic-eigenvalue-problem}%
+    \alpha\pqty{x} y'' + \beta\pqty{x} y' + \gamma\pqty{x} y + \lambda y = 0
+\end{equation}
+on \(a < x < b\), where \(\alpha\pqty{x} > 0\) on \(\oointv{a}{b}\).
+
+Divide through by \(\alpha\pqty{x} > 0\), and we multiply this by an integrating factor
+\begin{equation}
+    I\pqty{x} = \exp \bqty{\int^x \dd{t} \frac{\beta\pqty{t}}{\alpha\pqty{t}}}.
+\end{equation}
+
+\begin{proposition}
+    The problem stated in \autoref{eq:generic-eigenvalue-problem} can be rewritten in Sturm--Liouville form
+    \begin{subequations}
+    \begin{equation}
+        - \dv{x} \bqty{p \dv{y}{x}} + qy = \lambda w y
+    \end{equation}
+    where
+    \begin{equation}
+        p = I, \quad q = - \frac{I \gamma}{\alpha}, \quad w = \frac{I}{\alpha}.
+    \end{equation}
+    \end{subequations}
+\end{proposition}
+
+\begin{proof}
+    From definitions, we have
+    \begin{equation}
+        \dv{x} \bqty{p \dv{y}{x}} + qy - \lambda w y = I\pqty{x} \bqty{- y'' - \frac{\beta}{\alpha} y' - \frac{\gamma}{\alpha} y - \lambda y} = 0
+    \end{equation}
+    so since \(I \neq 0\), \autoref{eq:generic-eigenvalue-problem} is satisfied. Note also that \(p > 0\) and \(w > 0\) on \(\oointv{a}{b}\).
+\end{proof}
+
+\begin{example}
+    Consider the generic eigenvalue problem
+    \begin{equation}
+        \begin{aligned}
+            y'' - 2 y' + \lambda y &= 0, && 0 < x < 1, \\
+            y\pqty{0} &= 0, \\
+            y'\pqty{1} &= 0.
+        \end{aligned}
+    \end{equation}
+
+    Then the integrating factor is given by
+    \begin{equation}
+        I \pqty{x} = \exp \bqty{\int^x \dd{t} \frac{-2}{1}} = e^{-2x}.
+    \end{equation}
+
+    Then
+    \begin{equation}
+        - \dv{x} \bqty{e^{-2x} \dv{y}{x}} + 0 \cdot y = \lambda e^{-2x} y
+    \end{equation}
+    where \(0 < x < 1\). Then \(p = e^{-2x}, q = 0\) and \(w = e^{-2x}\).
+
+    The general solution is given by solving the original second-order equation
+    \begin{equation}
+        y = \exp x \bqty{A \sinh \pqty{\sqrt{1 - \lambda} x} + B \cosh \pqty{\sqrt{1 - \lambda} x}}.
+    \end{equation}
+
+    Note non-trivial solutions exist only when \(\lambda < 1\). Set \(1 - \lambda = - \mu^2\), for \(\mu > 0\). Without loss of generality, we have
+    \begin{equation}
+        y = \exp x \bqty{A \sin \pqty{\mu x} + B \cos \pqty{\mu x}}.
+    \end{equation}
+
+    Boundary condition at \(x = 0\) gives \(B = 0\). Boundary condition at \(x = 1\) gives
+    \begin{equation}
+        \exp \pqty{x} \bqty{A \mu \cos \pqty{\mu} + A \sin \pqty{\mu}} = 0
+    \end{equation}
+    so \(\mu \cot \pqty{\mu} = -1\). We may solve this by observing the intersection of the graphs of \(\tan \mu\) and \(- \mu\).
+
+    We get an infinite sequence of eigenvalues \(\lambda_n\)
+    \begin{equation}
+        \lambda_n = 1 + \mu_n^2.
+    \end{equation}
+
+    Then our function, up to a normalisation, is given by
+    \begin{equation}
+        y_n = \exp \pqty{x} \sin \pqty{\mu_n x}.
+    \end{equation}
+
+    We check that they are orthogonal with respect to the inner product. We have
+    \begin{subequations}
+        \begin{align}
+            \int_0^1 y_m y_n w \dd{x} &= \int_0^1 e^{-2x} e^{2x} \sin \pqty{\mu_m x} \sin \pqty{\mu_n x} \dd{x} \\
+            &= \int_0^1 \sin \pqty{\mu_m x} \sin \pqty{\mu_n x} \dd{x} \\
+            &= \frac{1}{2} \int_0^1 \bqty{\cos \bqty{\pqty{\mu_m - \mu_n} x} - \cos \bqty{\pqty{\mu_m + \mu_n} x}} \dd{x} \\
+            &= \frac{1}{2} \bqty{\frac{\sin \pqty{\mu_m - \mu_n}}{\mu_m - \mu_n} - \frac{\sin \pqty{\pqty{\mu_m + \mu_n}}}{\pqty{\mu_m + \mu_n}}} \\
+            &= \frac{1}{2} \bqty{\pqty{\frac{\sin \mu_n \cos \mu_m - \cos \mu_n \sin \mu_m}{\mu_m - \mu_n}} - \pqty{\frac{\sin \mu_n \cos \mu_m - \cos \mu_n \sin \mu_m}{\mu_m + \mu_n}}} \\
+            &= \frac{1}{2} \cos \mu_n \cos \mu_m \bqty{\frac{\tan \mu_n - \tan \mu_m}{\mu_n - \mu_m} - \frac{\tan \mu_n + \tan \mu_m}{\mu_n + \mu_m}} \\
+            &= \frac{1}{2} \cos \mu_n \cos \mu_m \bqty{\frac{- \mu_n + \mu_m}{\mu_n - \mu_m} + \frac{\mu_n + \mu_m}{\mu_n + \mu_m}} \\
+            &= 0.
+        \end{align}
+    \end{subequations}
+\end{example}
+
+\begin{remark}
+    If we were asked to show that eigenfunctions are orthogonal, we could use Sturm--Liouville theory to demonstrate orthogonality.
+\end{remark}

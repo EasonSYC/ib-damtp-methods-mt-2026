@@ -280,11 +280,11 @@ To put this in words, at points of continuity, we have \(S_N f\pqty{\theta} \to 
 We will deal solely with such functions, and so the notation in \autoref{eq:fourier-series-notation-sim}, the ``\(\sim\)'' symbol, means that the two sides are \emph{equal} at the points of continuity of \(f\), and the right-hand side gives an average of the left-hand side at jump discontinuities.
 
 \begin{example}
-    Let \(\functiondomain{f}{\RR}{\RR}\) be \(2\pi\)0periodic, such that
+    Let \(\functiondomain{f}{\RR}{\RR}\) be \(2\pi\)-periodic, such that
     \begin{equation}
         f\pqty{\theta} = \begin{cases}
             +1, & 0 \leq \theta < \pi \\
-            -1, & \pi < \theta < 2 \pi.
+            -1, & \pi \leq \theta < 2 \pi.
         \end{cases}
     \end{equation}
 
@@ -421,7 +421,7 @@ and
     \end{align}
 \end{subequations}
 
-Note that \(f\pqty{\theta} = f_{\text{even}} \pqty{\theta} = f_{\text{odd}} \pqty{\theta}\), so these integrals only integrate \(f\) on our initially-defined range, and allows for two different Fourier series expansions of \(f\) on \(\cointv{0}{L}\).
+Note that \(f\pqty{\theta} = f_{\text{even}} \pqty{\theta} = f_{\text{odd}} \pqty{\theta}\), so these integrals only integrate \(f\) on our initially-defined range \(\cointv{0}{L}\), and allows for two different Fourier series expansions of \(f\) on \(\cointv{0}{L}\).
 
 \begin{definition}[Sine/Cosine Series]
     Given \(\functiondomain{f}{\cointv{0}{L}}{\CC}\), we define the \term{cosine series} and \term{sine series} of \(f\), respectively, by
