@@ -235,7 +235,7 @@ It will turn out for Sturm--Liouville problems, eigenvalues are bounded below an
         y = A \sin \pqty{\sqrt{\lambda} x} + B \cos \pqty{\sqrt{\lambda} x}.
     \end{equation}
 
-    Boundary condition at \(x = 0\) gives \(B = 0\). Boundary condition at \(x = L\) gives \(A \sin \pqty{\sqrt{\lambda} L} = 0\), so \(\sqrt{\lambda L} = n \pi\) for \(n = 1, 2, \ldots\).
+    Boundary condition at \(x = 0\) gives \(B = 0\). Boundary condition at \(x = L\) gives \(A \sin \pqty{\sqrt{\lambda} L} = 0\), so \(\sqrt{\lambda} L = n \pi\) for \(n = 1, 2, \ldots\).
 
     Then the eigenvalues are given by
     \begin{subequations}
@@ -297,7 +297,7 @@ Divide through by \(\alpha\pqty{x} > 0\), and we multiply this by an integrating
 \begin{proof}
     From definitions, we have
     \begin{equation}
-        \dv{x} \bqty{p \dv{y}{x}} + qy - \lambda w y = I\pqty{x} \bqty{- y'' - \frac{\beta}{\alpha} y' - \frac{\gamma}{\alpha} y - \lambda y} = 0
+        - \dv{x} \bqty{p \dv{y}{x}} + qy - \lambda w y = I\pqty{x} \bqty{- y'' - \frac{\beta}{\alpha} y' - \frac{\gamma}{\alpha} y - \lambda y} = 0
     \end{equation}
     so since \(I \neq 0\), \autoref{eq:generic-eigenvalue-problem} is satisfied. Note also that \(p > 0\) and \(w > 0\) on \(\oointv{a}{b}\).
 \end{proof}
