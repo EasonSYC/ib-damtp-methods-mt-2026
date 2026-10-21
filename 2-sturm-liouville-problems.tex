@@ -172,7 +172,7 @@ We equip \(V\) with an inner product \(\inner[w]{\cdot}{\cdot}\), where \(w\) is
             &= \bqty{p \pqty{x} W\pqty{y_1, \conjugate{y_2}}}_{x = a}^{b}, \label{eq:sturm-liouville-wronskian}%
         \end{align}
     \end{subequations}
-    where \(W\pqty{x}\) is the \term{Wronskian} of \(y_1\) and \(y_2\) (recall from \textit{IA Differential Equations}).
+    where \(W\) is the \term{Wronskian} of \(y_1\) and \(\conjugate{y_2}\) (recall from \textit{IA Differential Equations}).
 
     Now assume \(y_1, y_2 \in V\). If \(c \in \Bqty{a, b}\) is singular, then \(p \pqty{c} = 0\), i.e., the right-hand side of \autoref{eq:sturm-liouville-wronskian} vanishes at \(x = c\).
 
@@ -536,7 +536,7 @@ We get two linearly independent solutions, but only one of which is non-singular
 \begin{equation}
     J_m \pqty{z} = \pqty{\frac{z}{2}}^m \sum_{n = 0}^{\infty} \frac{\pqty{-1}^n}{n! \pqty{n + m}!} \pqty{\frac{z}{2}}^{2n}
 \end{equation}
-which are called \term{Bessel Function of the First Kind of order \(m\)}.Recall that \(y\pqty{1} = R\pqty{\sqrt{\lambda}} = J_m \pqty{\sqrt{\lambda}}\), and from \textit{II Asymptotic Methods} we may show
+which are called \term{Bessel Function of the First Kind of order \(m\)}. Recall that \(y\pqty{1} = R\pqty{\sqrt{\lambda}} = J_m \pqty{\sqrt{\lambda}}\), and from \textit{II Asymptotic Methods} we may show
 \begin{equation}
     J_m \pqty{z} = \sqrt{\frac{2}{\pi z}} \cos \pqty{z - \frac{m \pi}{2} + \frac{\pi}{4}} + \bigO\pqty{\frac{1}{z^{\flatfrac{3}{2}}}}
 \end{equation}
