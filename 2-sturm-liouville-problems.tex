@@ -399,3 +399,178 @@ Divide through by \(\alpha\pqty{x} > 0\), and we multiply this by an integrating
 \begin{remark}
     If we were asked to show that eigenfunctions are orthogonal, we could use Sturm--Liouville theory to demonstrate orthogonality.
 \end{remark}
+
+\subsection{Legendre's Equation}
+
+Consider the Sturm--Liouville problem
+\begin{equation}
+    - \dv{x} \bqty{\pqty{1 - x^2} \dv{y}{x}} = \lambda  y
+\end{equation}
+on \(-1 < x < 1\), so \(p = 1 - x^2, q = 0\) and \(w = 1\), and \(v = \contClass{2} \pqty{\ccintv{-1}{1}}\) (note \(p\pqty{\pm 1} = 0\)). The inner product associated with \(V\) is
+\begin{equation}
+    \inner{f}{g} = \int_{-1}^{+1} fg \dd{x},
+\end{equation}
+then \(L\) is self-adjoint on \(\pqty{V, \inner{\cdot}{\cdot}}\). Since \(x = 0\) is ordinary (see \textit{IA Differential Equations}), we can look for solutions of the form
+\begin{equation}
+    y = \sum_{k = 0}^{\infty} a_k x^k
+\end{equation}
+and the recurrence relations give
+\begin{equation}
+    \label{eq:recurrence-relation}%
+    a_{k + 2} = \bqty{\frac{n \pqty{n + 1} - \lambda}{\pqty{n + 1} \pqty{n + 2}}}
+\end{equation}
+and we get two linearly independent solutions
+\begin{subequations}
+    \begin{align}
+        y_0 &= a_0 \bqty{1 + \frac{\pqty{- \lambda}}{2!} x^2 + \frac{\pqty{- \lambda} \pqty{6 - \lambda}}{4!} x^4 + \cdots} \\
+        y_1 &= a_1 \bqty{x + \frac{\pqty{2 - \lambda}}{3!} x^3 + \frac{\pqty{2 - \lambda} \pqty{12 - \lambda}}{5!} x^5 + \cdots}
+    \end{align}
+\end{subequations}
+since \(\flatfrac{a_{n + 2}}{a_n} \to 1\) as \(n \to \infty\). So by the ratio test, both series converge if \(\abs{x} < 1\), but what about \(x = \pm 1\)?
+
+\small
+
+We analyse \(y_0\) and \(y_1\) will be very similar. Set the coefficients to be \(A_n = a_{2n}\). Then
+\begin{equation}
+    \frac{A_n}{A_{n + 1}} = \frac{a_{2n}}{a_{2n + 2}} = 1 = \frac{1}{n} + \epsilon_n
+\end{equation}
+as \(n \to \infty\), where \(\abs{\epsilon_n} \leq \flatfrac{M \pqty{\lambda}}{n^2}\). Note that the right-hand side is positive for sufficiently large \(n\) (say \(n \geq N\)), so \(A_n, A_{n + 1}\) have the same sign for \(n \geq N\). Using \(1 + x \leq e^x\) for \(x \in \RR\), we have
+\begin{equation}
+    \frac{\abs{A_n}}{\abs{A_{n + 1}}} = \frac{A_n}{A_{n + 1}} \leq \exp\pqty{\frac{1}{n} + \epsilon_n} \leq \exp\pqty{\frac{1}{n} + \frac{M}{n^2}}, 
+\end{equation}
+i.e., for \(n \geq N\), we have
+\begin{subequations}
+    \begin{align}
+        \abs{A_{n + 1}} &\geq\abs{A_n} \exp\pqty{- \frac{1}{n} - \frac{N}{n^2}} \\
+        &\geq \abs{A_N} \exp\pqty{- \pqty{\frac{1}{n} + \frac{1}{n - 1} + \cdots + \frac{1}{N}}} \exp \pqty{- M \pqty{\frac{1}{n^2} + \cdots + \frac{1}{N^2}}} \\
+        &\geq \abs{A_N} \exp\pqty{-M \frac{\pi^2}{6}} \exp\pqty{- H_n} \exp\pqty{H_{N - 1}}.
+    \end{align}
+\end{subequations}
+
+Recall that \(H_n \leq \log n + 2 \gamma\) where \(\gamma\) is the Euler constant. So for \(n \geq N\), we have
+\begin{subequations}
+    \begin{align}
+        \abs{A_{n + 1}} &\geq \abs{A_N} \exp\pqty{- M \frac{\pi^2}{6}} \exp\pqty{H_{N - 1} - 2 \gamma - \log n} \\
+        &\geq \frac{C}{n + 1}
+    \end{align}
+\end{subequations}
+where \(C = C\pqty{N, \lambda}\). Write
+\begin{equation}
+    y_0 = \sum_{n \geq N} A_n x^{2n} + \sum_{n > N} A_n x^{2n}.
+\end{equation}
+
+In the latter sum, all \(\Bqty{A_n}\) have the same sign so take positive without loss of generality, then
+\begin{subequations}
+    \begin{align}
+        \sum_{n > N} A_n x^{2n} &\geq C \sum_{n > N} \frac{x^{2n}}{n} \\
+        &= C\bqty{\log \pqty{\frac{1}{1 - x^2}} - \sum_{n \leq N} \frac{x^{2n}}{n}}
+    \end{align}
+\end{subequations}
+diverges to infinity as \(x \to \pm 1\).
+
+\normalsize
+
+So the series diverge at \(x = \pm 1\). This can only be ``saved'' if the coefficients vanishes for some \(n\) (and hence vanishes onwards). Recall in \autoref{eq:recurrence-relation}, that we need
+\begin{equation}
+    \lambda = \lambda_n = n \pqty{n + 1}
+\end{equation}
+and in this case we get a polynomial of degree \(n\). If \(n\) is even/odd, this polynomial is even/odd. Such polynomials are known as \term{Legendre polynomials}, tabulated in \autoref{tab:legendre-polynomials}.
+
+\begin{table}[ht!]
+    \centering
+    \caption{Legendre Polynomials}
+    \label{tab:legendre-polynomials}
+    \[
+        \begin{array}{cll}
+            \toprule
+            n & \lambda_n = n \pqty{n + 1} & \text{Polynomials} \\
+            \midrule
+            0 & 1 & P_0 \pqty{x} = 1 \\
+            1 & 2 & P_1 \pqty{x} = x \\
+            2 & 6 & P_2 \pqty{x} = \frac{1}{2} \pqty{3 x^2 - 1} \\
+            3 & 12 & P_3 \pqty{x} = \frac{1}{2} \pqty{5 x^3 - 3x} \\
+            \bottomrule
+        \end{array}
+    \]
+\end{table}
+
+We may show orthogonality
+\begin{equation}
+    \inner{P_n}{P_m} = \int_{-1}^{+1} P_n\pqty{x} P_m\pqty{x} \dd{x} = \frac{2}{2n + 1} \kronecker_{m n}
+\end{equation}
+and in fact they naturally arise when we apply Gram--Schmidt process on the basis \(1, x, x^2, \ldots\).
+
+\subsection{Bessel's Equations}
+
+Consider the new Sturm--Liouville problem
+\begin{equation}
+    - \dv{r} \pqty{r \dv{y}{r}} + \frac{m^2}{r} y = \lambda r y
+\end{equation}
+for \(0 < r < 1\) and \(y \pqty{1} = 0\). So \(p = r, q = \flatfrac{m^2}{r}, w = r\), and
+\begin{equation}
+    V = \set{y \in \contClass{2} \pqty{\ccintv{0}{1}}}{y\pqty{1} = 0}.
+\end{equation}
+
+Then \(L\) is self-adjoint on the inner product space \(\pqty{V, \inner[w]{\cdot}{\cdot}}\), where
+\begin{equation}
+    \inner[w]{f}{g} = \int_{0}^{1} f\pqty{r} g\pqty{r} r \dd{r}.
+\end{equation}
+
+We expand the derivatives to get
+\begin{equation}
+    r^2 y'' + r y' + \pqty{\lambda r^2 - m^2} y = 0.
+\end{equation}
+
+Set \(z = \sqrt{\lambda} r\) (we may show that \(\lambda > 0\) through some integration), and we write \(y \pqty{r} = R \pqty{z}\). Then
+\begin{equation}
+    z^2 R'' + z R' + \pqty{z^2 - m^2} R = 0.
+\end{equation}
+where \(0 < z < \sqrt{\lambda}\), and \(R \pqty{\sqrt{\lambda}} = 0\). This is known as the \term{\(m\)-th order Bessel equation}.
+
+Since \(z = 0\) is a regular singular point, Fuchs's theorem states that there are solutions of the form
+\begin{equation}
+    z^{\sigma} \sum_{n = 0}^{\infty} a_n z^n.
+\end{equation}
+
+We get two linearly independent solutions, but only one of which is non-singular at \(z = 0\). So up to constant of proportionality, we get \(R\pqty{z} = J_m \pqty{z}\), where
+\begin{equation}
+    J_m \pqty{z} = \pqty{\frac{z}{2}}^m \sum_{n = 0}^{\infty} \frac{\pqty{-1}^n}{n! \pqty{n + m}!} \pqty{\frac{z}{2}}^{2n}
+\end{equation}
+which are called \term{Bessel Function of the First Kind of order \(m\)}.Recall that \(y\pqty{1} = R\pqty{\sqrt{\lambda}} = J_m \pqty{\sqrt{\lambda}}\), and from \textit{II Asymptotic Methods} we may show
+\begin{equation}
+    J_m \pqty{z} = \sqrt{\frac{2}{\pi z}} \cos \pqty{z - \frac{m \pi}{2} + \frac{\pi}{4}} + \bigO\pqty{\frac{1}{z^{\flatfrac{3}{2}}}}
+\end{equation}
+as \(z \to \infty\). So \(J_m\pqty{z}\) has infinitely many zeroes in \(\oointv{0}{\plusinfty}\), and label them by \(j_{m, k}\) for \(k = 0, 1, \ldots\). So we get \(\lambda_k = j_{m, k}^2\) for \(k = 0, 1, 2, \ldots\), and corresponding eigenfunctions are given by
+\begin{equation}
+    y_k \pqty{r} = J_m \pqty{j_{m, k} r}.
+\end{equation}
+
+By orthogonality, we get
+\begin{equation}
+    \int_{0}^{1} J_m \pqty{j_{m, k} r} J_m \pqty{j_{m, l} r} r \dd{r} \propto \kronecker_{k, l}.
+\end{equation}
+
+\subsection{Homogeneous Problems}
+
+Consider problems of the form \(L y = f\) where \(L\) is a Sturm--Liouville operator. By absorbing into \(f\) if necessary, we can assume \(w = 1\). Without loss of generality, let \(V\) be an appropriate subspace of \(\contClass{2}\pqty{\ccintv{a}{b}}\), so that \(L\) is self-adjoint on \(\pqty{V, \inner{\cdot}{\cdot}}\). Let \(\Bqty{y_k}\) be normalised (i.e., \(\norm{y_k} = 1\)) be eigenfunctions of \(L\) with \(L y_k = \lambda_k y_k\). If \(f \in V\), by completeness, write
+\begin{equation}
+    y = \sum_k A_k y_k, \quad f = \sum_k B_k y_k
+\end{equation}
+where \(B_k = \inner{f}{y_k}\). Plugging into \(L y = f\), we have
+\begin{equation}
+    \sum_k \pqty{A_k \lambda_k - B_k} y_k = 0.
+\end{equation}
+
+By orthogonality, we must have \(A_k \lambda_k = B_k\). So if \(\lambda_k \neq 0\), we get \(A_k = \flatfrac{B_k}{\lambda_k}\), and hence
+\begin{subequations}
+    \begin{align}
+        y\pqty{x} &= \sum_{k} \frac{1}{\lambda_k} B_k y_k \pqty{x} \\
+        &= \sum_k \frac{1}{\lambda_k} \pqty{\int_a^b f\pqty{s} y_k \pqty{s} \dd{s}} y_k \pqty{x} \\
+        &= \int_a^b G\pqty{x, s} f\pqty{s} \dd{s}
+    \end{align}
+\end{subequations}
+where
+\begin{equation}
+    G\pqty{x, s} = \sum_k \frac{y_k \pqty{x} y_k\pqty{s}}{\lambda_k}
+\end{equation}
+are known as \term{Green's functions}. To appreciate this, note that in fact we converted a problem of the form \(L y = f\) to a problem \(y = \pqty{L\inverse y} \pqty{x}\) where we took inverses of the problem!
