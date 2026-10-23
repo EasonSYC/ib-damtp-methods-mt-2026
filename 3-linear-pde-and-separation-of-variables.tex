@@ -1,0 +1,190 @@
+{\section{Linear PDEs and Separation of Variables}
+\subsection{Reminder of Superposition}
+
+We will study \term{pure boundary value problems (BVP)}, which would be linear, of the form
+\begin{subequations}
+    \begin{align}
+        P \psi\pqty{\vb{x}} = 0 &\qfor \vb{x} \in \Omega, \\
+        \text{\term{Boundary Conditions}} &\qfor \vb{x} \in \partial \Omega.
+    \end{align}
+\end{subequations}
+
+Instead, if we study an \term{initial BVP (BVP)}, then the equation be of the form
+\begin{subequations}
+    \begin{align}
+        Q \phi\pqty{\vb{x}, t} = 0 &\qfor \pqty{\vb{x}, t} \in \Omega \times \oointv{0}{T}, \\
+        \text{\term{Boundary Conditions}} &\qfor \pqty{\vb{x}, t} \in \partial \Omega \times \oointv{0}{T}, \\
+        \text{\term{Initial Conditions}} &\qfor \pqty{\vb{x}, t} \in \Omega \times \Bqty{0}.
+    \end{align}
+\end{subequations}
+
+Here, \(P, Q\) are linear partial differential operators, and \(\Omega \subset \RR^n\) will be open, bounded and connected. We work with \(n = 1, 2\) and 3.
+
+Note the following observation. For an IBVP problem, we can break this up into simpler problems, splitting up the boundary and initial conditions:
+\begin{subequations}
+    \begin{align}
+        Q \phi_1 \pqty{\vb{x}, t} = 0 &\qfor \pqty{\vb{x}, t}, \\
+        \text{Boundary Conditions} = 0 &\qfor \pqty{\vb{x}, t} \in \partial \Omega \times \oointv{0}{T}, \\
+        \text{Initial Conditions} &\qfor \pqty{\vb{x}, t} \in \Omega \times \Bqty{0}.
+    \end{align}
+\end{subequations}
+and
+\begin{subequations}
+    \begin{align}
+        Q \phi_2 \pqty{\vb{x}, t} = 0 &\qfor \pqty{\vb{x}, t}, \\
+        \text{Boundary Conditions} &\qfor \pqty{\vb{x}, t} \in \partial \Omega \times \oointv{0}{T}, \\
+        \text{Initial Conditions} = 0 &\qfor \pqty{\vb{x}, t} \in \Omega \times \Bqty{0}.
+    \end{align}
+\end{subequations}
+then by linearity, the function \(\phi = \phi_1 + \phi_2\) solves our original IVBP.
+
+Furthermore, observe that for problems in this section, it will turn out that \(\Omega\), possibly aftersome change of variables, will be come a line/rectangle/cuboid. Without loss of generality, we may assume that all boundary conditions vanish on all but one endpoint/edge/face.
+
+\begin{example}
+    Consider \(P \psi = 0\) for \(\pqty{x, y} \in \oointv{0}{1} \times \oointv{0}{1}\), with \(\psi = f_i\) on the \(i\)th side for the boundary conditions. Instead, using linearity, we consider \(\psi_i\) for \(i = 1, 2, 3, 4\) with the conditions
+    \begin{subequations}
+        \begin{align}
+            P \psi_i = 0 &\qfor \pqty{x, y} \in \oointv{0}{1} \times \oointv{0}{1}, \\
+            \psi_i = 0 &\qfor \text{side }\neq i, \\
+            \psi_i = f_i &\qfor i\text{th side}.
+        \end{align}
+    \end{subequations}
+    the note that \(\psi = \psi_1 + \psi_2 + \psi_3 + \psi_4\) solves the original problem.
+\end{example}
+
+Linearity is the best behaviour we have with such problems, and we should fully utilise this property.
+
+\subsection{Laplace's Equation}
+
+For a scalar function \(\functiondomain{\phi}{\RR^n}{\RR}\), Laplace's equation is equivalent to \(\laplacian 
+\phi = 0\). For example, on \(\RR^3\) with Cartesian coordinates \(\pqty{x, y, z}\), the Cartesian Laplacian is given by
+\begin{equation}
+    \laplacian = \div \grad = \pdv[2]{x} + \pdv[2]{y} + \pdv[2]{z}.
+\end{equation}
+
+Intuitively, the Laplacian \(\laplacian \phi \pqty{\vb{x}}\) measures the extend to which \(\phi\pqty{\vb{x}}\) differs from its average over an infinitesimal ball centred at \(\vb{x}\). So if \(\laplacian \phi\pqty{\vb{x}} = 0\), then \(\phi\pqty{\vb{x}}\) agrees with its nearby averages (in the limit). This suggests that if a function satisfies the Laplace's equation, then there is a state of ``equilibrium'', and we say a function \(\phi\) being \term{harmonic} if \(\laplacian \phi\pqty{\vb{x}} = 0\).
+
+\begin{example}
+    Let the vector field \(\functiondomain{\vb{u}}{\RR^3}{\RR^3}\) denote the velocity fluid of some incompressible fluid (\(\div \vb{u} = 0\)). Suppose that this flow is also irrotational (\(\curl \vb{u} = \vb{0}\)).
+
+    Then since \(\RR^3\) is simply connected, there is some scalar function \(\functiondomain{\phi}{\RR^3}{\RR}\) such that \(\vb{u} = \grad \phi\). Then incompressibility gives
+    \begin{equation}
+        0 = \div \vb{u} = \div \grad \phi = \laplacian \phi.
+    \end{equation}
+\end{example}
+
+We will study pure BVPs of the form
+\begin{subequations}
+    \begin{align}
+        \laplacian \phi\pqty{\vb{x}} = 0 &\qfor \vb{x} \in \Omega, \\
+        B \phi\pqty{\vb{x}} = f\pqty{\vb{x}} &\qfor \vb{x} \in \partial \Omega,
+    \end{align}
+\end{subequations}
+where the differential operator \(B\) satisfies \(B \phi = \phi\) (for Dirichlet boundary conditions), or \(B \phi = \pdv*{\phi}{\vb{n}}\) where \(\pdv*{\vb{n}} = \vb{n} \vdot \grad\) for \(\vb{n}\) outwards normal to \(\Omega\) (for Neumann boundary conditions).
+
+We claim solutions exist without proof, and for Dirichlet boundary conditions, the solutions are unique, while for Neumann boundary conditions, it is unique up to addition of a constant.
+
+\subsubsection{Separation of Variables on Square}
+
+We want to solve the BVP
+\begin{subequations}
+    \begin{align}
+        \phi_{xx} + \phi_{yy} = 0 & \qfor \pqty{x, y} \in \oointv{0}{1} \times \oointv{0}{1}, \\
+        \phi\pqty{x, y} = 0 &\qfor x = 0, x = 1, y = 0, \\
+        \phi\pqty{x, 1} = f\pqty{x} &\qfor y = 1.
+    \end{align}
+\end{subequations}
+
+We use separation of variables to find solutions of homogenous part of the problem in the form \(\phi\pqty{x, y} = X\pqty{x} Y \pqty{y}\), so substitution gives us
+\begin{equation}
+    \frac{X''\pqty{x}}{X\pqty{x}} + \frac{Y''\pqty{y}}{Y\pqty{y}} = 0.
+\end{equation}
+
+Since \(\pqty{x, y}\) are independent, there is some \(\lambda \in \RR\), such that
+\begin{equation}
+    X'' + \lambda X = 0 \qand Y'' - \lambda Y = 0.
+\end{equation}
+
+Since we want \(\phi = 0\) when \(x = 0\) and \(x = 1\), we have
+\begin{subequations}
+    \begin{align}
+        -X'' &= \lambda X \qfor 0 < x < 1, \\
+        X \pqty{0} &= 0, \\
+        X \pqty{1} &= 0. \\
+    \end{align}
+\end{subequations}
+
+This is a Sturm--Liouville problem, with non-trivial solutions existing if and only if \(\lambda > 0\), and
+\begin{equation}
+    X_n \pqty{x} = \sin \pqty{n \pi x}, \quad \lambda_n = n \pi \qfor n = 1, 2, \ldots
+\end{equation}
+
+Putting this back into the \(Y\) equation, we have
+\begin{subequations}
+    \begin{align}
+        Y'' - \pqty{n \pi}^2 Y &= 0 \qfor 0 < y < 1, \\
+        Y\pqty{0} &= 0,
+    \end{align}
+\end{subequations}
+which solves to \(Y_n \pqty{y} = A_n \sinh \pqty{n \pi y}\). So the homogeneous part of problem is satisfied by
+\begin{equation}
+    \phi_n \pqty{x, y} = A_n \sin \pqty{n \pi x} \sinh \pqty{n \pi y}
+\end{equation}
+for \(n = 1, 2, \ldots\). By linearity, we have a general solution
+\begin{equation}
+    \phi\pqty{x, y} = \sum_{n = 1}^{\infty} A_n \sin\pqty{n \pi x} \sinh\pqty{n \pi y}.
+\end{equation}
+
+We want
+\begin{equation}
+    f\pqty{x} = \phi\pqty{x, 1} = \sum_{n = 1}^{\infty} A_N \sin \pqty{n \pi x} \sinh \pqty{n \pi}.
+\end{equation}
+
+Since from Sturm--Liouville theory, the \(\Bqty{X_n}\) satisfy the Sturm--Liouville problem, the orthogonality equation
+\begin{equation}
+    \inner{X_n}{X_m} = \int_{0}^{1} \sin \pqty{n \pi x} \sin \pqty{m \pi x} \dd{x} = \frac{1}{2} \kronecker_{nm}.
+\end{equation}
+
+Taking inner products,
+\begin{equation}
+    \inner{f}{X_n} = \sum_{n = 1}^{\infty} A_n \inner{X_n}{X_m} \sinh \pqty{n \pi} = \frac{1}{2} A_m \sinh \pqty{m \pi}.
+\end{equation}
+
+In summary, the solution is given by
+\begin{equation}
+    \phi\pqty{x, y} = \sum_{n = 1}^{\infty} A_n \sin \pqty{n \pi x} \sinh \pqty{n \pi y},
+\end{equation}
+with
+\begin{equation}
+    A_n = \frac{2}{\sinh\pqty{n \pi}} \int_{0}^{1} f\pqty{x} \sin \pqty{n \pi x} \dd{x}.
+\end{equation}
+
+\small
+
+We haven't actually finished solving this problem. Consider the fluid problem
+\begin{subequations}
+    \begin{align}
+        \pdv{\vb{u}}{t} + \pqty{\vb{u} \vdot \grad} \vb{u} = - \grad p &\qfor \RR^3 \times \oointv{0}{\plusinfty}, \\
+        \div \vb{u} = 0 &\qfor \RR^3, \\
+        \vb{u} \pqty{\vb{x}, 0} = \vb{u}_0 \pqty{\vb{x}} &\qfor t = 0.
+    \end{align}
+\end{subequations}
+
+There is an obvious solution
+\begin{equation}
+    \vb{u} \pqty{\vb{x}, t} = \begin{cases}
+        \vb{u}_0 \pqty{\vb{x}}, & t = 0, \\
+        \vb{0}, & t > 0,
+    \end{cases}
+\end{equation}
+and \(p\pqty{\vb{x}, t} = 0\). But this is not satisfying/sufficient, since we in fact want continuity at the boundary to satisfy the boundary condition. Implicitly, when we have a problem of the form
+\begin{subequations}
+    \begin{align}
+        \laplacian \phi = 0 &\qfor \vb{x} \in \Omega, \\
+        \phi = f &\qfor \vb{x} \in \Omega.
+    \end{align}
+\end{subequations}
+
+Implicitly, we are requiring \(\phi \in \contClass{2} \pqty{\Omega} \cap \contClass{1} \pqty{\overline{\Omega}}\)
+
+\normalsize
