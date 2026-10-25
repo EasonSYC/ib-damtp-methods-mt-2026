@@ -2,7 +2,7 @@
 
 \subsection{Abstract Eigenvalue Problems}
 
-Recall from \textit{IA Vectors and Matrices}, a \term{linear map} \(\functiondomain{A}{V_N}{V_N}\) is called \term{Hermitian} if \(\vb{x} \vdot A \vb{y} = \pqty{A \vb{x}} \vdot \vb{y}\) for all \(\vb{x}, \vb{y} \in V_N\), where we use the complex inner product given by
+Recall from \textit{IA Vectors and Matrices}, a \term{linear map} \(\functiondomain{A}{V_N}{V_N}\) is called \term{Hermitian} if \(\vb{x} \vdot \pqty{A \vb{y}} = \pqty{A \vb{x}} \vdot \vb{y}\) for all \(\vb{x}, \vb{y} \in V_N\), where we use the complex inner product given by
 \begin{equation}
     \vb{x} \vdot \vb{y} = \sum_{i=1}^N x_i \conjugate{y_i} = \vb{x}\transpose \vb{y}\conjstar
 \end{equation}
@@ -96,7 +96,7 @@ Essentially, at the end of \textit{II Linear Analysis} we may prove that
 \begin{equation}
     \norm[w]{f - \sum_{n = 1}^{N} \hat{f}_n y_n} \to 0
 \end{equation}
-as \(n \to \infty\).
+as \(N \to \infty\).
 \normalsize
 
 \subsection{Self-Adjointness and Boundary Conditions}
@@ -108,7 +108,7 @@ We will study problems of the form
 and with some supplementary boundary conditions at \(x = a\) and \(x = b\). Here, we restrict \(L\) to be a special type of differential operator.
 
 \begin{definition}[Sturm--Liouville Operator]
-    A \term{Sturm--Liouville operator} is a second-order differential operator of the form
+    A \term{Sturm--Liouville operator} is a second-order differential operator \(L\) of the form
     \begin{equation}
         L y = \frac{1}{w} \bqty{- \dv{x}  \pqty{p \dv{y}{x}}  + q y},
     \end{equation}
@@ -132,7 +132,7 @@ We will only specify boundary conditions at non-singular endpoints. At non-singu
 \begin{equation}
     \alpha_c y\pqty{c} + \beta_c y'\pqty{c} = 0,
 \end{equation}
-where \(\alpha_c, \beta_c \in \RR\) and \(\alpha^2_c + \beta^2_c \neq 0\). Note that if \(y_1, y_2\) satisfy boundary conditions of this form, then so does \(c_1 y_1 + c_2 y_2\) for constants \(c_1, c_2\), i.e., we got a vector space structure.
+where \(\alpha_c, \beta_c \in \RR\) and \(\alpha^2_c + \beta^2_c \neq 0\). Note that if \(y_1, y_2\) satisfy boundary conditions of this form, then so does \(c_1 y_1 + c_2 y_2\) for constants \(c_1, c_2\), i.e., we get a vector space structure.
 
 So given Sturm--Liouville operator, we work on a vector space of the form
 \begin{equation}
@@ -213,7 +213,7 @@ where
 \end{equation}
 \end{subequations}
 
-It will turn out for Sturm--Liouville problems, eigenvalues are bounded below and can be ordered, so that \(\lambda_1 < \lambda_2 < \lambda_3 < \ldots\), and as \(n \to \infty\), we have \(\lambda_n \to \infty\).
+It turns out for Sturm--Liouville problems, eigenvalues are bounded below and can be ordered, so that \(\lambda_1 < \lambda_2 < \lambda_3 < \ldots\), and as \(n \to \infty\), we have \(\lambda_n \to \infty\).
 
 \begin{example}
     Consider the Sturm--Liouville Problem
@@ -240,7 +240,7 @@ It will turn out for Sturm--Liouville problems, eigenvalues are bounded below an
     Then the eigenvalues are given by
     \begin{subequations}
     \begin{equation}
-        \lambda_n = \pqty{\frac{n^2 \pi^2}{L^2}}
+        \lambda_n = \frac{n^2 \pi^2}{L^2}
     \end{equation}
     and the eigenfunctions are given by
     \begin{equation}
@@ -410,14 +410,20 @@ on \(-1 < x < 1\), so \(p = 1 - x^2, q = 0\) and \(w = 1\), and \(v = \contClass
 \begin{equation}
     \inner{f}{g} = \int_{-1}^{+1} fg \dd{x},
 \end{equation}
-then \(L\) is self-adjoint on \(\pqty{V, \inner{\cdot}{\cdot}}\). Since \(x = 0\) is ordinary (see \textit{IA Differential Equations}), we can look for solutions of the form
+then \(L\) is self-adjoint on \(\pqty{V, \inner{\cdot}{\cdot}}\). We expand this to obtain the second-order differential equation
+\begin{equation}
+    \pqty{1 - x^2} y'' - 2 x y' + \lambda y = 0
+\end{equation}
+for \(-1 < x < 1\). This is known as \term{Legendre's equation}.
+
+Since \(x = 0\) is ordinary (see \textit{IA Differential Equations}), we can look for solutions of the form
 \begin{equation}
     y = \sum_{k = 0}^{\infty} a_k x^k
 \end{equation}
 and the recurrence relations give
 \begin{equation}
     \label{eq:recurrence-relation}%
-    a_{k + 2} = \bqty{\frac{n \pqty{n + 1} - \lambda}{\pqty{n + 1} \pqty{n + 2}}}
+    a_{k + 2} = \bqty{\frac{n \pqty{n + 1} - \lambda}{\pqty{n + 1} \pqty{n + 2}}} a_k
 \end{equation}
 and we get two linearly independent solutions
 \begin{subequations}
