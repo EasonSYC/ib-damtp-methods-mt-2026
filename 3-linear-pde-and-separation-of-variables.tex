@@ -188,3 +188,162 @@ and \(p\pqty{\vb{x}, t} = 0\). But this is not satisfying/sufficient, since we i
 Implicitly, we are requiring \(\phi \in \contClass{2} \pqty{\Omega} \cap \contClass{1} \pqty{\overline{\Omega}}\)
 
 \normalsize
+
+\subsubsection{Separation of Variables on an Annulus}
+
+Suppose we want to solve Laplace's equation in a region \(r_1 < \abs{x} < r_2\) in \(\RR^2\). Naturally, we will use polar coordinates \(\pqty{r, \theta}\) to convert this to a rectangular region in the \(\pqty{r, \theta}\) plane. Laplace's equation now reads
+\begin{equation}
+    \dv{r} \pdv{r} \pqty{r \pdv{\phi}{r}} + \frac{1}{r^2} \pdv[2]{\phi}{\theta} = 0.
+\end{equation}
+
+We look for a separable ansatz of the form \(\phi\pqty{r, \theta} = R\pqty{r} \Theta\pqty{\theta}\). Substituting this into the equation gives
+\begin{equation}
+    \frac{r}{R} \dv{r} \bqty{R \dv{R}{r}} + \frac{\dv*[2]{\Theta}{\theta}}{\Theta} = 0.
+\end{equation}
+
+So for some constant \(\lambda \in \RR\), we have
+\begin{equation}
+    \Theta '' + \lambda \Theta = 0 \qand r \pqty{r R'}' = \lambda R.
+\end{equation}
+
+The angular component solves to \(\Theta\pqty{\theta} = A \cos \pqty{\sqrt{\lambda} \theta} + B \sin \pqty{\sqrt{\lambda} \theta}\). But we require \(\Theta\pqty{r} = \Theta\pqty{r + 2 \pi}\) since they correspond to the same point in the \(\pqty{x, y}\) plane, and hence \(\lambda = n^2\) for \(n = 0, 1, 2, \ldots\).
+
+Therefore, the radial equation now reads \(r \pqty{r R'}' = n^2 R\), and trying the ansatz \(R = r^\alpha\) gives \(\alpha^2 = n^2\) for \(n \neq 0\), and in the case where \(n = 0\), we get \(R = A + B \log r\). So ghe general solution will be of the form
+\begin{equation}
+    \phi\pqty{r, \theta} = A + B \log r + \sum_{n = 1}^{\infty} \pqty{A_n r^n + B_n r^{-n}} \pqty{C_n \cos n \theta + D_n \sin n \theta}.
+\end{equation}
+
+This might look complicated, but if the domain contains \(r = 0\), we must have \(B = 0\) and \(B_n = 0\) for all \(n\), otherwise the function \(\phi\) will diverge at \(r = 0\).
+
+\begin{example}
+    Consider the boundary value problem
+    \begin{subequations}
+        \begin{align}
+            \laplacian \phi = 0 &\qfor r_1 < r < r_2, \\
+            \phi\pqty{r_1, \theta} = 0 &\qfor r = r_1, \\
+            \phi\pqty{r_2, \theta} = f\pqty{\theta} &\qfor r = r_2.
+        \end{align}
+    \end{subequations}
+
+    If we follow our previous analysis, but require \(R\pqty{r_1} = 0\), then we get
+    \begin{equation}
+        R_0 \pqty{r} = \log \pqty{\frac{r}{r_1}} \qand R_n\pqty{r} = \pqty{\frac{r}{r_1}}^n - \pqty{\frac{r_1}{r}}^n \qfor n \geq 0.
+    \end{equation}
+    
+    Therefore,
+    \begin{equation}
+        \phi\pqty{r, \theta} = C_0 \log \pqty{\frac{r}{r_1}} + \sum_{n = 1}^{\infty} \pqty{\pqty{\frac{r}{r_1}}^n - \pqty{\frac{r_1}{r}}^n} \pqty{C_n \cos n \theta + D_n \sin n \theta}.
+    \end{equation}
+
+    Considering the boundary condition at \(r = r_2\), we have
+    \begin{equation}
+        f\pqty{\theta} = \phi\pqty{r_2, \theta} = C_0 \log \pqty{\frac{r_2}{r_1}} + \sum_{n = 1}^{\infty} \pqty{\pqty{\frac{r_2}{r_1}}^n - \pqty{\frac{r_1}{r_2}}^n} \pqty{C_n \cos n \theta + D_n \sin n \theta}.
+    \end{equation}
+
+    To simplify this, we define
+    \begin{equation}
+        \frac{1}{2} a_0 = C_0 \log\pqty{\frac{r_2}{r_1}}, \quad a_n = \bqty{\pqty{\frac{r_2}{r_1}}^n - \pqty{\frac{r_1}{r_2}}^n} C_n, \quad b_n = \bqty{\pqty{\frac{r_2}{r_1}}^n - \pqty{\frac{r_1}{r_2}}^n} D_n,
+    \end{equation}
+    then our constraint reads
+    \begin{equation}
+        f\pqty{\theta} = \frac{1}{2} a_0 + \sum_{n = 1}^{\infty} a_n \cos n \theta + b_n \sin n \theta,
+    \end{equation}
+    which is a Fourier series! So we can read off the coefficients
+    \begin{equation}
+        a_n = \frac{1}{\pi} \int_{0}^{2 \pi} f\pqty{\theta} \cos n \theta \dd{\theta} \qand b_n = \frac{1}{\pi} \int_{0}^{2 \pi} f\pqty{\theta} \sin n \theta \dd{\theta}
+    \end{equation}
+    which solves the problem.
+\end{example}
+
+Again, if a more general BVP is given in the form
+\begin{subequations}
+    \begin{align}
+        \laplacian \phi = 0 &\qfor r_1 < r < r_2, \\
+        \phi\pqty{r_1, \theta} = f_1\pqty{\theta} &\qfor r = r_1, \\
+        \phi\pqty{r_2, \theta} = f_2\pqty{\theta} &\qfor r = r_2,
+    \end{align}
+\end{subequations}
+then we may superpose the solutions \(\phi = \phi_1 + \phi_2\) to the two boundary conditions, respectively.
+
+\subsubsection{Separation of Variables on a ball (Axisymmetric Case)}
+
+We consider the Laplace's equation on a region \(a \leq \abs{\vb{X}} \leq b\) in \(\RR^3\), with symmetry about the \(z-axis\), i.e. our solutions will be of the form \(\phi = \phi\pqty{r, \theta}\) in the usual spherical polar coordinates \(\pqty{r, \theta, \phi}\), where \(r \in \cointv{0}{\plusinfty}\), \(\theta \in \ccintv{0}{\pi}\) and \(\phi \in \cointv{0}{2 \pi}\).
+
+In spherical coordinates, Laplace's equation reads
+\begin{equation}
+    \frac{1}{r^2} \pdv{r} \pqty{r^2 \pdv{\phi}{r}} + \frac{1}{r^2 \sin \theta} \pdv{\theta} \pqty{\sin \theta \pdv{\phi}{\theta}} + \frac{1}{r^2 \sin^2 \theta} \pdv[2]{\phi}{\phi} = 0.
+\end{equation}
+
+In our case, the final partial derivative vanishes, and again experimenting with a separable ansatz \(\phi\pqty{r, \theta} = R\pqty{r} \Theta\pqty{\theta}\) gives
+\begin{equation}
+    \frac{1}{R} \dv{r} \pqty{r^2 \dv{R}{r}} + \frac{1}{\Theta \sin \theta} \dv{\theta} \pqty{\sin \theta \dv{\Theta}{\theta}} = 0.
+\end{equation}
+
+Therefore, for some \(\lambda \in \RR\), we have
+\begin{equation}
+    \dv{r} \pqty{r^2 \dv{R}{r}} = \lambda R \qand \dv{\theta} \pqty{\sin \theta \dv{\Theta}{\theta}} + \lambda \sin \theta \Theta = 0.
+\end{equation}
+
+These are both Sturm--Liouville problems. Let \(x = \cos \theta\) for the \(\Theta\) equation, and then \(-1 \leq x \leq 1\), and setting \(\tilde{\Theta} 
+\pqty{x} = \Theta\pqty{\theta}\), we have
+\begin{equation}
+    \dv{\Theta}{x} = \dv{x}{\theta} \dv{\tilde{\Theta}}{x} = - \sin \theta \dv{\tilde{\Theta}}{x}.
+\end{equation} 
+
+Therefore, our equation reads
+\begin{equation}
+    - \sin \theta \dv{x} \pqty{\sin \theta \pqty{- \sin \theta \dv{\tilde{\Theta}}{x}}} + \lambda \sin \theta \tilde{\Theta} = 0,
+\end{equation}
+so
+\begin{equation}
+    - \dv{x} \bqty{\pqty{1 - x^2} \dv{\tilde{\Theta}}{x}} = \lambda \tilde{\Theta} \qfor -1 < x < 1.
+\end{equation}
+
+Recall this is Legendre's equation, and in particular, the solutions are given by
+\begin{equation}
+    \tilde{\Theta}_n\pqty{x} = P_n\pqty{x} \qfor n = 0, 1, 2, \ldots, \quad \lambda_n = n \pqty{n + 1},
+\end{equation}
+and hence we have
+\begin{equation}
+    \Theta_n\pqty{\theta} = P_n\pqty{\cos \theta} \qfor n = 0, 1, 2, \ldots, \quad \lambda_n = n \pqty{n + 1}.
+\end{equation}
+
+The radial equation therefore reads
+\begin{equation}
+    \pqty{r^2 R'}' - n \pqty{n + 1} R = 0,
+\end{equation}
+and trying the ansatz \(R = r^\alpha\) gives \(\alpha\pqty{\alpha + 1} = n \pqty{n + 1}\), so \(\alpha = n\) or \(\alpha = - \pqty{n + 1}\).
+
+Therefore, the general solution is given by
+\begin{equation}
+    \phi\pqty{r, \theta} = \sum_{n = 0}^{\infty} \pqty{\alpha_n r^n + \beta_n r^{-n - 1}} P_n\pqty{\cos \theta}.
+\end{equation}
+
+\begin{example}
+    Consider the BVP
+    \begin{subequations}
+        \begin{align}
+            \laplacian \phi = 0 &\qfor 0 \leq r < 1, \\
+            \phi\pqty{r, \theta} = f\pqty{\theta} &\qfor r = 1.
+        \end{align}
+    \end{subequations}
+
+    To avoid singularity at the origin \(r = 0\), we require \(\beta_n = 0\) for all \(n\). The boundary condition therefore reads
+    \begin{equation}
+        f\pqty{\theta} = \sum_{n = 0}^{\infty} \alpha_n P_n\pqty{\cos \theta}.
+    \end{equation}
+    
+    Recall the orthoganality of the Legendre polynomials, which reads
+    \begin{equation}
+        \int_{-1}^{1} P_n\pqty{x} P_m\pqty{x} \dd{x} = \frac{2}{2 n + 1} \kronecker_{nm},
+    \end{equation}
+    and substituting \(x = \cos \theta\) gives
+    \begin{equation}
+        \int_{0}^{\pi} P_n\pqty{\cos \theta} P_m\pqty{\cos \theta} \sin \theta \dd{\theta} = \frac{2}{2 n + 1} \kronecker_{nm}.
+    \end{equation}
+
+    Hence, the coefficients are recovered by
+    \begin{equation}
+        \alpha_n = \frac{2 n + 1}{2} \int_{0}^{\pi} f\pqty{\theta} P_n\pqty{\cos \theta} \sin \theta \dd{\theta}.
+    \end{equation}
+\end{example}
