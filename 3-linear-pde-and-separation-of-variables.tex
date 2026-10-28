@@ -347,3 +347,200 @@ Therefore, the general solution is given by
         \alpha_n = \frac{2 n + 1}{2} \int_{0}^{\pi} f\pqty{\theta} P_n\pqty{\cos \theta} \sin \theta \dd{\theta}.
     \end{equation}
 \end{example}
+
+\subsection{The Wave Equation}
+
+The wave equation is a \emph{hyperbolic} PDE, and solutions to hyperbolic PDEs might be a bit more complicated than the previous \emph{elliptic} PDEs. We will start with a physical motivation of the wave equation, as in \autoref{fig:wave-equation-derivation}.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{fig/wave-equation-derivation.png}
+    \caption{Derivation of the Wave Equation}
+    \label{fig:wave-equation-derivation}%
+\end{figure}
+
+Consider a string under \emph{constant} tension \(\tau\), clanged at \(x = 0\) and \(x = L\). We allow the string to undergo small, transverse oscillations, so motion is constrained to be vertical each each point, and the displacement, \(y = y\pqty{x, y}\) obeys \(\abs{\pdv*{y}{x}} \ll 1\).
+
+\small
+
+Note that
+\begin{equation}
+    y\pqty{x}{t} = \int_{0}^{x} \pdv{y}{x} \pqty{s, t} \dd{s}
+\end{equation}
+and since \(y \pqty{0, t} = 0\), we have \(\abs{y} \ll L\).
+
+\normalsize
+
+Resolving horizontally, since there is no horizontal motion,
+\begin{equation}
+    \tau \cos\theta_B - \tan \cos \theta_A = 0
+\end{equation}
+
+This is consistent if we work up to \(\bigO\pqty{y_x^2}\). Using the fact that \(\tan\theta_A = y_x\pqty{x, t}\), and that \(\cos = \flatfrac{1}{\sqrt{\sec^2}}\), we have
+\begin{subequations}
+    \begin{align}
+        \cos \theta_B - \cos \theta_A &= \frac{1}{\sqrt{1 + \pqty{\pdv*{y}{x}}^2_{B}}} - \frac{1}{\sqrt{1 + \pqty{\pdv*{y}{x}}^2_{B}}} \\
+        &= \pdv{x} \bqty{\frac{1}{\sqrt{1 + \pqty{\pdv*{y}{x}}^2}}}_{x = \xi} \pqty{x_B - x_A} && \xi \in \oointv{x_A}{x_B} \\
+        &= \bigO \pqty{\delta x \cdot y_x^2}
+    \end{align}
+\end{subequations}
+so this is consistent.Mass of the string should be proportional to length, so
+\begin{equation}
+    \int_{A}^{B} \dd{s} = \int_{x_A}^{x_B} \sqrt{1 + \pqty{\pdv*{y}{x}}^2} \dd{x} = \delta x \bqty{1 + \bigO\pqty{y_x^2}}
+\end{equation}
+so it is reasonable to assume that the mass is \(\mu \delta x\), where \(\mu > 0\) is the string density.
+
+Resolving vertically, by Newton's Second Law, we have
+\begin{equation}
+    \rightbar{\mu \delta x \pdv[2]{y}{t}}_{x = \frac{1}{2} \pqty{x_A + x_B}} = \tau \sin \theta_B - \tau \sin \theta_A.
+\end{equation}
+
+Using \(\sin = \cos \cdot \tan\), we have
+\begin{subequations}
+    \begin{align}
+        \sin \theta_B - \sin \theta_A &= \frac{\pqty{\pdv*{y}{x}}_B}{\sqrt{1 + \pqty{\pdv*{y}{x}}^2_B}} - \frac{\pqty{\pdv*{y}{x}}_A}{\sqrt{1 + \pqty{\pdv*{y}{x}}^2_A}} \\
+        &= \pdv{x} \bqty{\frac{y_x}{\sqrt{1 + y_x^2}}}_{x = \xi} \pqty{x_B - x_A} && \xi \in \oointv{x_A}{x_B} \\
+        &= \bqty{y_xx + \bigO\pqty{y_x^2}} \delta x.
+    \end{align}
+\end{subequations}
+
+So we have \(\mu \delta x \pdv*[2]{y}{t} = \tau \delta x \bqty{y_{xx} \pqty{\xi, t} + \bigO\pqty{y_x^2}}\), and taking \(\delta_x \to 0\) hence \(\xi \to x\), and hence this gives the \term{wave equation}
+\begin{equation}
+    \frac{1}{c^2} \pdv[2]{y}{t} = \pdv[2]{y}{x}, \quad c^2 = \frac{\tau}{\mu}.
+\end{equation}
+where \(c\) is known as the \term{wave speed}.
+
+Here, we need to impose boundary conditions \(y\pqty{0, t} = y\pqty{L, t} = 0\) for all \(t \geq 0\), and initial conditions \(y\pqty{x, 0}\) (the \term{initial profile}) and \(\pdv*{y}{t} \pqty{x, 0}\) (the \term{initial velocity}) for \(0 \leq x \leq L\).
+
+\subsubsection{Waves on a String}
+
+The IBVP concerned in this section is given by
+\begin{subequations}
+    \begin{align}
+        y_{tt} - c^2 y_{xx} = 0 &\qfor x \in \oointv{0}{L}, t > 0, \\
+        y\pqty{0, t} = y\pqty{L, t} = 0 &\qfor t > 0, \\
+        y\pqty{x, 0} = f\pqty{x} &\qfor x \in \oointv{0}{L}, \\
+        y_t\pqty{x, 0} = g\pqty{x} &\qfor x \in \oointv{0}{L}.
+    \end{align}
+\end{subequations}
+
+We attempt to solve the homogeneous part of the equation by separation of variables. Consider the ansatz \(y\pqty{x, t} = X\pqty{x} T\pqty{t}\), and substituting this into the PDE gives that for some \(\lambda \in \RR\), such that
+\begin{subequations}
+    \begin{align}
+        X'' + \lambda X = 0 &\qfor 0 < x < L, \\
+        X\pqty{0} = X\pqty{L} = 0 &\qfor x = 0, x = L, \\
+        \ddot{T} + c^2 \lambda T = 0 &\qfor t > 0.
+    \end{align}
+\end{subequations}
+
+Note that the first two equations are a Sturm--Liouville problem, and this solves to
+\begin{equation}
+    X_n\pqty{x} = \sin \pqty{\frac{n \pi x}{L}} \qfor \lambda_n = \pqty{\frac{n \pi}{L}}^2, \quad n = 1, 2, \ldots.
+\end{equation}
+
+Then the \(T\) equation reads
+\begin{equation}
+    \ddot{T} + \pqty{\frac{c n \pi}{L}}^2 T = 0,
+\end{equation}
+so
+\begin{equation}
+    T_n\pqty{t} = A_n \cos \pqty{\frac{c n \pi t}{L}} + B_n \sin \pqty{\frac{c n \pi t}{L}}.
+\end{equation}
+
+Therefore,
+\begin{equation}
+    y\pqty{x, t} = \sum_{n = 1}^{\infty} \sin \pqty{\frac{n \pi x}{L}} \bqty{A_n \cos \pqty{\frac{c n \pi t}{L}} + B_n \sin \pqty{\frac{c n \pi t}{L}}}.
+\end{equation}
+
+Initial conditions become
+\begin{subequations}
+    \begin{align}
+        f\pqty{x} &= y\pqty{x, 0} = \sum_{n = 1}^{\infty} A_n \sin \pqty{\frac{n \pi x}{L}}, \\
+        g\pqty{x} &= y_t\pqty{x, 0} = \sum_{n = 1}^{\infty} B_n \pqty{\frac{c n \pi}{L}} \sin \pqty{\frac{n \pi x}{L}}.
+    \end{align}
+\end{subequations}
+
+Using the orthogonality of the sine functions \(\inner{X_n}{X_m} = \pqty{\flatfrac{L}{2}} \kronecker_{nm}\), we have
+\begin{subequations}
+    \begin{align}
+        A_n &= \frac{2}{L} \int_{0}^{L} f\pqty{x} \sin \pqty{\frac{n \pi x}{L}} \dd{x}, \\
+        B_n &= \frac{L}{c n \pi} \cdot \frac{2}{L} \int_{0}^{L} g\pqty{x} \sin \pqty{\frac{n \pi x}{L}} \dd{x}.
+    \end{align}
+\end{subequations}
+
+\subsubsection{Waves on a Drum}
+
+In hight dimensions, the wave equation becomes
+\begin{equation}
+    \frac{1}{c^2} \pdv[2]{\phi}{t} = \laplacian \phi \qfor \pqty{x, t} \in \Omega \times \oointv{0}{\plusinfty}.
+\end{equation}
+
+Then the IBVP becomes
+\begin{subequations}
+    \begin{align}
+        \phi_{tt} - c^2 \laplacian \phi = 0 & \qfor \pqty{x, t} \in \Omega \times \oointv{0}{\plusinfty}, \\
+        \phi\pqty{x, t} = 0 &\qfor \pqty{x, t} \in \partial \Omega \times \oointv{0}{\plusinfty}, \\
+        \phi\pqty{x, 0} = f\pqty{x} &\qfor x \in \Omega, t = 0, \\
+        \phi_t\pqty{x, 0} = g\pqty{x} &\qfor x \in \Omega, t = 0.
+    \end{align}
+\end{subequations}
+
+We consider, in polar coordinates,
+\begin{equation}
+    \Omega = \set{\pqty/{r, \theta}}{r \in \cointv{0}{1}, \theta \in \cointv{0}{2 \pi}}.
+\end{equation}
+
+For simplicity, we assume \(f = f\pqty{r}\) and \(g = g\pqty{r}\), so we expect the solution to be of the form \(\phi = \phi\pqty{r, t}\). We solve the homogeneous problem with \(\phi = R\pqty{r} T\pqty{t}\), which gives
+\begin{equation}
+    \frac{\ddot{T}}{c^2 T} = \frac{\bqty{r R'}'}{rR}.
+\end{equation}
+
+So there is some \(\lambda \in \RR\), such that
+\begin{subequations}
+    \begin{align}
+        - \dv{r} \bqty{r \dv{R}{r}} &= \lambda r R, \\
+        R\pqty{1} &= 0 \\
+        \ddot{T}+ c^2 \lambda T &= 0
+    \end{align}
+\end{subequations}
+
+Note the radial equation is a Sturm--Liouville problem, and in particular, it is the Bessel equation of order \(m = 0\), so
+\begin{equation}
+    R_k \pqty{r} = J_0 \pqty{j_{0, k} r}, \quad \lambda_k = j_{0, k}^2, k = 1, 2, \ldots
+\end{equation}
+and the \(T\) equation now becomes
+\begin{equation}
+    \ddot{T} + \pqty{c j_{0, k}}^2 T = 0,
+\end{equation}
+whose solution is
+\begin{equation}
+    T_k\pqty{t} = A_k \cos \pqty{c j_{0, k} t} + B_k \sin \pqty{c j_{0, k} t}.
+\end{equation}
+
+Then the general solution is
+\begin{equation}
+    \phi\pqty{r, t} = \sum_{k = 1}^{\infty} J_0 \pqty{j_{0, k} r} \bqty{\begin{split}A_k \cos \pqty{c j_{0, k} t} \\ \quad+ B_k \sin \pqty{c j_{0, k} t}\end{split}}.
+\end{equation}
+
+\small
+
+Recall that \begin{equation}
+    \inner[w]{R_k}{R_l} = \frac{J_0' \pqty{j_{0, k}}^2}{2} \kronecker_{kl}.
+\end{equation}
+
+\normalsize
+
+So we have
+\begin{subequations}
+    \begin{align}
+        f\pqty{r} &= \sum_{k = 1}^{\infty} A_k J_0 \pqty{j_{0, k} r}, \\
+        g\pqty{r} &= \sum_{k = 1}^{\infty} B_k j_{0, k} c J_0 \pqty{j_{0, k} r},
+    \end{align}
+\end{subequations}
+and we may recover the coefficients
+\begin{subequations}
+    \begin{align}
+        A_k &= \frac{2}{J_0' \pqty{j_{0, k}}^2} \int_{0}^{1} f\pqty{r} J_0 \pqty{j_{0, k} r} r \dd{r}, \\
+        B_k &= \frac{1}{c j_{0, k}} \frac{2}{J_0' \pqty{j_{0, k}}^2} \int_{0}^{1} g\pqty{r} J_0 \pqty{j_{0, k} r} r \dd{r}.
+    \end{align}
+\end{subequations}
