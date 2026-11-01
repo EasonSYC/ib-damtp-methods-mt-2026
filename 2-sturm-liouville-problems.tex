@@ -174,7 +174,7 @@ We equip \(V\) with an inner product \(\inner[w]{\cdot}{\cdot}\), where \(w\) is
     \end{subequations}
     where \(W\) is the \term{Wronskian} of \(y_1\) and \(\conjugate{y_2}\) (recall from \textit{IA Differential Equations}).
 
-    Now assume \(y_1, y_2 \in V\). If \(c \in \Bqty{a, b}\) is singular, then \(p \pqty{c} = 0\), i.e., the right-hand side of \autoref{eq:sturm-liouville-wronskian} vanishes at \(x = c\).
+    Now assume \(y_1, y_2 \in V\). If \(c \in \Bqty{a, b}\) is singular, then \(p \pqty{c} = 0\), i.e., the right-hand side of \eqref{eq:sturm-liouville-wronskian} vanishes at \(x = c\).
 
     If \(c \in \Bqty{a, b}\) is non-singular, they behave boundary conditions of the form
     \begin{equation}
@@ -184,14 +184,14 @@ We equip \(V\) with an inner product \(\inner[w]{\cdot}{\cdot}\), where \(w\) is
     \begin{equation}
         \pmqty{y_1\pqty{c} & y_1'\pqty{c} \\ \conjugate{y_2}\pqty{c} & \conjugate{y_2}'\pqty{c}} \pmqty{\alpha_c \\ \beta_c} = 0.
     \end{equation}
-    at this non-singular endpoint. Since \(\alpha_c^2 + \beta_c^2 \neq 0\), the vector \(\pmqty{\alpha_c \\ \beta_c}\) is non-zero, and so the determinant of the matrix, which is exactly \(W\pqty{y_1, \conjugate{y_2}}\pqty{c}\), must vanish. So at a non-singular endpoint, the right-hand side of \autoref{eq:sturm-liouville-wronskian} also vanishes.
+    at this non-singular endpoint. Since \(\alpha_c^2 + \beta_c^2 \neq 0\), the vector \(\pmqty{\alpha_c \\ \beta_c}\) is non-zero, and so the determinant of the matrix, which is exactly \(W\pqty{y_1, \conjugate{y_2}}\pqty{c}\), must vanish. So at a non-singular endpoint, the right-hand side of \eqref{eq:sturm-liouville-wronskian} also vanishes.
 
-    This shows that the left-hand side of \autoref{eq:sturm-ioiville-self-adjointness} vanishes, i.e., \(L\) is self-adjoint on \(\pqty{V, \inner[w]{\cdot}{\cdot}}\).
+    This shows that the left-hand side of \eqref{eq:sturm-ioiville-self-adjointness} vanishes, i.e., \(L\) is self-adjoint on \(\pqty{V, \inner[w]{\cdot}{\cdot}}\).
 \end{proof}
 
 \subsection{The Strum--Liouville Eigenvalue Problem}
 
-Recall we will be studying problems of the form \autoref{eq:sturm-liouville-problem} on \(a < x < b\), where \(y \in V\) is a subset of \(\contClass{2}\pqty{\ccintv{a}{b}}\) with real, homogeneous boundary conditions, and equipped with an inner product.
+Recall we will be studying problems of the form \eqref{eq:sturm-liouville-problem} on \(a < x < b\), where \(y \in V\) is a subset of \(\contClass{2}\pqty{\ccintv{a}{b}}\) with real, homogeneous boundary conditions, and equipped with an inner product.
 
 Note that we can assume elements of \(V\) are real without loss of generality, since if \(Ly = \lambda y\) for some \(y = u + iv\), then \(Lu = \lambda u\) and \(Lv = \lambda v\), since \(p, q, u\) and \(\lambda\) are real. So for \(y_1, y_2 \in V\), we may drop the complex conjugate in the inner product, giving
 \begin{equation}
@@ -264,7 +264,7 @@ It turns out for Sturm--Liouville problems, eigenvalues are bounded below and ca
         \hat{f}_n = \frac{2}{L} \int_{0}^{L} f\pqty{x} \sin \pqty{\frac{n \pi x}{L}} \dd{x}.
     \end{equation}
     \end{subequations}
-    which is the sine series expansion of \(f\) on \(\cointv{0}{L}\), as in \autoref{eq:sine-series-coefficients}.
+    which is the sine series expansion of \(f\) on \(\cointv{0}{L}\), as in \eqref{eq:sine-series-coefficients}.
 \end{example}
 
 \subsection{Reduction to Sturm--Liouville Form}
@@ -282,7 +282,7 @@ Divide through by \(\alpha\pqty{x} > 0\), and we multiply this by an integrating
 \end{equation}
 
 \begin{proposition}
-    The problem stated in \autoref{eq:generic-eigenvalue-problem} can be rewritten in Sturm--Liouville form
+    The problem stated in \eqref{eq:generic-eigenvalue-problem} can be rewritten in Sturm--Liouville form
     \begin{subequations}
     \begin{equation}
         - \dv{x} \bqty{p \dv{y}{x}} + qy = \lambda w y
@@ -299,7 +299,7 @@ Divide through by \(\alpha\pqty{x} > 0\), and we multiply this by an integrating
     \begin{equation}
         - \dv{x} \bqty{p \dv{y}{x}} + qy - \lambda w y = I\pqty{x} \bqty{- y'' - \frac{\beta}{\alpha} y' - \frac{\gamma}{\alpha} y - \lambda y} = 0
     \end{equation}
-    so since \(I \neq 0\), \autoref{eq:generic-eigenvalue-problem} is satisfied. Note also that \(p > 0\) and \(w > 0\) on \(\oointv{a}{b}\).
+    so since \(I \neq 0\), \eqref{eq:generic-eigenvalue-problem} is satisfied. Note also that \(p > 0\) and \(w > 0\) on \(\oointv{a}{b}\).
 \end{proof}
 
 \begin{example}
@@ -476,7 +476,7 @@ diverges to infinity as \(x \to \pm 1\).
 
 \normalsize
 
-So the series diverge at \(x = \pm 1\). This can only be ``saved'' if the coefficients vanishes for some \(n\) (and hence vanishes onwards). Recall in \autoref{eq:recurrence-relation}, that we need
+So the series diverge at \(x = \pm 1\). This can only be ``saved'' if the coefficients vanishes for some \(n\) (and hence vanishes onwards). Recall in \eqref{eq:recurrence-relation}, that we need
 \begin{equation}
     \lambda = \lambda_n = n \pqty{n + 1}
 \end{equation}

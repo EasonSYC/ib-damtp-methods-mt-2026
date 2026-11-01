@@ -92,7 +92,7 @@ which gives precisely
     \hat{f}_n = \frac{1}{L} \inner{f}{e_n} = \frac{1}{L} \int_{0}^{L} f\pqty{\theta} \exp\pqty{- \frac{2 \pi i n \theta}{L}} \dd{\theta}.
 \end{equation}
 
-Note that this is precisely the same as \autoref{eq:fourier-claim-coefficient} with \(L = 2 \pi\).
+Note that this is precisely the same as \eqref{eq:fourier-claim-coefficient} with \(L = 2 \pi\).
 
 \begin{definition}
     For \(L\)-periodic function \(\functiondomain{f}{\RR}{\CC}\), we define its \term{complex Fourier series} by the sum
@@ -230,7 +230,7 @@ It is always a good idea to draw the graph of the function \(f\) before calculat
     \begin{equation}
         \pqty{S_N f}\pqty{\theta} = \sum_{n = -N}^{N} \hat{f}_n e^{\flatfrac{2 \pi i n \theta}{L}},
     \end{equation}
-    where \(\hat{f}_n\) is the \(n\)-th Fourier coefficient of \(f\), given in \autoref{eq:fourier-coefficient-definition}.
+    where \(\hat{f}_n\) is the \(n\)-th Fourier coefficient of \(f\), given in \eqref{eq:fourier-coefficient-definition}.
 \end{definition}
 
 We want to know whether \(S_N f \to f\) as \(N \to \infty\) -- but in what way, pointwise or uniformly?
@@ -251,7 +251,7 @@ We have another choice here: we have defined a \term{norm}, and \term{convergenc
     \lim_{N \to \infty} \norm{S_N f - f}^2 = \lim_{N \to \infty} \int_{0}^{L} \abs{S_N f\pqty{\theta} - f\pqty{\theta}}^2 \dd{\theta} = 0.
 \end{equation}
 
-Unsurprisingly, convergence in norm in \autoref{eq:convergence-in-norm} is the nicest (because they are more natural for Fourier series), but we will focus on pointwise convergence, defined in \autoref{eq:pointwise-convergence}.
+Unsurprisingly, convergence in norm in \eqref{eq:convergence-in-norm} is the nicest (because they are more natural for Fourier series), but we will focus on pointwise convergence, defined in \eqref{eq:pointwise-convergence}.
 
 \begin{proposition}[Convergence of Fourier Series at Points of Continuity]
     \label{prop:fourier-series-convergence}%
@@ -277,7 +277,7 @@ To put this in words, at points of continuity, we have \(S_N f\pqty{\theta} \to 
     We call functions that have the properties in the above \autoref{prop:fourier-series-convergence} \term{Dirichlet functions}.
 \end{definition}
 
-We will deal solely with such functions, and so the notation in \autoref{eq:fourier-series-notation-sim}, the ``\(\sim\)'' symbol, means that the two sides are \emph{equal} at the points of continuity of \(f\), and the right-hand side gives an average of the left-hand side at jump discontinuities.
+We will deal solely with such functions, and so the notation in \eqref{eq:fourier-series-notation-sim}, the ``\(\sim\)'' symbol, means that the two sides are \emph{equal} at the points of continuity of \(f\), and the right-hand side gives an average of the left-hand side at jump discontinuities.
 
 \begin{example}
     Let \(\functiondomain{f}{\RR}{\RR}\) be \(2\pi\)-periodic, such that
@@ -372,7 +372,7 @@ We will deal solely with such functions, and so the notation in \autoref{eq:four
 \end{proof}
 
 \begin{remark}
-    If \(f\) is not regular, we stop at \autoref{eq:fourier-series-convergence-result-non-regular}, and we may apply the Riemann--Lebesgue lemma to show that the integral vanishes as \(N \to \infty\).
+    If \(f\) is not regular, we stop at \eqref{eq:fourier-series-convergence-result-non-regular}, and we may apply the Riemann--Lebesgue lemma to show that the integral vanishes as \(N \to \infty\).
 \end{remark}
 
 One might be tempted to say that if the function is integrable
@@ -433,7 +433,7 @@ Note that \(f\pqty{\theta} = f_{\text{even}} \pqty{\theta} = f_{\text{odd}} \pqt
             \sum_{n = 1}^{\infty} B_n \sin \pqty{\frac{n \pi \theta}{L}},
         \end{equation}
     \end{subequations}
-    where the coefficients \(\Bqty{A_n, B_n}\) are given by \autoref{eq:cosine-series-coefficients} and \autoref{eq:sine-series-coefficients}.
+    where the coefficients \(\Bqty{A_n, B_n}\) are given by \eqref{eq:cosine-series-coefficients} and \eqref{eq:sine-series-coefficients}.
 \end{definition}
 
 \begin{example}
@@ -578,7 +578,7 @@ and in particular,
 \end{equation}
 
 \begin{theorem}[Parseval's Theorem]
-    \autoref{eq:parsevals-theorem-1} and \autoref{eq:parsevals-theorem-2} are known as \term{Parseval's theorem}.
+    \eqref{eq:parsevals-theorem-1} and \eqref{eq:parsevals-theorem-2} are known as \term{Parseval's theorem}.
 \end{theorem}
 
 \begin{example}
@@ -586,7 +586,7 @@ and in particular,
     \begin{equation}
         f\pqty{\theta} \sim \sum_{n \neq 0} \frac{i \pqty{-1}^n}{n} e^{i n \theta}.
     \end{equation}
-    and hence by \autoref{eq:parsevals-theorem-2} (Parseval's Theorem),
+    and hence by \eqref{eq:parsevals-theorem-2} (Parseval's Theorem),
     \begin{equation}
         \frac{\pi^2}{3} = \frac{1}{2\pi} \int_{- \pi}^{\pi} \theta^2 \dd{\theta} = \sum_{n \neq 0} \frac{1}{n^2} = 2 \sum_{n = 1}^[\infty] \frac{1}{n^2},
     \end{equation}
