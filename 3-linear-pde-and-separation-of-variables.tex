@@ -472,22 +472,22 @@ Using the orthogonality of the sine functions \(\inner{X_n}{X_m} = \pqty{\flatfr
 
 In hight dimensions, the wave equation becomes
 \begin{equation}
-    \frac{1}{c^2} \pdv[2]{\phi}{t} = \laplacian \phi \qfor \pqty{x, t} \in \Omega \times \oointv{0}{\plusinfty}.
+    \frac{1}{c^2} \pdv[2]{\phi}{t} = \laplacian \phi \qfor \pqty{\vb{x}, t} \in \Omega \times \oointv{0}{\plusinfty}.
 \end{equation}
 
 Then the IBVP becomes
 \begin{subequations}
     \begin{align}
-        \phi_{tt} - c^2 \laplacian \phi = 0 & \qfor \pqty{x, t} \in \Omega \times \oointv{0}{\plusinfty}, \\
-        \phi\pqty{x, t} = 0 &\qfor \pqty{x, t} \in \partial \Omega \times \oointv{0}{\plusinfty}, \\
-        \phi\pqty{x, 0} = f\pqty{x} &\qfor x \in \Omega, t = 0, \\
-        \phi_t\pqty{x, 0} = g\pqty{x} &\qfor x \in \Omega, t = 0.
+        \phi_{tt} - c^2 \laplacian \phi = 0 & \qfor \pqty{\vb{x}, t} \in \Omega \times \oointv{0}{\plusinfty}, \\
+        \phi\pqty{\vb{x}, t} = 0 &\qfor \pqty{\vb{x}, t} \in \partial \Omega \times \oointv{0}{\plusinfty}, \\
+        \phi\pqty{\vb{x}, 0} = f\pqty{\vb{x}} &\qfor \vb{x} \in \Omega, t = 0, \\
+        \phi_t\pqty{\vb{x}, 0} = g\pqty{\vb{x}} &\qfor \vb{x} \in \Omega, t = 0.
     \end{align}
 \end{subequations}
 
 We consider, in polar coordinates,
 \begin{equation}
-    \Omega = \set{\pqty/{r, \theta}}{r \in \cointv{0}{1}, \theta \in \cointv{0}{2 \pi}}.
+    \Omega = \set{\pqty{r, \theta}}{r \in \cointv{0}{1}, \theta \in \cointv{0}{2 \pi}}.
 \end{equation}
 
 For simplicity, we assume \(f = f\pqty{r}\) and \(g = g\pqty{r}\), so we expect the solution to be of the form \(\phi = \phi\pqty{r, t}\). We solve the homogeneous problem with \(\phi = R\pqty{r} T\pqty{t}\), which gives
@@ -544,3 +544,134 @@ and we may recover the coefficients
         B_k &= \frac{1}{c j_{0, k}} \frac{2}{J_0' \pqty{j_{0, k}}^2} \int_{0}^{1} g\pqty{r} J_0 \pqty{j_{0, k} r} r \dd{r}.
     \end{align}
 \end{subequations}
+
+\subsubsection{Conservation of Energy and Uniqueness}
+
+For the wave equation on the string, the \term{energy} is defined as
+\begin{equation}
+    E\pqty{t} = \frac{\mu}{2} \int_{0}^{L} y_t^2 \dd{x} + \frac{\tau}{2} \int_{0}^{L} y_x^2 \dd{x},
+\end{equation}
+which is the sum of \term{kinetic} and \term{potential} energies, respectively. In particular, the latter follows from the fact that energy stored in the string is proportional to the extension \(\dd{s} - \dd{x}\), and if \(y_x\) is small,
+\begin{equation}
+    \dd{s} - \dd{x} = \pqty{\sqrt{1 + y_x^2} - 1} \dd{x} \approx \frac{1}{2} y_x^2 \dd{x}.
+\end{equation}
+
+For simplicity, we assume \(\mu = 1\) so \(\tau = c^2\). Then the energy becomes
+\begin{equation}
+    E\pqty{t} = \frac{1}{2} \int_{0}^{L} \pqty{y_t^2 + c^2 y_x^2} \dd{x},
+\end{equation}
+and if in higher dimensions for \(\pqty{\vb{x}, t} \in \Omega \times \oointv{0}{\plusinfty}\), we have
+\begin{equation}
+    E\pqty{t} = \frac{1}{2} \int_{\Omega} \pqty{\phi_t^2 + c^2 \abs{\grad \phi}^2} \dd{\vb{x}}.
+\end{equation}
+
+The second potential energy term comes from a similar argument in the one-dimensional case. For example, if we are working in \(\RR^2\), then the energy stored in the skin of a drum is proportional to the change of area in the skin, given by
+\begin{equation}
+    \dd{S} - \dd{x} \dd{y} = \pqty{\sqrt{1 + \abs{\grad \phi}^2} - 1} \dd{x} \dd{y} \approx \frac{1}{2} \abs{\grad \phi}^2 \dd{x} \dd{y}.
+\end{equation}
+
+Recall the IBVP of the form
+\begin{subequations}
+    \label{eq:wave-equation-ibvp}%
+    \begin{align}
+        \phi_{tt} - c^2 \laplacian \phi = 0 & \qfor \pqty{\vb{x}, t} \in \Omega \times \oointv{0}{\plusinfty}, \\
+        \phi\pqty{\vb{x}, t} = 0 &\qfor \pqty{\vb{x}, t} \in \partial \Omega \times \oointv{0}{\plusinfty}, \\
+        \phi\pqty{\vb{x}, 0} = f\pqty{\vb{x}} &\qfor \vb{x} \in \Omega, t = 0, \\
+        \phi_t\pqty{\vb{x}, 0} = g\pqty{\vb{x}} &\qfor \vb{x} \in \Omega, t = 0,
+    \end{align}
+\end{subequations}
+and previously we studied the cases where \(\Omega = \oointv{0}{L}\) and \(\Omega = \set{\pqty{r, \theta}}{r \in \cointv{0}{1}, \theta \in \cointv{0}{2 \pi}}\). We would now like to study, in general, how energy evolves according to these equation. The energy is given by
+\begin{subequations}
+    \begin{align}
+        E'\pqty{t} &= \int_{\Omega} \pqty{\phi_t \phi_{tt} + c^2 \grad \phi \vdot \grad \phi_t} \dd{\vb{x}} \\
+        &= c^2 \int_{\Omega} \pqty{\phi_t \laplacian \phi + \grad \phi \vdot \grad \phi_t} \dd{\vb{x}} \\
+        &= c^2 \int_{\Omega} \div \pqty{\phi_t \grad \phi} \dd{\vb{x}} \\
+        &= c^2 \oint_{\partial \Omega} \phi_t \grad \phi \vdot \dd{\vb{S}},\\
+    \end{align}
+\end{subequations}
+where the final line arises due to the divergence theorem. But since \(\phi = 0\) on \(\partial \Omega\), this also implies \(\phi_t = 0\) on \(\partial \Omega\), and hence \(E'\pqty{t} = 0\). Therefore, the energy is conserved in time, and in particular,
+\[
+    E\pqty{t} = E\pqty{0} = \frac{1}{2} \int_{\Omega} \bqty{g^2 + c^2 \abs{\grad f}^2} \dd{\vb{x}}.
+\]
+
+This allows us to prove the uniqueness of the solution to the IBVP.
+
+\begin{proposition}
+    The solution to the IBVP \autoref{eq:wave-equation-ibvp} is unique.
+\end{proposition}
+
+\begin{proof}
+    Suppose \(\phi_1\) and \(\phi_2\) are two solutions to the IBVP, and let \(\psi = \phi_1 - \phi_2\). Then \(\psi\) satisfies the same IBVP but with \(f = g = 0\). This means that \(E\pqty{t} = 0\) for all \(t\), which implies
+    \begin{equation}
+        0 = \frac{1}{2} \int_{\Omega} \pqty{\psi_t^2 + c^2 \abs{\grad \psi}^2} \dd{\vb{x}}.
+    \end{equation}
+
+    Therefore, \(\psi_t = \abs{\grad \psi} = 0\) on \(\Omega \times \oointv{0}{\infty}\), which implies \(\psi\) is constant everywhere and over all times. But since \(\psi = 0\) on \(\partial \Omega\), this implies \(\psi = 0\) everywhere, and hence \(\phi_1 = \phi_2\).
+\end{proof}
+
+\subsubsection{Wave Reflection and Transmission}
+
+Consider an infinitely long string under tension \(\tau\), with density \(\mu_+\) for \(x > 0\) and \(\mu_-\) for \(x < 0\). The wave speed is therefore \(c_\pm^2 = \flatfrac{\tau}{\mu_\pm}\). The wave equations therefore are
+\begin{subequations}
+    \begin{align}
+        \frac{1}{c_+^2} \pdv[2]{y}{t} = \pdv[2]{y}{x} &\qfor x > 0, \\
+        \frac{1}{c_-^2} \pdv[2]{y}{t} = \pdv[2]{y}{x} &\qfor x < 0.
+    \end{align}
+\end{subequations}
+
+Let \(\omega \in \RR\) and consider a wave approaching the interface from the left, given by, for \(x < 0\),
+\begin{equation}
+    y\pqty{x, t} = \cos \bqty{\omega \pqty{t - \frac{x}{c_-}}} = \Re \pqty{e^{i \omega \pqty{t - \frac{x}{c_-}}}}.
+\end{equation}
+
+From our physical intuition, part of the wave will be transmitted across the boundary to \(x > 0\), and part of the wave will be reflected back to the same region \(x < 0\).
+
+We would like the string to not break at \(x = 0\), so we impose a continuity condition
+\begin{equation}
+    y\pqty{0^+, t} = y\pqty{0^-, t}
+\end{equation}
+at all times \(t\). Furthermore, the point in the string at \(x = 0\) has no mass, so it cannot experience a force (or in other words, the string may not suddenly ``bend'' at \(x = 0\)), so balancing vertical forces at \(x = 0\) means
+\begin{equation}
+    \tau \sin \theta_+ = \tau \sin \theta_-
+\end{equation}
+and hence
+\begin{equation}
+    \rightbar{\frac{\pdv*{y}{x}}{\sqrt{1 + \pqty{\pdv*{y}{x}}^2}}}_{0^+} = \rightbar{\frac{\pdv*{y}{x}}{\sqrt{1 + \pqty{\pdv*{y}{x}}^2}}}_{0^-}
+\end{equation}
+which expanded to first order in \(\pdv*{y}{x}\) gives
+\begin{equation}
+    \tau \pdv{y}{x} \pqty{0^+, t} = \tau \pdv{y}{x} \pqty{0^-, t}
+\end{equation}
+at all times. In mathematical terms, we require both \(y\) and \(\pdv*{y}{x}\) to be continuous at \(x = 0\). We look for a form of the solution
+\begin{equation}
+    y\pqty{x, t} = \begin{cases}
+        \exp\pqty{i \omega \pqty{t - \flatfrac{x}{c_-}}} + R \exp\pqty{i \omega \pqty{t + \flatfrac{x}{c_-}}} &\qfor x < 0, \\
+        T \exp\pqty{i \omega \pqty{t - \flatfrac{x}{c_+}}} &\qfor x > 0,
+    \end{cases}
+\end{equation}
+where we take real parts to keep everything physical. Here \(R\) and \(T\) are the \term{reflection} and \term{transmission} coefficients, respectively. Then the continuity conditions give
+\begin{subequations}
+    \begin{align}
+        \exp\pqty{i \omega t} + R \exp\pqty{i \omega t} &= T \exp\pqty{i \omega t}, \\
+        \bqty{\frac{i \omega R}{c_-} - \frac{i \omega}{c_-}} \exp\pqty{i \omega t} &= - \frac{i \omega T}{c_+} \exp\pqty{i \omega t}.
+    \end{align}
+\end{subequations}
+
+We set the ratio
+\begin{equation}
+    \lambda = \frac{c_+}{c_-} = \sqrt{\frac{\mu_-}{\mu_+}},
+\end{equation}
+and solving the system of equations get
+\begin{equation}
+    R\pqty{\lambda} = \frac{1 - \lambda}{1 + \lambda} \qand T\pqty{\lambda} = \frac{2 \lambda}{1 + \lambda}.
+\end{equation}
+
+Note that \(R^2 + \lambda T^2 = 1\) which is consistent with the conservation of energy.
+
+We look at several limiting behaviours/cases here.
+
+\begin{enumerate}[label=(\roman*)]
+    \item If \(\mu_+ = \mu_-\), then \(\lambda = 1\) with \(R = 0\) and \(T = 1\), so the wave is completely transmitted across the boundary. This is just as if the string is uniform, and there is no boundary at all, as expected.
+    \item If \(\mu_+ \gg \mu_-\), then \(\lambda \ll 1\). In the limit as \(\lambda \to 0\), we have \(R = -1\) and \(T = 0\). The wave is nearly  completed with a phase shift of \(\pi\). This is consistent with the fact that the string is very much heavier for \(x > 0\), as if the string is clamped at \(x = 0\).
+    \item If \(\mu_+ \ll \mu_-\), then \(\lambda \gg 1\). In the limit as \(\lambda \to \plusinfty\), we have \(R = 1\) and \(T = 2\). The wave is nearly completely reflected without a phase shift, while getting a large disturbance to the right. This is consistent with the fact that the string is very much lighter for \(x > 0\), as if the string is free at \(x = 0\). In this case, we have \(\pdv*{y}{x} = 0\) on \(x > 0\) in the limit \(\lambda \to \plusinfty\), as we would expect for a free string.
+\end{enumerate}
