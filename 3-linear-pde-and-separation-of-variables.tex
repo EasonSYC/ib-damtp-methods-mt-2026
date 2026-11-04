@@ -95,7 +95,7 @@ We want to solve the BVP
     \end{align}
 \end{subequations}
 
-We use separation of variables to find solutions of homogenous part of the problem in the form \(\phi\pqty{x, y} = X\pqty{x} Y \pqty{y}\), so substitution gives us
+We use separation of variables to find solutions of homogeneous part of the problem in the form \(\phi\pqty{x, y} = X\pqty{x} Y \pqty{y}\), so substitution gives us
 \begin{equation}
     \frac{X''\pqty{x}}{X\pqty{x}} + \frac{Y''\pqty{y}}{Y\pqty{y}} = 0.
 \end{equation}
@@ -675,3 +675,184 @@ We look at several limiting behaviours/cases here.
     \item If \(\mu_+ \gg \mu_-\), then \(\lambda \ll 1\). In the limit as \(\lambda \to 0\), we have \(R = -1\) and \(T = 0\). The wave is nearly  completed with a phase shift of \(\pi\). This is consistent with the fact that the string is very much heavier for \(x > 0\), as if the string is clamped at \(x = 0\).
     \item If \(\mu_+ \ll \mu_-\), then \(\lambda \gg 1\). In the limit as \(\lambda \to \plusinfty\), we have \(R = 1\) and \(T = 2\). The wave is nearly completely reflected without a phase shift, while getting a large disturbance to the right. This is consistent with the fact that the string is very much lighter for \(x > 0\), as if the string is free at \(x = 0\). In this case, we have \(\pdv*{y}{x} = 0\) on \(x > 0\) in the limit \(\lambda \to \plusinfty\), as we would expect for a free string.
 \end{enumerate}
+
+\subsection{Heat Equation}
+
+The \term{heat equation} is given by
+\begin{equation}
+    \pdv{\phi}{t} = \kappa \grad \phi
+\end{equation}
+where \(\phi\) models the temperature of a conductive material with \term{thermal diffusibility} \(\kappa > 0\). If we have \(\pdv*{\phi}{t} = 0\), we call \(\phi\) a \term{steady-state} solution, in which case the heat equation reduces to Laplace's equation.
+
+Consider the IBVP given by
+\begin{subequations}
+    \begin{align}
+        \phi_t - \kappa \laplacian \phi = 0 &\qfor \pqty{\vb{x}, t} \in \Omega \times \oointv{0}{\plusinfty}, \\
+        \phi\pqty{\vb{x}, t} = 0 &\qfor \pqty{\vb{x}, t} \in \partial \Omega \times \oointv{0}{\plusinfty}, \\
+        \phi\pqty{\vb{x}, 0} = f\pqty{\vb{x}} &\qfor \pqty{\vb{x}, t} \in \Omega \times \Bqty{0}.
+    \end{align}
+\end{subequations}
+
+We attempt to solve the homogeneous problem by a separation of variables \(\phi = \psi\pqty{\vb{x}} T\pqty{t}\), which tells us that for some constant \(\mu \in \RR\), we have
+\begin{subequations}
+    \begin{align}
+        \dot{T} + \kappa \mu T &= 0, \\
+        -\laplacian \psi &= \mu \psi.
+    \end{align}
+\end{subequations}
+
+The \(T\) equation solves to \(T\pqty{t} = T\pqty{0} e^{- \kappa \mu t}\). Hence, \(\psi\) vanishes on \(\partial \Omega\), and we are left with an eigenvalue problem for the Laplacian.
+
+\subsubsection{Heat on Square Sheet}
+
+Consider the region in \(\RR^2\) given by
+\begin{equation}
+    \Omega = \oointv{0}{L} \times \oointv{0}{L},
+\end{equation}
+then with a separation of variables \(\psi = X\pqty{x} Y\pqty{y}\), the eigenvalue problem reads
+\begin{equation}
+    \frac{X''}{X} + \frac{Y''}{Y} + \mu = 0.
+\end{equation}
+
+Therefore, there is some \(\lambda \in \RR\) such that
+\begin{equation}
+    X'' + \lambda X = 0 \qand Y'' + \pqty{\mu - \lambda} Y = 0,
+\end{equation}
+with boundary conditions \(X\pqty{0} = X\pqty{L} = Y\pqty{0} = Y\pqty{L} = 0\). This is a Sturm--Liouville problem, and the solutions to \(X\) and \(\lambda\) are given by
+\begin{equation}
+    X_n \pqty{x} = \sin \pqty{\frac{n \pi x}{L}} \qand \lambda_n = \pqty{\frac{n \pi}{L}}^2, \quad n = 1, 2, \ldots,
+\end{equation}
+hence the \(Y\) equation solves to
+\begin{equation}
+    Y_m \pqty{y} = \sin \pqty{\frac{m \pi y}{L}} \qand \mu_{mn} = \lambda_n + \pqty{\frac{m \pi}{L}}^2, \quad m = 1, 2, \ldots.
+\end{equation}
+
+Using linearity to superpose such solutions, we obtain a very general solution given by
+\begin{equation}
+    \psi\pqty{x, y, t} = \sum_{m, n = 1}^{\infty} A_{mn} \sin \pqty{\frac{n \pi x}{L}} \sin \pqty{\frac{m \pi y}{L}} e^{- \kappa \mu_{mn} t},
+\end{equation}
+where \(\mu_{mn}\) is given by
+\begin{equation}
+    \mu_{mn} = \pqty{\frac{n \pi}{L}}^2 + \pqty{\frac{m \pi}{L}}^2.
+\end{equation}
+
+The initial condition therefore reads
+\begin{equation}
+    f\pqty{x, y} = \sum_{m, n = 1}^{\infty} A_{mn} \sin \pqty{\frac{n \pi x}{L}} \sin \pqty{\frac{m \pi y}{L}}.
+\end{equation}
+
+Recall that we have orthogonality conditions for the sine functions given by
+\begin{equation}
+    \int_{0}^{L} \sin \pqty{\frac{p \pi x}{L}} \sin \pqty{\frac{q \pi x}{L}} \dd{x} = \frac{L}{2} \kronecker_{pq},
+\end{equation}
+and hence we recover the coefficients \(A_{mn}\) by
+\begin{equation}
+    A_{mn} = \pqty{\frac{2}{L}}^2 \iint_{\Omega} \dd[2]{\vb{x}} f\pqty{x, y} \sin \pqty{\frac{n \pi x}{L}} \sin \pqty{\frac{m \pi y}{L}}.
+\end{equation}
+
+\subsubsection{Heat Equation on an Axisymmetric Cylinder}
+
+Now we work in \(\RR^3\) in an region given by
+\begin{equation}
+    \Omega = \set{\pqty{\rho, \phi, z}}{\rho \in \cointv{0}{1}, \phi \in \cointv{0}{2 \pi}, z \in \oointv{0}{L}}.
+\end{equation}
+
+Assume that the initial condition is axisymmetric with \(f = f\pqty{\rho, z}\) independent of \(\phi\), it is reasonable to assume \(\psi\) has the same symmetry, and we separate \(\psi = P\pqty{\rho} Z\pqty{z}\) to get
+\begin{equation}
+    \frac{1}{\rho} \pdv{\rho} \bqty{\rho \pdv{P}{\rho}} + \pdv[2]{\psi}{z} + \mu \psi = 0,
+\end{equation}
+which can be reduced to
+\begin{equation}
+    \frac{\bqty{\rho P'}'}{\rho P} + \frac{Z''}{Z} + \mu = 0.
+\end{equation}
+
+This implies the existence of some \(\lambda \in \RR\) such that
+\begin{subequations}
+    \begin{align}
+        - \frac{\bqty{\rho P'}'}{\rho P} &= \lambda, \\
+        \frac{Z''}{Z} + \mu &= \lambda,
+    \end{align}
+\end{subequations}
+which after rewriting becomes
+\begin{equation}
+    - \dv{\rho} \bqty{\rho \pdv{P}{\rho}} = \lambda \rho P \qand Z'' + \pqty{\mu - \lambda} Z = 0,
+\end{equation}
+with \(P\pqty{1} = 0, Z\pqty{0} = Z\pqty{L} = 0\). Then notice the \(P\)-equation is a Sturm--Liouville problem associated with the Bessel equation of order zero (\(m = 0\)), and hence the solutions are given by
+\begin{equation}
+    P_k\pqty{\rho} = J_0 \pqty{\frac{j_{0, k} \rho}{R}} \qand \lambda_k = \pqty{\frac{j_{0, k}}{R}}^2, \quad k = 1, 2, \ldots,
+\end{equation}
+and plugging \(\lambda = \lambda_k\) into the \(Z\)-equations gives
+\begin{equation}
+    Z_n\pqty{z} = \sin \pqty{\frac{n \pi z}{L}} \qand \mu_{kn} - \lambda_k = \pqty{\frac{n \pi}{L}}^2, \quad n = 1, 2, \ldots.
+\end{equation}
+
+Therefore, a very general solution for the homogeneous part of the IBVP is given by
+\begin{equation}
+    \psi\pqty{\rho, z, t} = \sum_{k, n = 1}^{\infty} A_{kn} J_0 \pqty{j_{0, k} \rho} \sin \pqty{\frac{n \pi z}{L}} e^{- \kappa \mu_{kn} t},
+\end{equation}
+and the initial condition gives
+\begin{equation}
+    f\pqty{\rho, z} = \sum_{k, n = 1}^{\infty} A_{kn} J_0 \pqty{j_{0, k} \rho} \sin \pqty{\frac{n \pi z}{L}}.
+\end{equation}
+
+Recall the orthogonality condition for the Bessel functions, which for \(n = 0\) reads
+\begin{equation}
+    \int_{0}^{1} J_0 \pqty{j_{0, k} \rho} J_0 \pqty{j_{0, l} \rho} \rho \dd{\rho} = \frac{J_0' \pqty{j_{0, k}}^2}{2} \kronecker_{kl},
+\end{equation}
+and also for the sine functions
+\begin{equation}
+    \int_{0}^{L} \sin \pqty{\frac{n \pi z}{L}} \sin \pqty{\frac{m \pi z}{L}} \dd{z} = \frac{L}{2} \kronecker_{nm},
+\end{equation}
+we may recover the coefficients by
+\begin{equation}
+    A_{kn} = \frac{2}{J_0' \pqty{j_{0, k}}^2} \cdot \frac{2}{L} \int_{0}^{1} \rho \dd{\rho} \int_{0}^{L} \dd{z} f\pqty{\rho, z} J_0 \pqty{j_{0, k} \rho} \sin \pqty{\frac{n \pi z}{L}}.
+\end{equation}
+
+The leading term \(k = n = 1\) dominates for large times.
+
+\subsubsection{Energy Loss and Uniqueness}
+
+We define the \term{energy} as
+\begin{equation}
+    Q\pqty{t} = \frac{1}{2} \int_{\Omega} \phi^2 \dd{\vb{x}},
+\end{equation}
+and by differentiating, we have
+\begin{subequations}
+    \begin{align}
+        \dv{Q}{t} &= \int_{\Omega} \phi \pdv{\phi}{t} \dd{\vb{x}} \\
+        &= \kappa \int_{\Omega} \phi \laplacian \phi \dd{\vb{x}} \\
+        &= \kappa \int_{\Omega} \bqty{\div \pqty{\phi \grad \phi} - \abs{\grad \phi}^2} \dd{\vb{x}} \\
+        &= \kappa \oint_{\partial \Omega} \phi \pdv{\phi}{\vb{n}} \dd{S} - \kappa \int_{\Omega} \abs{\grad \phi}^2 \dd{\vb{x}} \\
+        &= - \kappa \int_{\Omega} \abs{\grad \phi}^2 \dd{\vb{x}} \leq 0,
+    \end{align}
+\end{subequations}
+the final line follows from the fact that \(\phi\) vanishes on \(\partial \Omega\). Therefore, the energy is non-increasing in time, and in particular, integrating over \(\ccintv{0}{t}\) gives \(Q\pqty{t} \leq Q\pqty{0}\) for all times \(t > 0\), so
+\begin{equation}
+    \frac{1}{2} \int_{\Omega} \phi^2 \pqty{\vb{x}, t} \dd{\vb{x}} \leq \frac{1}{2} \int_{\Omega} f^2 \pqty{\vb{x}} \dd{\vb{x}}.
+\end{equation}
+
+This allows us to establish the uniqueness of our solutions to the IBVP. Set \(\phi = \phi_1 - \phi_2\) for two solutions \(\phi_1\) and \(\phi_2\) to the IBVP, then \(\phi\) satisfies the same IBVP but with \(f = 0\). Then we have
+\begin{equation}
+    \frac{1}{2} \int_{\Omega} \phi^2 \pqty{\vb{x}, t} \dd{\vb{x}} \leq 0,
+\end{equation}
+which implies \(\phi = 0\) everywhere, and hence \(\phi_1 = \phi_2\).
+
+\small
+
+Note that we require the energy to be finite, otherwise this uniqueness argument breaks down. For a counterexample, consider the function
+\begin{subequations}
+    \begin{equation}
+        \phi\pqty{x, t} = \sum_{n = 0}^{\infty} \frac{x^{2n}}{\pqty{2n}!} f^{\pqty{n}} \pqty{t,}
+    \end{equation}
+    where
+    \begin{equation}
+        f\pqty{t} = \begin{cases}
+            e^{- \flatfrac{1}{t}} &\qfor t > 0, \\
+            0 &\qfor t \leq 0.
+        \end{cases}
+    \end{equation}
+\end{subequations}
+
+Then we note \(f^{\pqty{n}} \pqty{0} = 0\) for all \(n\), so \(\phi\pqty{x, 0} = 0\) and \(\phi_t\pqty{x, 0} = 0\) for all \(x\). However, \(\phi\) is not identically zero for \(t > 0\), so we have a non-trivial solution to the IBVP with zero initial conditions.
+
+\normalsize
