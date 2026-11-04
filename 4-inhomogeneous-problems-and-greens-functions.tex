@@ -1,0 +1,144 @@
+\section{Inhomogeneous Problems and Green's Functions}
+
+\subsection{The Dirac \(\diracdelta\) Function}
+
+Recall that the \term{Dirac \(\diracdelta\) function} \(\diracdelta\pqty{x}\) is defined in \textit{IA Differential Equations} by
+\begin{subequations}
+    \begin{equation}
+        \diracdelta\pqty{x} = 0 \qfor x \neq 0,
+    \end{equation}
+    and the integral property
+    \begin{equation}
+        \quad \int_{-\epsilon}^{\epsilon} \diracdelta\pqty{x} \dd{x} = 1 \qfor \epsilon > 0
+    \end{equation}
+\end{subequations}
+
+We have the selection property
+\begin{equation}
+    \int_{\minusinfty}^{\plusinfty} f\pqty{x} \diracdelta\pqty{x - a} \dd{x} = f\pqty{a}.
+\end{equation}
+
+We make sense of this by introducing the sequence \(\pqty{\diracdelta_n\pqty{x}}_{n = 1}^{\infty}\) defined by
+\begin{equation}
+    \diracdelta_n\pqty{x} = \begin{cases}
+        \frac{n}{\alpha} \exp\pqty{- \frac{1}{1 - n^2 x^2}}, & \qfor \abs{x} < \frac{1}{n}, \\
+        0, & \quad \text{otherwise},
+    \end{cases}
+\end{equation}
+where \(\alpha\) is given by
+\begin{equation}
+    \alpha = \int_{-1}^{1} \exp\pqty{- \frac{1}{1 - x^2}} \dd{x}.
+\end{equation}
+
+Then, we have the following properties:
+\begin{enumerate}[label=(\roman*)]
+    \item The function \(\diracdelta_n\) is smooth for all \(n \in \NN\);
+    \item \(\diracdelta_n\pqty{x} = 0\) for all \(\abs{x} \geq \frac{1}{n}\);
+    \item For all \(\epsilon > 0\), there exists a \(N\), such that for all \(n > N\), we have
+    \begin{equation}
+        \int_{-\epsilon}^{\epsilon} \diracdelta_n\pqty{x} \dd{x} = 1.
+    \end{equation}
+\end{enumerate}
+
+For property (iii), take \(n > \flatfrac{1}{\epsilon}\). This means that for all \(n > N\), we have
+\begin{subequations}
+    \begin{align}
+        \int_{-\epsilon}^{\epsilon} \diracdelta_n \pqty{x} \dd{x} &= \int_{-\flatfrac{1}{n}}^{\flatfrac{1}{n}} \frac{n}{\alpha} \exp\pqty{- \frac{1}{1 - n^2 x^2}} \dd{x} \\
+        &= \frac{1}{\alpha} \int_{-1}^{1} \exp\pqty{- \frac{1}{1 - y^2}} \dd{y} \\
+        &= 1
+    \end{align}
+\end{subequations}
+by a change of variables. Therefore, we notice that
+\begin{subequations}    
+    \begin{align}
+        \lim_{n \to \infty} \diracdelta_n\pqty{x} = 0 &\qfor x \neq 0,
+        \lim_{n \to \infty} \int_{-\epsilon}^{\epsilon} \diracdelta_n\pqty{x} \dd{x} = 1 &\qfor \epsilon > 0.
+    \end{align}
+\end{subequations}
+
+But this does \emph{not} mean that \(\lim_{n \to \infty} \diracdelta_n\pqty{x} = \diracdelta\pqty{x}\) in the usual sense, since the limit does not exist at \(x = 0\): note that
+\begin{equation}
+    \lim_{n \to \infty} \diracdelta_n\pqty{0} = \lim_{n \to \infty} \frac{n}{\alpha e} = \infty.
+\end{equation}
+
+The limit does not exist in the pointwise sense, but it does exist in a weaker sense. The Dirac \(\diracdelta\) function rarely appears in isolation, and it usually appears with other functions involved, for example, inside integrals or as forcing terms in ordinary differential equations. We interpret these statements as \emph{sequences} of statements, of which we will eventually take the limit. For example, the integral property can be interpreted as
+\begin{equation}
+    \int_{\minusinfty}^{\plusinfty} f\pqty{x} \diracdelta\pqty{x - a} \dd{x} = \lim_{n \to \infty} \int_{\minusinfty}^{\plusinfty} f\pqty{x} \diracdelta_n\pqty{x - a} \dd{x} = f\pqty{a},
+\end{equation}
+and an ordinary differential equation with a Dirac delta forcing term \(\ddot{y} + \omega^2 y = \diracdelta\pqty{t}\) can be interpreted as a sequence of ordinary differential equations \(\ddot{y}_n + \omega^2 y_n = \diracdelta_n\pqty{t}\), and we have \(y_n \to y\) as \(n \to \infty\) (in a suitable sense).
+
+This allows us to even deal with the derivative \(\diracdelta'\):
+\begin{subequations}
+    \begin{align}
+        \int_{\minusinfty}^{\plusinfty} f\pqty{x} \diracdelta' \pqty{x} \dd{x} &= \lim_{n \to \infty} \int_{\minusinfty}^{\plusinfty} \diracdelta_n' \pqty{x} f\pqty{x} \dd{x} \\
+        &+ \lim_{n \to \infty} - \int_{\minusinfty}^{\plusinfty} f'\pqty{x} \diracdelta_n \pqty{x} \dd{x} \\
+        &= - f'\pqty{0},
+    \end{align}
+\end{subequations}
+where we have used integration by parts, and the fact that all the boundary terms vanish by properties of \(\diracdelta_n\).
+
+Therefore, to simple things up, we stop writing the limits of the Dirac \(\diracdelta\) function, and simply treat \(\diracdelta\) as an ordinary function.
+
+\subsubsection{Fourier Series for the Dirac \(\diracdelta\) Function}
+
+Let \(\diracdelta^L\pqty{x}\) be the \(L\)-periodic \(\diracdelta\) function, such that \(\diracdelta^L\pqty{x} = \diracdelta\pqty{x}\) for \(x \in \cointv{-\frac{L}{2}}{\frac{L}{2}}\). Then, it has fourier coefficients
+\begin{equation}
+    \hat{f}_n = \frac{1}{L} \int_{-L/2}^{L/2} \diracdelta^L\pqty{x} e^{- 2 \pi i n x} \dd{x} = \frac{1}{L},
+\end{equation}
+so we see that the (complex) Fourier series for the \(L\)-periodic Dirac \(\diracdelta\) function is
+\begin{equation}
+    \diracdelta^L\pqty{x} \sim \frac{1}{L} \sum_{n \in \ZZ} e^{2 \pi i n x / L}.
+\end{equation}
+
+We verify its consistency. Say that \(f = f\pqty{x}\) is a smooth function on \(x\). Then we have the property
+\begin{subequations}
+    \begin{align}
+        f\pqty{0} &= \int_{-L/2}^{L/2} f\pqty{x} \diracdelta^L\pqty{x} \dd{x} \\
+        &= \sum_{n \in \ZZ} \pqty{\frac{1}{L} \int_{-L/2}^{L/2} f\pqty{x} e^{2 \pi i n x / L} \dd{x}} \\
+        &= \sum_{n \in \ZZ} \hat{f}_{-n} \\
+        &= \sum_{n \in \ZZ} \hat{f}_n,
+    \end{align}
+\end{subequations}
+which is consistent with the Fourier series representation of \(f\) at \(x = 0\).
+
+\subsubsection{Eigenfunction Expansions and the Dirac \(\diracdelta\) Function}
+
+Suppose we have a Sturm--Liouville problem \(\mathcal{L} y = \lambda w y\) on a vector space \(V \subseteq \contClass{2} \pqty{\ccintv{a}{b}}\) where \(y \in V\) satisfies real, homogeneous boundary conditions at each non-singular endpoint.
+
+Let \(\Bqty{Y_k}_{k = 1}^{\infty}\) be the \emph{normalised}, orthogonal eigenfunctions of \(\mathcal{L}\). For each \(\zeta \in \oointv{a}{b}\), consider \(x \mapsto \diracdelta_n \pqty{x - \zeta}\). Then for sufficiently large \(n\), this function would eventually satisfy the boundary conditions and belongs to \(V\). By completeness of the set of eigenfunctions, we will have the eigenfunction expansion
+\begin{subequations}
+    \begin{equation}
+        \diracdelta_n \pqty{x - \zeta} = \sum_{k = 1}^{\infty} c^{\pqty{n}}_k Y_k\pqty{x},
+    \end{equation}
+    where we have coefficients
+    \begin{equation}
+        c^{\pqty{n}}_k = \inner[w]{\diracdelta_n\pqty{\cdot - \zeta}}{Y_k} = \int_{a}^{n} \diracdelta_n\pqty{t - \zeta} Y_k\pqty{t} w\pqty{t} \dd{t}.
+    \end{equation}
+\end{subequations}
+
+If we take the limit \(n \to \infty\), then the coefficients satisfy \(c_k^{\pqty{n}} \to c_k = Y_k\pqty{\zeta} w\pqty{\zeta}\). Therefore, we find that
+\begin{equation}
+    \diracdelta\pqty{x - \zeta} = w\pqty{\zeta} \sum_{k = 1}^{\infty} Y_k\pqty{\zeta} Y_k\pqty{x}.
+\end{equation}
+
+To check for consistency, let \(f \in V\), then we should expect that
+\begin{equation}
+    \int_{a}^{b} f\pqty{x} \diracdelta\pqty{x - \zeta} \dd{x} = f\pqty{\zeta}.
+\end{equation}
+
+Using the eigenfunction expansion, we have
+\begin{subequations}
+    \begin{align}
+        f\pqty{x} &= \int_{a}^{b} f\pqty{\zeta} \diracdelta\pqty{x - \zeta} \dd{\zeta} \\
+        &= \sum_{k = 1}^{\infty} \int_{a}^{b} f\pqty{\zeta} w\pqty{\zeta} Y_k\pqty{\zeta} Y_k\pqty{x} \dd{\zeta} \\
+        &= \sum_{k = 1}^{\infty} \inner[w]{f}{Y_k} Y_k\pqty{x},
+    \end{align}
+\end{subequations}
+which recovers the eigenfunction expansion of \(f\).
+
+\begin{remark}
+    In the next section, we will be able to set the weight function \(w\pqty{x} = 1\) without loss of generality, which will give the identity
+    \begin{equation}
+        \diracdelta\pqty{x - \zeta} = \sum_{k = 1}^{\infty} Y_k\pqty{\zeta} Y_k\pqty{x}.
+    \end{equation}
+\end{remark}
