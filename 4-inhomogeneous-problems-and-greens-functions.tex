@@ -105,32 +105,32 @@ which is consistent with the Fourier series representation of \(f\) at \(x = 0\)
 
 Suppose we have a Sturm--Liouville problem \(\mathcal{L} y = \lambda w y\) on a vector space \(V \subseteq \contClass{2} \pqty{\ccintv{a}{b}}\) where \(y \in V\) satisfies real, homogeneous boundary conditions at each non-singular endpoint.
 
-Let \(\Bqty{Y_k}_{k = 1}^{\infty}\) be the \emph{normalised}, orthogonal eigenfunctions of \(\mathcal{L}\). For each \(\zeta \in \oointv{a}{b}\), consider \(x \mapsto \diracdelta_n \pqty{x - \zeta}\). Then for sufficiently large \(n\), this function would eventually satisfy the boundary conditions and belongs to \(V\). By completeness of the set of eigenfunctions, we will have the eigenfunction expansion
+Let \(\Bqty{Y_k}_{k = 1}^{\infty}\) be the \emph{normalised}, orthogonal eigenfunctions of \(\mathcal{L}\). For each \(\xi \in \oointv{a}{b}\), consider \(x \mapsto \diracdelta_n \pqty{x - \xi}\). Then for sufficiently large \(n\), this function would eventually satisfy the boundary conditions and belongs to \(V\). By completeness of the set of eigenfunctions, we will have the eigenfunction expansion
 \begin{subequations}
     \begin{equation}
-        \diracdelta_n \pqty{x - \zeta} = \sum_{k = 1}^{\infty} c^{\pqty{n}}_k Y_k\pqty{x},
+        \diracdelta_n \pqty{x - \xi} = \sum_{k = 1}^{\infty} c^{\pqty{n}}_k Y_k\pqty{x},
     \end{equation}
     where we have coefficients
     \begin{equation}
-        c^{\pqty{n}}_k = \inner[w]{\diracdelta_n\pqty{\cdot - \zeta}}{Y_k} = \int_{a}^{n} \diracdelta_n\pqty{t - \zeta} Y_k\pqty{t} w\pqty{t} \dd{t}.
+        c^{\pqty{n}}_k = \inner[w]{\diracdelta_n\pqty{\cdot - \xi}}{Y_k} = \int_{a}^{n} \diracdelta_n\pqty{t - \xi} Y_k\pqty{t} w\pqty{t} \dd{t}.
     \end{equation}
 \end{subequations}
 
-If we take the limit \(n \to \infty\), then the coefficients satisfy \(c_k^{\pqty{n}} \to c_k = Y_k\pqty{\zeta} w\pqty{\zeta}\). Therefore, we find that
+If we take the limit \(n \to \infty\), then the coefficients satisfy \(c_k^{\pqty{n}} \to c_k = Y_k\pqty{\xi} w\pqty{\xi}\). Therefore, we find that
 \begin{equation}
-    \diracdelta\pqty{x - \zeta} = w\pqty{\zeta} \sum_{k = 1}^{\infty} Y_k\pqty{\zeta} Y_k\pqty{x}.
+    \diracdelta\pqty{x - \xi} = w\pqty{\xi} \sum_{k = 1}^{\infty} Y_k\pqty{\xi} Y_k\pqty{x}.
 \end{equation}
 
 To check for consistency, let \(f \in V\), then we should expect that
 \begin{equation}
-    \int_{a}^{b} f\pqty{x} \diracdelta\pqty{x - \zeta} \dd{x} = f\pqty{\zeta}.
+    \int_{a}^{b} f\pqty{x} \diracdelta\pqty{x - \xi} \dd{x} = f\pqty{\xi}.
 \end{equation}
 
 Using the eigenfunction expansion, we have
 \begin{subequations}
     \begin{align}
-        f\pqty{x} &= \int_{a}^{b} f\pqty{\zeta} \diracdelta\pqty{x - \zeta} \dd{\zeta} \\
-        &= \sum_{k = 1}^{\infty} \int_{a}^{b} f\pqty{\zeta} w\pqty{\zeta} Y_k\pqty{\zeta} Y_k\pqty{x} \dd{\zeta} \\
+        f\pqty{x} &= \int_{a}^{b} f\pqty{\xi} \diracdelta\pqty{x - \xi} \dd{\xi} \\
+        &= \sum_{k = 1}^{\infty} \int_{a}^{b} f\pqty{\xi} w\pqty{\xi} Y_k\pqty{\xi} Y_k\pqty{x} \dd{\xi} \\
         &= \sum_{k = 1}^{\infty} \inner[w]{f}{Y_k} Y_k\pqty{x},
     \end{align}
 \end{subequations}
@@ -139,6 +139,163 @@ which recovers the eigenfunction expansion of \(f\).
 \begin{remark}
     In the next section, we will be able to set the weight function \(w\pqty{x} = 1\) without loss of generality, which will give the identity
     \begin{equation}
-        \diracdelta\pqty{x - \zeta} = \sum_{k = 1}^{\infty} Y_k\pqty{\zeta} Y_k\pqty{x}.
+        \diracdelta\pqty{x - \xi} = \sum_{k = 1}^{\infty} Y_k\pqty{\xi} Y_k\pqty{x}.
     \end{equation}
 \end{remark}
+
+\subsection{Green's Functions}
+
+We want to solve the Sturm--Liouville problem
+\begin{equation}
+    \label{eq:inhomogeneous-problem}%
+    L y = f \qfor x \in \oointv{a}{b},
+\end{equation}
+for \(y\pqty{a} = y\pqty{b} = 0\), i.e., solve \(Ly = f\) over the space
+\begin{equation}
+    V = \set{y \in \contClass{2}\pqty{\ccintv{a}{b}}}{y\pqty{a} = y\pqty{b} = 0},
+\end{equation}
+where the differential operator \(L\) is given by
+\begin{equation}
+    L = \alpha\pqty{x} \dv[2]{x} + \beta\pqty{x} \dv{x} + \gamma\pqty{x},
+\end{equation}
+with \(\alpha, \beta, \gamma\) smooth, and \(\alpha\pqty{x} \neq 0\) for all \(x \in \oointv{a}{b}\).
+
+Fix \(\xi \in \oointv{a}{b}\). Suppose we can find a function \(x \mapsto G\pqty{x, \xi}\) such that
+\begin{equation}
+    L_x \bqty{G\pqty{x, \xi}} = \diracdelta\pqty{X - \xi} \qfor a < x < b
+\end{equation}
+with identical boundary conditions for \(G\) reading \(G\pqty{a, \xi} = G\pqty{b, \xi} = 0\).
+
+Given such a \(G\), consider the function
+\begin{equation}
+    y\pqty{X} = \int_{a}^{b} G\pqty{x, \xi} f\pqty{\xi} \dd{\xi}.
+\end{equation}
+
+Then \(y\pqty{a} = y\pqty{b} = 0\), and 
+\begin{subequations}
+    \begin{align}
+        L_x\pqty{y} &= \int_{a}^{b} L_x \bqty{G\pqty{x, \xi}} f\pqty{\xi} \dd{\xi} \\
+        &= \int_{a}^{b} \diracdelta\pqty{x - \xi} f\pqty{\xi} \dd{\xi} \\
+        &= f\pqty{x},
+    \end{align}
+\end{subequations}
+i.e. \(y\) is a solution to the inhomogeneous problem \eqref{eq:inhomogeneous-problem}. The function \(G\pqty{x, \xi}\) is called the \term{Dirichlet Green's function} for the operator \(L\).
+
+When \(x \neq \xi\), \(x \in \oointv{a}{b}\), we have
+\begin{equation}
+    \alpha\pqty{x} \dv[2]{G}{x} + \beta\pqty{x} \dv{G}{x} + \gamma\pqty{x} G = 0,
+\end{equation}
+and this is a second-order ODE, so expect \(x \mapsto G\pqty{x, \xi}\) to be nice away from \(x = \xi\).
+
+Near \(x = \xi\), clearly the second order derivative is least regular, so expect
+\begin{equation}
+    \alpha\pqty{x} \dv{x} \bqty{\dv{G\pqty{x, \xi}}{x}} = \diracdelta\pqty{x - \xi} + \text{more regular terms}.
+\end{equation}
+
+We want to find a function \(H\) such that
+\begin{equation}
+    \dv{x} H \sim \diracdelta\pqty{x - \xi}.
+\end{equation}
+
+Recall the rigorous treatment of \(\diracdelta\pqty{x}\) involves the sequence \(\Bqty{\diracdelta_n\pqty{x}}_{n = 1}^{\infty}\) such that \(\lim_{n \to \infty} \diracdelta_n\pqty{x} = 0\) for \(x \neq 0\), with \(\lim_{n \to \infty} \int_{-\epsilon}^{\epsilon} \diracdelta_n\pqty{x} \dd{x} = 1\) for all \(\epsilon > 0\). Then, we can define \(H_n\pqty{x}\) such that
+\begin{equation}
+    \dv{x} H_n\pqty{x} = \diracdelta_n\pqty{x}.
+\end{equation}
+
+Clearly, a solution is given by
+\begin{equation}
+    H_n \pqty{x} = \int_{-\infty}^{x} \diracdelta_n\pqty{t} \dd{t}.
+\end{equation}
+
+Fix \(x > 0\), then for \(n\) sufficiently large, we get \(H_n\pqty{x} = 1\). Fix \(x < 0\), then for \(n\) sufficiently large, we get \(H_n\pqty{x} = 0\). Therefore, we have
+\begin{equation}
+    \lim{n \to \infty} H_n\pqty{x} = \begin{cases}
+        1, & \qfor x > 0, \\
+        0, & \qfor x < 0.
+    \end{cases}
+\end{equation}
+
+The function value of \(H\) at \(x = 0\) is not well-defined (and in fact does not matter) -- some people prefer to join it with the value \(H\pqty{0} = 0\) or \(1\), while others just set it to be \(\flatfrac{1}{2}\). Whatever value we chose, the important property is \(H'\pqty{x} = \diracdelta\pqty{x}\), and so
+\begin{equation}
+    \dv{x} \bqty{H\pqty{x - \xi}} = \diracdelta\pqty{x - \xi}.
+\end{equation}
+
+This function \(H\) is known as the \term{Heaviside step function}. We would like \(\pqty{\dv*{G}{x}} \pqty{x, \xi}\) to resemble \(H\pqty{x - \xi}\) near \(x = \xi\), i.e. expect \(\dv{G}{x}\) to have a jump discontinuity at \(x = \xi\).
+
+Using
+\begin{equation}
+    G\pqty{x, \xi} = \int_{a}^{x} \dv{G}{t} \pqty{t, \xi} \dd{t}
+\end{equation}
+and
+\begin{equation}
+    \int_{a}^{x} H\pqty{t - \xi} \dd{t} = \begin{cases}
+        x - \xi, & \qfor x > \xi, \\
+        0, & \qfor x < \xi,
+    \end{cases}
+\end{equation}
+we expect \(x \mapsto G\pqty{x, \xi}\) to be continuous at \(x = \xi\), but a jump in its derivative at \(x = \xi\).
+
+Divide \(L_x \bqty{G\pqty{x, \xi}} = \diracdelta\pqty{x - \xi}\) by \(\alpha\pqty{x} \neq 0\), integrate \(x\) over \(\oointv{\xi - \epsilon}{\xi + \epsilon}\) for some small \(\epsilon > 0\),
+\begin{equation}
+    \rightbar{\dv{G}{x}}_{x = \xi - \epsilon}^{x = \xi + \epsilon} + \int_{\xi - \epsilon}^{\xi + \epsilon} \bqty{\frac{\beta}{\alpha} \dv{G}{x} + \frac{x}{\alpha} G} \dd{x} = \int_{\xi - \epsilon}^{\xi + \epsilon} \frac{\diracdelta\pqty{x - \xi}}{\alpha \pqty{x}} \dd{x} = \frac{1}{\alpha\pqty{\xi}}.
+\end{equation}
+
+Take \(\epsilon \to 0^+\). Then the second term on the left-hand side vanishes, and we have
+\begin{equation}
+    \rightbar{\dv{G}{x} \pqty{x, \xi}}_{x = \xi^-}^{x = \xi^+} = \frac{1}{\alpha\pqty{\xi}}.
+\end{equation}
+
+In summary, if \(L_x\bqty{G\pqty{x, \xi}} = \diracdelta\pqty{x - \xi}\), then \(G\) will have the following properties:
+\begin{enumerate}[label=(\roman*)]
+    \item \(x \mapsto G\pqty{x, \xi}\) is continuous at \(x = \xi\);
+    \item \(x \mapsto \pqty{\dv*{G}{x}} \pqty{x, \xi}\) has a jump discontinuity at \(x = \xi\) of size \(\flatfrac{1}{\alpha\pqty{\xi}}\).
+\end{enumerate}
+
+\begin{example}
+    Take the operator
+    \begin{equation}
+        L = \dv[2]{x} + \omega^2,
+    \end{equation}
+    where \(\omega \in \RR\) is a constant, and \(\oointv{a}{b} = \oointv{0}{1}\).
+
+    Fix \(\xi \in \oointv{a}{b}\). Then
+    \[
+        L\bqty{G\pqty{x, \xi}} = 0 \qfor x \in \oointv{0}{1} \setminus \set{\xi},
+    \]
+    so we get
+    \begin{equation}
+        G\pqty{x, \xi} = \begin{cases}
+            A\pqty{\xi} \sin\pqty{\omega x} + B\pqty{\xi} \cos\pqty{\omega x}, & \qfor 0 < x < \xi, \\
+            C\pqty{\xi} \sin\pqty{\omega \pqty{x - 1}} + D\pqty{\xi} \cos\pqty{\omega \pqty{x - 1}}, & \qfor \xi < x < 1,
+        \end{cases}
+    \end{equation}
+    and imposing the boundary conditions \(G\pqty{0, \xi} = G\pqty{1, \xi} = 0\) gives
+    \begin{equation}
+        G\pqty{x, \xi} = \begin{cases}
+            A\pqty{\xi} \sin\pqty{\omega x}, & \qfor 0 < x < \xi, \\
+            C\pqty{\xi} \sin\pqty{\omega \pqty{x - 1}}, & \qfor \xi < x < 1.
+        \end{cases}
+    \end{equation}
+
+    Imposing the continuity of \(G\) at \(x = \xi\), we have
+    \begin{equation}
+        A\pqty{\xi} = C\pqty{\xi} \frac{\sin\pqty{\omega \pqty{\xi - 1}}}{\sin\pqty{\omega \xi}}.
+    \end{equation}
+
+    The jump condition at \(x = \xi\) gives (since \(\alpha = 1\))
+    \begin{equation}
+        \frac{\omega C\pqty{\xi}}{\sin \pqty{\omega \xi}} \bqty{\cos\pqty{\omega \pqty{\xi - 1}} \sin \pqty{\omega \xi} - \cos\pqty{\omega \xi} \sin\pqty{\omega \pqty{\xi - 1}}} = 1,
+    \end{equation}
+    i.e.,
+    \begin{equation}
+        C\pqty{\xi} = \frac{\sin \pqty{\omega \xi}}{\omega \sin \omega}.
+    \end{equation}
+
+    Hence,
+    \begin{equation}
+        G\pqty{x, \xi} = \frac{1}{\omega \sin \omega} \begin{cases}
+            \sin\pqty{\omega x} \sin\pqty{\omega \pqty{\xi - 1}}, & \qfor 0 < x < \xi, \\
+            \sin\pqty{\omega \xi} \sin\pqty{\omega \pqty{x - 1}}, & \qfor \xi < x < 1.
+        \end{cases}
+    \end{equation}
+\end{example}
