@@ -1,0 +1,180 @@
+\section{The Fourier Transform}
+\subsection{Definition and Simple Properties}
+
+\begin{definition}
+    For a integrable function \(\functiondomain{f}{\RR}{\CC}\), we define the \emph{Fourier transform} of \(f\) as the function \(\functiondomain{\hat{f}}{\RR}{\CC}\) given by
+    \begin{equation}
+        \hat{f}\pqty{\lambda} = \int_{\minusinfty}^{\plusinfty} f\pqty{x} e^{-i \lambda x} \dd{x},
+    \end{equation}
+    where \(\lambda \in \RR\).
+\end{definition}
+
+We often denote \(\fourier\) as the map mapping \(\functionmap{\fourier}{f}{\hat{f}}\), or more explicitly, we write the variables we take the Fourier transform with respect to, as in \(\fourier[x][\lambda] \bqty{f\pqty{x}} = \hat{f}\pqty{\lambda}\).
+
+We assume that we work on sufficiently nice functions (e.g. on a Schwartz space) so that the Fourier transform is well-defined, and the relevant integrals converge. We also expect the \autoref{thm:riemann-lebesgue-lemma} (Riemann--Lebesgue lemma) to hold, i.e., the Fourier transform of an integrable function to decay for large \(\lambda\). For simplicity, we denote
+\begin{equation}
+    \int = \int_{\minusinfty}^{\plusinfty}
+\end{equation}
+in this section.
+
+\begin{proposition}[Properties of the Fourier Transform]
+    We have the following properties of the Fourier transform.
+
+    \begin{itemize}
+        \item \textbf{Differentiation and Multiplying by Polynomials.} We have
+        \begin{subequations}
+            \begin{align}
+                \fourier[x][\lambda] \bqty{\pqty{\dv{x}}^k f\pqty{x}} &= \pqty{i \lambda}^k \hat{f}\pqty{\lambda}, \label{eq:fourier-diff}\\
+                \fourier[x][\lambda] \bqty{x^k f\pqty{x}} &= i^k \pqty{\dv{\lambda}}^k \hat{f}\pqty{\lambda}. \label{eq:fourier-poly}
+            \end{align}
+        \end{subequations}
+    
+        \item \textbf{Shift and Phase Change.} We have
+        \begin{subequations}
+            \begin{align}
+                \fourier[x][\lambda] \bqty{f\pqty{x - a}} &= e^{-i \lambda a} \hat{f}\pqty{\lambda}, \\
+                \fourier[x][\lambda] \bqty{e^{- i a x} f\pqty{x}} &= \hat{f}\pqty{\lambda + a}.
+            \end{align}
+        \end{subequations}
+    \end{itemize}
+\end{proposition}
+
+\begin{proof}
+    We show the first property on differentiation and polynomials. For \eqref{eq:fourier-diff}, using repeated integration by parts, we have
+    \begin{subequations}
+        \begin{align}
+            \fourier[x][\lambda] \bqty{\pqty{\dv{x}}^k f\pqty{x}} &= \int \dv[k]{x} f\pqty{x} e^{-i \lambda x} \dd{x} \\
+            &= \int f\pqty{x} \pqty{- \dv{x}}^k e^{-i \lambda x} \dd{x} \\
+            &= \int f\pqty{x} \pqty{i \lambda}^k e^{-i \lambda x} \dd{x} \\
+            &= \pqty{i \lambda}^k \hat{f}\pqty{\lambda}.
+        \end{align}
+    \end{subequations}
+
+    For \eqref{eq:fourier-poly}, we have
+    \begin{subequations}
+        \begin{align*}
+            i^k \pqty{\dv{\lambda}}^k \hat{f}\pqty{\lambda} &= i^k \pqty{\dv{\lambda}}^k \int f\pqty{x} e^{-i \lambda x} \dd{x} \\
+            &= \pqty{i \dv{\lambda}}^k \int f\pqty{x} e^{-i \lambda x} \dd{x} \\
+            &= \int f\pqty{x} \pqty{i \dv{\lambda}}^k e^{-i \lambda x} \dd{x} \\
+            &= \int f\pqty{x} x^k e^{-i \lambda x} \dd{x} \\
+            &= \fourier[x][\lambda] \bqty{x^k f\pqty{x}},
+        \end{align*}
+    \end{subequations}
+    by differentiating under the integral.
+\end{proof}
+
+In particular, note that \eqref{eq:fourier-diff} is extremely useful. Suppose we have a differential equation over \(x \in \RR\) of the form
+\begin{equation}
+    P\pqty{\dv{x}} y = f,
+\end{equation}
+where \(P\) is a polynomial in \(\dv*{x}\). Then, taking the Fourier transform, we have
+\begin{equation}
+    P\pqty{i \lambda} \hat{y}\pqty{\lambda} = \hat{f}\pqty{\lambda},
+\end{equation}
+which simply solves to
+\begin{equation}
+    \hat{y} \pqty{\lambda} = \frac{\hat{f}\pqty{\lambda}}{P\pqty{i \lambda}}.
+\end{equation}
+
+To find \(y = y\pqty{x}\), we would need to invert the Fourier transform.
+
+\begin{proposition}[Inversion Formula for the Fourier Transform]
+    We have the inversion formula for the Fourier transform, given by
+    \begin{equation}
+        f\pqty{x} = \frac{1}{2 \pi} \int \hat{f}\pqty{\lambda} e^{i \lambda x} \dd{\lambda}.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    We have
+    \begin{subequations}
+        \begin{align}
+            \frac{1}{2\pi} \int_{-n}^{n} e^{i \lambda x} \hat{f}\pqty{\lambda} \dd{\lambda} &= \int f\pqty{y} \bqty{\frac{1}{2\pi} \int_{-n}^{n} e^{i \lambda \pqty{x - y}} \dd{\lambda}} \dd{y} \\
+            &= \int f\pqty{y} \frac{\sin \pqty{n \pqty{x - y}}}{\pi \pqty{x - y}} \dd{y} \\
+            &= \int f\pqty{x + y} \frac{\sin \pqty{n y}}{\pi y} \dd{y}.
+        \end{align}
+    \end{subequations}
+
+    Recall from \textit{IA Differential Equations} that we have
+    \begin{equation}
+        \int \frac{\sin \pqty{n y}}{\pi y} \dd{y} = \int \frac{\sin y}{\pi y} \dd{y} = 1.
+    \end{equation}
+
+    Using this, we have
+    \begin{subequations}
+        \begin{align*}
+            \frac{1}{2\pi} \int_{-n}^{n} e^{i \lambda x} \hat{f}\pqty{\lambda} \dd{\lambda} - f\pqty{x} &= \int \frac{\sin \pqty{n y}}{\pi y} \bqty{f\pqty{x + y} - f\pqty{x}} \dd{y} \\
+            &= \int \sin\pqty{ny} F\pqty{x, y} \dd{y},
+        \end{align*}
+    \end{subequations}
+    where we define the new function as
+    \begin{equation}
+        F\pqty{x, y} = \frac{f\pqty{x + y} - f\pqty{x}}{\pi y}.
+    \end{equation}
+
+    Using integration by parts, we may concludes that
+    \begin{subequations}
+        \begin{align*}
+            \int \sin\pqty{ny} F\pqty{x, y} \dd{y} &= \frac{1}{n} \int \cos\pqty{ny} \dv{y} F\pqty{x, y} \dd{y} \\
+            &\to 0
+        \end{align*}
+    \end{subequations}
+    as \(n \to \infty\), by the \autoref{thm:riemann-lebesgue-lemma} (Riemann--Lebesgue Lemma).
+\end{proof}
+
+If we remove the limiting process, we have the \emph{formal} formula
+\begin{equation}
+    f\pqty{x} = \int f\pqty{y} \pqty{\frac{1}{2\pi} \int e^{i \lambda \pqty{x - y}} \dd{\lambda}} \dd{y},
+\end{equation}
+and the Dirac \(\diracdelta\) function therefore satisfies
+\begin{equation}
+    \diracdelta\pqty{x - y} = \frac{1}{2\pi} \int e^{i \lambda \pqty{x - y}} \dd{\lambda}.
+\end{equation}
+
+\begin{proposition}[Parseval's Theorem]
+    We have
+    \begin{equation}
+        \int f\pqty{x} \conjugate{g\pqty{x}} \dd{x} = \frac{1}{2\pi} \int \hat{f}\pqty{\lambda} \conjugate{\hat{g}\pqty{\lambda}} \dd{\lambda}.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    We have
+    \begin{subequations}
+        \begin{align*}
+            \frac{1}{2\pi} \int \hat{f}\pqty{\lambda} \conjugate{\hat{g}\pqty{\lambda}} \dd{\lambda} &= \frac{1}{2\pi} \int \bqty{\int e^{-i \lambda y} f\pqty{y} \dd{y}} \bqty{\int e^{i \lambda z} \conjugate{g\pqty{x}} \dd{z}} \dd{\lambda} \\
+            &= \iint f\pqty{y} \conjugate{g\pqty{x}} \bqty{\frac{1}{2\pi} \int e^{i \lambda \pqty{x - y}} \dd{\lambda}} \dd{\pqty{x, y}} \\
+            &= \iint f\pqty{y} \conjugate{g\pqty{x}} \diracdelta\pqty{x - y} \dd{\pqty{x, y}} \\
+            &= \int f\pqty{x} \conjugate{g\pqty{x}} \dd{x}.
+        \end{align*}
+    \end{subequations}
+\end{proof}
+
+\begin{definition}[Convolution of Functions]
+    For two functions \(\functiondomain{f, g}{\RR}{\CC}\), we define the \emph{convolution} of \(f\) and \(g\) as the function \(\functiondomain{f \convolution g}{\RR}{\CC}\) given by
+    \begin{equation}
+        f \convolution g\pqty{x} = \int f\pqty{y} g\pqty{x - y} \dd{y}.
+    \end{equation}
+\end{definition}
+
+Note that \(f \convolution g = g \convolution f\).
+
+\begin{proposition}[Convolution Theorem]
+    We have
+    \begin{equation}
+        \fourier[x][\lambda] \bqty{f \convolution g\pqty{x}} = \hat{f}\pqty{\lambda} \hat{g}\pqty{\lambda}.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    We have
+    \begin{subequations}
+        \begin{align*}
+            \fourier[x][\lambda] \bqty{f \convolution g\pqty{x}} &= \int e^{- i \lambda x} \bqty{\int f\pqty{x - y} g\pqty{y} \dd{y}} \dd{x} \\
+            &= \int \bqty{\int f\pqty{x - y} g\pqty{y} e^{- i \lambda x} \dd{x}} \dd{y} \\
+            &= \int \pqty{\int f\pqty{x} g\pqty{y} e^{- i \lambda \pqty{x + y}} \dd{x}} \dd{y} \\
+            &= \int f\pqty{x} e^{- i \lambda x} \dd{x} \int g\pqty{y} e^{- i \lambda y} \dd{y} \\
+            &= \hat{f}\pqty{\lambda} \hat{g}\pqty{\lambda}.
+        \end{align*}
+    \end{subequations}
+\end{proof}

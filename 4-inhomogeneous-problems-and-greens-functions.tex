@@ -527,3 +527,68 @@ Note that the sum is poorly defined if \(\lambda_k = 0\) for some \(k\). In fact
 
     This is precisely the expansion we found in \eqref{eq:diracdelta-eigenfunction-expansion}, but with \(w = 1\).
 \end{example}
+
+\subsection{Initial Value Problems}
+
+We want to solve the initial value problem in the form
+\begin{subequations}
+    \begin{align}
+        Ly\pqty{t} = f\pqty{t} & \qfor t > 0, \\
+        y\pqty{0} = 0 & \qfor t = 0, \\
+        \dot{y}\pqty{0} = 0 & \qfor t = 0,
+    \end{align}
+\end{subequations}
+where \(L\) again takes the form of a general second-order differential operator
+\begin{equation}
+    L = \alpha\pqty{t} \dv[2]{t} + \beta\pqty{t} \dv{t} + \gamma\pqty{t}.
+\end{equation}
+
+Fix \(\tau \in \oointv{0}{\plusinfty}\). If we could solve the related problem in terms of the Dirac \(\diracdelta\) function
+\begin{subequations}
+    \begin{align}
+        L_t \bqty{G\pqty{t, \tau}} = \diracdelta\pqty{t - \tau} & \qfor t > 0, \\
+        G\pqty{0, \tau} = 0 & \qfor t = 0, \\
+        \pdv{G}{t} \pqty{0, \tau} = 0 & \qfor t = 0,
+    \end{align}
+\end{subequations}
+then the function
+\begin{equation}
+    y\pqty{t} = \int_{0}^{\plusinfty} G\pqty{t, \tau} f\pqty{\tau} \dd{\tau}
+\end{equation}
+solves the initial value problem. The function \(G\pqty{t, \tau}\) is called the \term{Green's function} for the initial value problem.
+
+\begin{proposition}[Green's function for Initial Value Problems]
+    The Green's function determined by
+    \begin{enumerate}[label=(\alph*)]
+        \item \(G\pqty{t, \tau} = 0\) for \(t < \tau\); and
+        \item \(L_t \bqty{G\pqty{t, \tau}} = 0\) for \(t > \tau\), with initial conditions \(G\pqty{\tau^+, \tau} = 0\) and \(\pdv*{G}{t} \pqty{\tau^+, \tau} = \flatfrac{1}{\alpha\pqty{\tau}}\),
+    \end{enumerate}
+    solves the initial value problem.
+\end{proposition}
+
+\begin{proof}
+    Clearly, \(L_t\bqty{G} = 0\) for \(t < \tau\), and \(G\pqty{0, \tau} = \pdv*{G}{t} \pqty{0, \tau} = 0\). Then the second condition implies that
+    \begin{equation}
+        L_t \bqty{G\pqty{t, \tau}} = \diracdelta\pqty{t - \tau},
+    \end{equation}
+    from the first initial condition for continuity on \(G\), and the second initial condition for the jump discontinuity in \(\pdv*{G}{t}\).
+\end{proof}
+
+Note that since \(G\pqty{t, \tau} = 0\) on \(t < \tau\), the solution therefore reduces to
+\begin{equation}
+    y\pqty{t} = \int_{0}^{t} G\pqty{t, \tau} f\pqty{\tau} \dd{\tau}.
+\end{equation}
+
+In particular, this shows causality is intact, i.e. the solution at time \(t\) only depends on the forcing function \(f\) at times \(\tau < t\).
+
+\begin{example}
+    Let \(L = \dv*[2]{t}\). Then for \(t > \tau\), we have \(G\pqty{t, \tau} = A\pqty{\tau} \pqty{t - \tau} + B\pqty{\tau}\). We need \(G\pqty{\tau^+, \tau} = 0\), which gives \(B\pqty{\tau} = 0\). Then we need \(\pdv*{G}{t} \pqty{\tau^+, \tau} = A\pqty{\tau} = 1\). Hence, the solution to the initial value problem is
+    \begin{equation}
+        y\pqty{t} = \int_{0}^{t} \pqty{t - \tau} f\pqty{\tau} \dd{\tau}.
+    \end{equation}
+
+    Note this is consistent with Taylor's theorem:
+    \begin{equation}
+        y\pqty{t} = y\pqty{0} + t \dot{y}\pqty{0} + \int_{0}^{t} \pqty{t - \tau} \ddot{y} \dd{t}.
+    \end{equation}
+\end{example}
