@@ -65,7 +65,7 @@ The limit does not exist in the pointwise sense, but it does exist in a weaker s
 \begin{equation}
     \int_{\minusinfty}^{\plusinfty} f\pqty{x} \diracdelta\pqty{x - a} \dd{x} = \lim_{n \to \infty} \int_{\minusinfty}^{\plusinfty} f\pqty{x} \diracdelta_n\pqty{x - a} \dd{x} = f\pqty{a},
 \end{equation}
-and an ordinary differential equation with a Dirac delta forcing term \(\ddot{y} + \omega^2 y = \diracdelta\pqty{t}\) can be interpreted as a sequence of ordinary differential equations \(\ddot{y}_n + \omega^2 y_n = \diracdelta_n\pqty{t}\), and we have \(y_n \to y\) as \(n \to \infty\) (in a suitable sense).
+and an ordinary differential equation with a Dirac \(\diracdelta\) forcing term \(\ddot{y} + \omega^2 y = \diracdelta\pqty{t}\) can be interpreted as a sequence of ordinary differential equations \(\ddot{y}_n + \omega^2 y_n = \diracdelta_n\pqty{t}\), and we have \(y_n \to y\) as \(n \to \infty\) (in a suitable sense).
 
 This allows us to even deal with the derivative \(\diracdelta'\):
 \begin{subequations}
@@ -128,6 +128,7 @@ To check for consistency, let \(f \in V\), then we should expect that
 
 Using the eigenfunction expansion, we have
 \begin{subequations}
+    \label{eq:diracdelta-eigenfunction-expansion}%
     \begin{align}
         f\pqty{x} &= \int_{a}^{b} f\pqty{\xi} \diracdelta\pqty{x - \xi} \dd{\xi} \\
         &= \sum_{k = 1}^{\infty} \int_{a}^{b} f\pqty{\xi} w\pqty{\xi} Y_k\pqty{\xi} Y_k\pqty{x} \dd{\xi} \\
@@ -162,13 +163,13 @@ with \(\alpha, \beta, \gamma\) smooth, and \(\alpha\pqty{x} \neq 0\) for all \(x
 
 Fix \(\xi \in \oointv{a}{b}\). Suppose we can find a function \(x \mapsto G\pqty{x, \xi}\) such that
 \begin{equation}
-    L_x \bqty{G\pqty{x, \xi}} = \diracdelta\pqty{X - \xi} \qfor a < x < b
+    L_x \bqty{G\pqty{x, \xi}} = \diracdelta\pqty{x - \xi} \qfor a < x < b
 \end{equation}
 with identical boundary conditions for \(G\) reading \(G\pqty{a, \xi} = G\pqty{b, \xi} = 0\).
 
 Given such a \(G\), consider the function
 \begin{equation}
-    y\pqty{X} = \int_{a}^{b} G\pqty{x, \xi} f\pqty{\xi} \dd{\xi}.
+    y\pqty{x} = \int_{a}^{b} G\pqty{x, \xi} f\pqty{\xi} \dd{\xi}.
 \end{equation}
 
 Then \(y\pqty{a} = y\pqty{b} = 0\), and 
@@ -209,7 +210,7 @@ Clearly, a solution is given by
 
 Fix \(x > 0\), then for \(n\) sufficiently large, we get \(H_n\pqty{x} = 1\). Fix \(x < 0\), then for \(n\) sufficiently large, we get \(H_n\pqty{x} = 0\). Therefore, we have
 \begin{equation}
-    \lim{n \to \infty} H_n\pqty{x} = \begin{cases}
+    \lim_{n \to \infty} H_n\pqty{x} = \begin{cases}
         1, & \qfor x > 0, \\
         0, & \qfor x < 0.
     \end{cases}
@@ -252,6 +253,7 @@ In summary, if \(L_x\bqty{G\pqty{x, \xi}} = \diracdelta\pqty{x - \xi}\), then \(
 \end{enumerate}
 
 \begin{example}
+    \label{ex:greens-function-for-simple-operator}%
     Take the operator
     \begin{equation}
         L = \dv[2]{x} + \omega^2,
@@ -298,4 +300,230 @@ In summary, if \(L_x\bqty{G\pqty{x, \xi}} = \diracdelta\pqty{x - \xi}\), then \(
             \sin\pqty{\omega \xi} \sin\pqty{\omega \pqty{x - 1}}, & \qfor \xi < x < 1.
         \end{cases}
     \end{equation}
+\end{example}
+
+\subsection{A General Result}
+
+We want to solve an inhomogeneous problem of the form
+\begin{subequations}
+    \begin{align}
+        Ly &= f \qfor x \in \oointv{a}{b}, \\
+        y\pqty{a} &= 0, \\
+        y\pqty{b} &= 0,
+    \end{align}
+\end{subequations}
+where \(L\) is a second-order differential operator of the form
+\begin{equation}
+    L = \alpha\pqty{x} \dv[2]{x} + \beta\pqty{x} \dv{x} + \gamma\pqty{x},
+\end{equation}
+where \(\alpha \neq 0\) on \(\oointv{a}{b}\).
+
+We have the following general result.
+
+\begin{proposition}[Dirichlet Green's Function]
+    Let \(L\) be as above, and let \(y_1, y_2\) be two linearly independent solutions to the homogeneous problem \(Ly = 0\) on \(\oointv{a}{b}\), such that \(y_1\pqty{a} = 0\) and \(y_2\pqty{b} = 0\). For each fixed \(\xi \in \oointv{a}{b}\), define
+    \begin{equation}
+        G\pqty{x, \xi} = \frac{1}{\alpha\pqty{\xi} W\pqty{y_1, y_2} \pqty{\xi}} \cdot \begin{cases}
+            y_1\pqty{x} y_2\pqty{\xi}, & \qfor a < x < \xi, \\
+            y_1\pqty{\xi} y_2\pqty{x}, & \qfor \xi < x < b,
+        \end{cases}
+    \end{equation}
+    where \(W\pqty{y_1, y_2}\) is the Wronskian of \(y_1\) and \(y_2\). Then \(G\pqty{x, \xi}\) is a Dirichlet Green's function for the operator \(L\), i.e.,
+    \begin{equation}
+        L_x \bqty{G\pqty{x, \xi}} = \diracdelta\pqty{x - \xi} \qfor a < x < b,
+    \end{equation}
+    and
+    \begin{equation}
+        G\pqty{a, \xi} = G\pqty{b, \xi} = 0.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Clearly \(L_x G = 0\) on \(x \neq \xi\), since \(y_1\) and \(y_2\) are solutions to the homogeneous problem, and \(G\) is continuous at \(x = \xi\). The jump condition at \(x = \xi\) satisfies
+    \begin{subequations}
+        \begin{align}
+            \rightbar{\dv{G}{x}}_{x = \xi^+} - \rightbar{\dv{G}{x}}_{x = \xi^-} &= \frac{y_1 \pqty{\xi} y_2' \pqty{\xi} - y_1' \pqty{\xi} y_2 \pqty{\xi}}{\alpha\pqty{\xi} W\pqty{y_1, y_2} \pqty{\xi}} \\
+            &= \frac{1}{\alpha\pqty{\xi}}.
+        \end{align}
+    \end{subequations}
+
+    Therefore, \(G\) is a Dirichlet Green's function for the operator \(L\).
+\end{proof}
+
+This means the solution to the problem \(Ly = f\) with \(y\pqty{a} = y\pqty{b} = 0\) is given by
+\begin{equation}
+    y\pqty{x} = \int_{a}^{b} G\pqty{x, \xi} f\pqty{\xi} \dd{\xi},
+\end{equation}
+or equivalently,
+\begin{equation}
+    y\pqty{x} = y_2 \pqty{x} \int_{a}^{x} \frac{y_1\pqty{\xi} f\pqty{\xi}}{\alpha\pqty{\xi} W\pqty{y_1, y_2} \pqty{\xi}} \dd{\xi} + y_1 \pqty{x} \int_{x}^{b} \frac{y_2\pqty{\xi} f\pqty{\xi}}{\alpha\pqty{\xi} W\pqty{y_1, y_2} \pqty{\xi}} \dd{\xi}.
+\end{equation}
+
+Note that the integral is split into two parts, since \(G\) has different expressions for \(x < \xi\) (the second integral) and \(x > \xi\) (the first integral).
+
+\begin{example}
+    We look back at the operator in \autoref{ex:greens-function-for-simple-operator}, which is
+    \begin{equation}
+        L = \dv[2]{x} + \omega^2,
+    \end{equation}
+    with \(y\pqty{0} = y\pqty{1} = 0\). Then two linearly independent solutions to the homogeneous problem \(Ly = 0\) are
+    \begin{equation}
+        y_1\pqty{x} = \sin\pqty{\omega x}, \quad y_2\pqty{x} = \sin\pqty{\omega \pqty{x - 1}}.
+    \end{equation}
+
+    In this case, \(\alpha = 1\), and the Wronskian is therefore given by
+    \begin{subequations}
+        \begin{align}
+            W\pqty{y_1, y_2} \pqty{\xi} &= \sin\pqty{\omega \xi} \pqty{\omega \cos \pqty{\omega \pqty{\xi - 1}}} - \pqty{\omega \cos \pqty{\omega \xi}} \sin\pqty{\omega \pqty{\xi - 1}} \\
+            &= \omega \sin \pqty{\omega \xi - \omega \pqty{\xi - 1}} \\
+            &= \omega \sin \omega.
+        \end{align}
+    \end{subequations}
+
+    Hence,
+    \begin{equation}
+        G\pqty{x, \xi} = \frac{1}{\omega \sin \omega} \begin{cases}
+            \sin\pqty{\omega x} \sin\pqty{\omega \pqty{\xi - 1}}, & \qfor 0 < x < \xi, \\
+            \sin\pqty{\omega \xi} \sin\pqty{\omega \pqty{x - 1}}, & \qfor \xi < x < 1,
+        \end{cases}
+    \end{equation}
+    which gives the identical answer.
+\end{example}
+
+\subsection{Green's Functions for Sturm--Liouville Operators}
+
+Now, suppose \(L\) takes the form of a Sturm--Liouville operator
+\begin{equation}
+    L = \frac{1}{w\pqty{x}} \bqty{- \dv{x} \bqty{p\pqty{x} \dv{x}} + q\pqty{x}},
+\end{equation}
+and we want to solve \(Ly = f\) on \(\oointv{a}{b}\) subject to \(y\pqty{a} = y\pqty{b} = 0\). Without loss of generality, we may set \(w = 1\) (otherwise absorb it into \(f\)). Therefore, \(\alpha = -p, \beta = - p', \gamma = q\).
+
+\begin{proposition}[Wronskian for Sturm--Liouville Operators]
+    If \(y_1, y_2\) are two linearly independent solutions to the homogeneous problem \(Ly = 0\) on \(\oointv{a}{b}\), then
+    \begin{equation}
+        \dv{x} \pqty{p \pqty{x} W\pqty{y_1, y_2} \pqty{x}} = 0,
+    \end{equation}
+    i.e., \(pW\) is a constant.
+\end{proposition}
+
+\begin{proof}
+    Compute
+    \begin{subequations}
+        \begin{align}
+            y_2 L y_1 - y_1 L y_2 &= - y_2 \pqty{\pqty{p y_1'}' - q y_1} + y_1 \pqty{\pqty{p y_2'}' - q y_2} \\
+            &= y_1 \pqty{p y_2'}' - y_2 \pqty{p y_1'}' \\
+            &= \dv{x} \pqty{p \pqty{y_1 y_2' - y_2 y_1'}} \\
+            &= \dv{x} \pqty{p W\pqty{y_1, y_2}}.
+        \end{align}
+    \end{subequations}
+
+    So if \(y_1, y_2\) are solutions to the homogeneous problem, then \(Ly_1 = Ly_2 = 0\), and the left-hand side vanishes.
+\end{proof}
+
+Therefore, the Dirichlet Green's function for a Sturm--Liouville operator reduces to
+\begin{equation}
+    G\pqty{x, \xi} = C \begin{cases}
+        y_1\pqty{x} y_2\pqty{\xi}, & \qfor a < x < \xi, \\
+        y_1\pqty{\xi} y_2\pqty{x}, & \qfor \xi < x < b,
+    \end{cases}
+\end{equation}
+where the constant \(C\) is equal to
+\begin{equation}
+    C = - \frac{1}{p\pqty{\xi} W\pqty{y_1, y_2} \pqty{\xi}}.
+\end{equation}
+
+We may evaluate this at any \(\xi \in \oointv{a}{b}\), and also, by continuity, any \(\xi \in \ccintv{a}{b}\).
+
+\subsection{Returning to Eigenfunction Expansions}
+
+Let \(L\) be a Sturm--Liouville operator with \(w = 1\), and let \(\Bqty{Y_k}_{k = 1}^{\infty}\) be the normalised eigenfunctions with corresponding eigenvalues \(\Bqty{\lambda_k}_{k = 1}^{\infty}\), i.e.,
+\begin{subequations}
+    \begin{align}
+        L Y_k &= \lambda_k Y_k, \\
+        \inner{Y_k}{Y_l} &= \delta_{kl}.
+    \end{align}
+\end{subequations}
+
+Take the vector space to be
+\begin{equation}
+    V = \set{y \in \contClass{2}\pqty{\ccintv{a}{b}}}{y\pqty{a} = y\pqty{b} = 0},
+\end{equation}
+then for \(f \in V\), we could expand \(f\) as
+\begin{equation}
+    f\pqty{x} = \sum_{k = 1}^{\infty} \hat{f}_k Y_k\pqty{x},
+\end{equation}
+where
+\begin{equation}
+    \hat{f}_k = \inner{f}{Y_k} = \int_{a}^{b} f\pqty{x} Y_k\pqty{x} \dd{x}.
+\end{equation}
+
+Now, consider the Dirichlet Green's function for this problem. For each fixed \(\xi \in \oointv{a}{b}\), \(G\pqty{x, \xi}\) clearly satisfies the boundary conditions \(G\pqty{a, \xi} = G\pqty{b, \xi} = 0\), but clearly \(G\pqty{\cdot, \xi} \notin \contClass{2} \pqty{\ccintv{a}{b}}\). However, if we think of \(G\) as the limit of the sequence \(G_n \pqty{x, \xi}\), where
+\begin{subequations}
+    \begin{align}
+        L_x \bqty{G_n\pqty{x, \xi}} &= \diracdelta_n\pqty{x - \xi}, \\
+        G_n \pqty{a, \xi} &= 0, \\
+        G_n \pqty{b, \xi} &= 0.
+    \end{align}
+\end{subequations}
+
+Then each \(G_n \pqty{\cdot, \xi}\) is a member of the vector space \(V\), and hence eigenfunction expansion is allowed. This allows to expand \(G\) as well, through the limit \(n \to \infty\).
+
+\begin{proposition}[Dirichlet Green's Function and Eigenfunction Expansions]
+    Let \(L, V, \pqty{Y_k, \lambda_k}_{k = 1}^{\infty}\) be as above. The Dirichlet Green's function \(G\pqty{x, \xi}\) for the operator \(L\) has the eigenfunction expansion
+    \begin{equation}
+        G\pqty{x, \xi} = \sum_{k = 1}^{\infty} \frac{Y_k\pqty{x} Y_k\pqty{\xi}}{\lambda_k}.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    By eigenfunction expansion, we have
+    \begin{equation}
+        G\pqty{x, \xi} = \sum_{k = 1}^{\infty} \hat{G}_k\pqty{\xi} Y_k\pqty{x},
+    \end{equation}
+    where the coefficients are given by
+    \begin{subequations}
+        \begin{align}
+            \hat{G} \pqty{\xi} &= \inner{G\pqty{\cdot, \xi}}{Y_k} \\
+            &= \frac{1}{\lambda_k} \inner{G\pqty{\cdot, \xi}}{L Y_k} \\
+            &= \frac{1}{\lambda_k} \inner{L G\pqty{\cdot, \xi}}{Y_k} \\
+            &= \frac{1}{\lambda_k} \inner{\diracdelta\pqty{\cdot - \xi}}{Y_k} \\
+            &= \frac{1}{\lambda_k} \int_{a}^{b} \diracdelta\pqty{x - \xi} Y_k\pqty{x} \dd{x} \\
+            &= \frac{Y_k\pqty{\xi}}{\lambda_k}.
+        \end{align}
+    \end{subequations}
+
+    Hence, we have
+    \begin{equation}
+        G\pqty{x, \xi} = \sum_{k = 1}^{\infty} \frac{Y_k\pqty{x} Y_k\pqty{\xi}}{\lambda_k}.
+    \end{equation}
+\end{proof}
+
+\small
+
+Note that the sum is poorly defined if \(\lambda_k = 0\) for some \(k\). In fact, if \(\lambda_= 0\) is an eigenvalue of \(L\), then we lose the injectivity of \(L\), and hence the Dirichlet Green's function does not exist.
+
+\normalsize
+
+\begin{example}
+    Take the differential operator \(L = -\dv*[2]{x}\) and \(\oointv{a}{b} = \oointv{0}{1}\). Then we have
+    \begin{equation}
+        Y_k\pqty{x} = \sqrt{2} \sin\pqty{k \pi x}, \quad \lambda_k = k^2 \pi^2, \quad k = 1, 2, 3, \ldots.
+    \end{equation}
+
+    Then the Dirichlet Green's function has the eigenfunction expansion
+    \begin{equation}
+        G\pqty{x, \xi} = \sum_{k = 1}^{\infty} \frac{2 \sin\pqty{k \pi x} \sin\pqty{k \pi \xi}}{k^2 \pi^2}.
+    \end{equation}
+
+    Using the above representation of the green's function, we get an expansion of the Dirac \(\diracdelta\) function for free. This is given by
+    \begin{subequations}
+        \begin{align}
+            \diracdelta\pqty{x - \xi} &= L_x \bqty{G\pqty{x, \xi}} \\
+            &= \sum_{k = 1}^{\infty} \frac{L_x \bqty{Y_k\pqty{x}} Y_k\pqty{\xi}}{\lambda_k} \\
+            &= \sum_{k = 1}^{\infty} \frac{\lambda_k Y_k\pqty{x} Y_k\pqty{\xi}}{\lambda_k} \\
+            &= \sum_{k = 1}^{\infty} Y_k\pqty{x} Y_k\pqty{\xi}.
+        \end{align}
+    \end{subequations}
+
+    This is precisely the expansion we found in \eqref{eq:diracdelta-eigenfunction-expansion}, but with \(w = 1\).
 \end{example}
