@@ -36,9 +36,9 @@ and
         \text{Initial Conditions} = 0 &\qfor \pqty{\vb{x}, t} \in \Omega \times \Bqty{0}.
     \end{align}
 \end{subequations}
-then by linearity, the function \(\varphi = \varphi_1 + \varphi_2\) solves our original IVBP.
+then by linearity, the function \(\varphi = \varphi_1 + \varphi_2\) solves our original IBVP.
 
-Furthermore, observe that for problems in this section, it will turn out that \(\Omega\), possibly aftersome change of variables, will be come a line/rectangle/cuboid. Without loss of generality, we may assume that all boundary conditions vanish on all but one endpoint/edge/face.
+Furthermore, observe that for problems in this section, it will turn out that \(\Omega\), possibly after some change of variables, will be come a line/rectangle/cuboid. Without loss of generality, we may assume that all boundary conditions vanish on all but one endpoint/edge/face.
 
 \begin{example}
     Consider \(P \psi = 0\) for \(\pqty{x, y} \in \oointv{0}{1} \times \oointv{0}{1}\), with \(\psi = f_i\) on the \(i\)th side for the boundary conditions. Instead, using linearity, we consider \(\psi_i\) for \(i = 1, 2, 3, 4\) with the conditions
@@ -216,7 +216,7 @@ Therefore, the radial equation now reads \(r \pqty{r R'}' = n^2 R\), and trying 
 This might look complicated, but if the domain contains \(r = 0\), we must have \(B = 0\) and \(B_n = 0\) for all \(n\), otherwise the function \(\varphi\) will diverge at \(r = 0\).
 
 \begin{example}
-    Consider the boundary value problem
+    Consider the BVP
     \begin{subequations}
         \begin{align}
             \laplacian \varphi = 0 &\qfor r_1 < r < r_2, \\
@@ -333,7 +333,7 @@ Therefore, the general solution is given by
         f\pqty{\theta} = \sum_{n = 0}^{\infty} \alpha_n P_n\pqty{\cos \theta}.
     \end{equation}
     
-    Recall the orthoganality of the Legendre polynomials, which reads
+    Recall the orthogonality of the Legendre polynomials, which reads
     \begin{equation}
         \int_{-1}^{1} P_n\pqty{x} P_m\pqty{x} \dd{x} = \frac{2}{2 n + 1} \kronecker_{nm},
     \end{equation}
@@ -519,7 +519,7 @@ whose solution is
 
 Then the general solution is
 \begin{equation}
-    \varphi\pqty{r, t} = \sum_{k = 1}^{\infty} J_0 \pqty{j_{0, k} r} \bqty{\begin{split}A_k \cos \pqty{c j_{0, k} t} \\ \quad+ B_k \sin \pqty{c j_{0, k} t}\end{split}}.
+    \varphi\pqty{r, t} = \sum_{k = 1}^{\infty} J_0 \pqty{j_{0, k} r} \bqty{A_k \cos \pqty{c j_{0, k} t} + B_k \sin \pqty{c j_{0, k} t}}.
 \end{equation}
 
 \small
