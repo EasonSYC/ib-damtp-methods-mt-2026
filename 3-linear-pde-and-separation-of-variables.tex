@@ -208,10 +208,16 @@ So for some constant \(\lambda \in \RR\), we have
 
 The angular component solves to \(\Theta\pqty{\theta} = A \cos \pqty{\sqrt{\lambda} \theta} + B \sin \pqty{\sqrt{\lambda} \theta}\). But we require \(\Theta\pqty{r} = \Theta\pqty{r + 2 \pi}\) since they correspond to the same point in the \(\pqty{x, y}\) plane, and hence \(\lambda = n^2\) for \(n = 0, 1, 2, \ldots\).
 
-Therefore, the radial equation now reads \(r \pqty{r R'}' = n^2 R\), and trying the ansatz \(R = r^\alpha\) gives \(\alpha^2 = n^2\) for \(n \neq 0\), and in the case where \(n = 0\), we get \(R = A + B \log r\). So ghe general solution will be of the form
-\begin{equation}
-    \varphi\pqty{r, \theta} = A + B \log r + \sum_{n = 1}^{\infty} \pqty{A_n r^n + B_n r^{-n}} \pqty{C_n \cos n \theta + D_n \sin n \theta}.
-\end{equation}
+Therefore, the radial equation now reads \(r \pqty{r R'}' = n^2 R\), and trying the ansatz \(R = r^\alpha\) gives \(\alpha^2 = n^2\) for \(n \neq 0\), and in the case where \(n = 0\), we get \(R = A + B \log r\). So the general solution will be of the form
+\begin{subequations}
+    \begin{equation}
+        \varphi\pqty{r, \theta} = A + B \log r + \sum_{n = 1}^{\infty} \pqty{A_n r^n + B_n r^{-n}} \pqty{C_n \cos n \theta + D_n \sin n \theta}.
+    \end{equation}
+    but in fact this is \emph{not} the most general: since for example, we can never have \(\pqty{A x_1 + B x_2} \pqty{C y_1 + D y_2} = x_1 y_2 + x_2 y_1\), the general solution should be of the form
+    \begin{equation}
+        \varphi\pqty{r, \theta} = A + B \log r + \sum_{n = 1}^{\infty} \pqty{A_n r^n + B_n r^{-n}} \cos n \theta + \sum_{n = 1}^{\infty} \pqty{C_n r^n + D_n r^{-n}} \sin n \theta.
+    \end{equation}
+\end{subequations}
 
 This might look complicated, but if the domain contains \(r = 0\), we must have \(B = 0\) and \(B_n = 0\) for all \(n\), otherwise the function \(\varphi\) will diverge at \(r = 0\).
 
@@ -265,7 +271,7 @@ Again, if a more general BVP is given in the form
 \end{subequations}
 then we may superpose the solutions \(\varphi = \varphi_1 + \varphi_2\) to the two boundary conditions, respectively.
 
-\subsubsection{Separation of Variables on a ball (Axisymmetric Case)}
+\subsubsection{Separation of Variables on a Ball (Axisymmetric Case)}
 
 We consider the Laplace's equation on a region \(a \leq \abs{\vb{x}} \leq b\) in \(\RR^3\), with symmetry about the \(z-axis\), i.e. our solutions will be of the form \(\varphi = \varphi\pqty{r, \theta}\) in the usual spherical polar coordinates \(\pqty{r, \theta, \phi}\), where \(r \in \cointv{0}{\plusinfty}\), \(\theta \in \ccintv{0}{\pi}\) and \(\phi \in \cointv{0}{2 \pi}\).
 
