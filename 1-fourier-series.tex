@@ -13,7 +13,7 @@ Fourier made the following claim.
     \begin{equation}
         f\pqty{\theta} = \sum_{n \in \ZZ} \hat{f}_n e^{i n \theta},
     \end{equation}
-    and the coefficients \(\Bqty{\hat{f}_n}\) can be recovered as
+    and the coefficients \(\set{\hat{f}_n}\) can be recovered as
     \begin{equation}
         \label{eq:fourier-claim-coefficient}%
         \hat{f}_n = \frac{1}{2\pi} \int_{0}^{2 \pi} f\pqty{\theta} e^{-i n \theta} \dd{\theta}.        
@@ -52,9 +52,9 @@ Certainly, \(e_n \in V\) for all \(n \in \ZZ\), and the inner product satisfies
         0, & m \neq n,
     \end{cases}
 \end{equation}
-i.e., \(\inner{e_m}{e_n} = L \kronecker_{mn}\). So \(\Bqty{e_n}\) are orthogonal in \(V\) and \(\norm{e_n}^2 = L\).
+i.e., \(\inner{e_m}{e_n} = L \kronecker_{mn}\). So \(\set{e_n}\) are orthogonal in \(V\) and \(\norm{e_n}^2 = L\).
 
-Recall from \textit{IA Vectors and Matrices}, that if \(V_N\) is an \(N\)-dimensional vector space, and the set \(\Bqty{\vb{e}_n}_{n = 1}^{N}\) were orthogonal and \(\norm{\vb{e}_n}^2 = L\), then for any \(\vb{x} \in L_N\), we can write
+Recall from \textit{IA Vectors and Matrices}, that if \(V_N\) is an \(N\)-dimensional vector space, and the set \(\set{\vb{e}_n}_{n = 1}^{N}\) were orthogonal and \(\norm{\vb{e}_n}^2 = L\), then for any \(\vb{x} \in L_N\), we can write
 \begin{equation}
     \vb{x} = \sum_{n = 1}^{N} \hat{x}_n \vb{e}_n,
 \end{equation}
@@ -72,7 +72,7 @@ So for every \(\vb{x} \in V_N\), we have
     \vb{x} = \sum_{n = 1}^{N} \hat{x}_n \vb{e}_n, \quad \hat{x}_n = \frac{1}{L} \pqty{\vb{x} \vdot \vb{e}_n}.
 \end{equation}
 
-The question is can we do the same for \(V\), although \(V\) is not a finite-dimensional vector space (since no finite subset of \(\Bqty{e_n}_{n \in \ZZ}\) is linearly dependent)? Well, let's see what happens if we try to do the same.
+The question is can we do the same for \(V\), although \(V\) is not a finite-dimensional vector space (since no finite subset of \(\set{e_n}_{n \in \ZZ}\) is linearly dependent)? Well, let's see what happens if we try to do the same.
 
 Suppose an \(f \in V\) can be written in the form
 \begin{equation}
@@ -116,7 +116,7 @@ Note that this is precisely the same as \eqref{eq:fourier-claim-coefficient} wit
 
 We would love to replace the sign ``\(\sim\)'' with simply an equal sign ``\(=\)'', but we cannot always do that.
 
-We split this sum according to \(\Bqty{n = 0} \cup \Bqty{n > 0} \cup \Bqty{n < 0}\). Then we have
+We split this sum according to \(\set{n = 0} \cup \set{n > 0} \cup \set{n < 0}\). Then we have
 \begin{subequations}
     \begin{align}
         \sum_{n \in \ZZ} \hat{f}_n \exp\pqty{\frac{2 \pi i n \theta}{L}} &= \hat{f}_0 + \sum_{n = 1}^{\infty} \hat{f}_n \exp\pqty{\frac{2 \pi i n \theta}{L}} + \sum_{n = 1}^{\infty} \hat{f}_{-n} \exp\pqty{-\frac{2 \pi i n \theta}{L}} \\
@@ -433,7 +433,7 @@ Note that \(f\pqty{\theta} = f_{\text{even}} \pqty{\theta} = f_{\text{odd}} \pqt
             \sum_{n = 1}^{\infty} B_n \sin \pqty{\frac{n \pi \theta}{L}},
         \end{equation}
     \end{subequations}
-    where the coefficients \(\Bqty{A_n, B_n}\) are given by \eqref{eq:cosine-series-coefficients} and \eqref{eq:sine-series-coefficients}.
+    where the coefficients \(\set{A_n, B_n}\) are given by \eqref{eq:cosine-series-coefficients} and \eqref{eq:sine-series-coefficients}.
 \end{definition}
 
 \begin{example}

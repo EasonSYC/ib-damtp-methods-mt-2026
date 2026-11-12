@@ -105,7 +105,7 @@ which is consistent with the Fourier series representation of \(f\) at \(x = 0\)
 
 Suppose we have a Sturm--Liouville problem \(\mathcal{L} y = \lambda w y\) on a vector space \(V \subseteq \contClass{2} \pqty{\ccintv{a}{b}}\) where \(y \in V\) satisfies real, homogeneous boundary conditions at each non-singular endpoint.
 
-Let \(\Bqty{Y_k}_{k = 1}^{\infty}\) be the \emph{normalised}, orthogonal eigenfunctions of \(\mathcal{L}\). For each \(\xi \in \oointv{a}{b}\), consider \(x \mapsto \diracdelta_n \pqty{x - \xi}\). Then for sufficiently large \(n\), this function would eventually satisfy the boundary conditions and belongs to \(V\). By completeness of the set of eigenfunctions, we will have the eigenfunction expansion
+Let \(\set{Y_k}_{k = 1}^{\infty}\) be the \emph{normalised}, orthogonal eigenfunctions of \(\mathcal{L}\). For each \(\xi \in \oointv{a}{b}\), consider \(x \mapsto \diracdelta_n \pqty{x - \xi}\). Then for sufficiently large \(n\), this function would eventually satisfy the boundary conditions and belongs to \(V\). By completeness of the set of eigenfunctions, we will have the eigenfunction expansion
 \begin{subequations}
     \begin{equation}
         \diracdelta_n \pqty{x - \xi} = \sum_{k = 1}^{\infty} c^{\pqty{n}}_k Y_k\pqty{x},
@@ -198,7 +198,7 @@ We want to find a function \(H\) such that
     \dv{x} H \sim \diracdelta\pqty{x - \xi}.
 \end{equation}
 
-Recall the rigorous treatment of \(\diracdelta\pqty{x}\) involves the sequence \(\Bqty{\diracdelta_n\pqty{x}}_{n = 1}^{\infty}\) such that \(\lim_{n \to \infty} \diracdelta_n\pqty{x} = 0\) for \(x \neq 0\), with \(\lim_{n \to \infty} \int_{-\epsilon}^{\epsilon} \diracdelta_n\pqty{x} \dd{x} = 1\) for all \(\epsilon > 0\). Then, we can define \(H_n\pqty{x}\) such that
+Recall the rigorous treatment of \(\diracdelta\pqty{x}\) involves the sequence \(\set{\diracdelta_n\pqty{x}}_{n = 1}^{\infty}\) such that \(\lim_{n \to \infty} \diracdelta_n\pqty{x} = 0\) for \(x \neq 0\), with \(\lim_{n \to \infty} \int_{-\epsilon}^{\epsilon} \diracdelta_n\pqty{x} \dd{x} = 1\) for all \(\epsilon > 0\). Then, we can define \(H_n\pqty{x}\) such that
 \begin{equation}
     \dv{x} H_n\pqty{x} = \diracdelta_n\pqty{x}.
 \end{equation}
@@ -262,7 +262,7 @@ In summary, if \(L_x\bqty{G\pqty{x, \xi}} = \diracdelta\pqty{x - \xi}\), then \(
 
     Fix \(\xi \in \oointv{a}{b}\). Then
     \[
-        L\bqty{G\pqty{x, \xi}} = 0 \qfor x \in \oointv{0}{1} \setminus \Bqty{\xi},
+        L\bqty{G\pqty{x, \xi}} = 0 \qfor x \in \oointv{0}{1} \setminus \set{\xi},
     \]
     so we get
     \begin{equation}
@@ -436,7 +436,7 @@ We may evaluate this at any \(\xi \in \oointv{a}{b}\), and also, by continuity, 
 
 \subsection{Returning to Eigenfunction Expansions}
 
-Let \(L\) be a Sturm--Liouville operator with \(w = 1\), and let \(\Bqty{Y_k}_{k = 1}^{\infty}\) be the normalised eigenfunctions with corresponding eigenvalues \(\Bqty{\lambda_k}_{k = 1}^{\infty}\), i.e.,
+Let \(L\) be a Sturm--Liouville operator with \(w = 1\), and let \(\set{Y_k}_{k = 1}^{\infty}\) be the normalised eigenfunctions with corresponding eigenvalues \(\set{\lambda_k}_{k = 1}^{\infty}\), i.e.,
 \begin{subequations}
     \begin{align}
         L Y_k &= \lambda_k Y_k, \\

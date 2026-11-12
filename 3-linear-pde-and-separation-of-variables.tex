@@ -14,7 +14,7 @@ Instead, if we study an \term{initial BVP (BVP)}, then the equation be of the fo
     \begin{align}
         Q \varphi\pqty{\vb{x}, t} = 0 &\qfor \pqty{\vb{x}, t} \in \Omega \times \oointv{0}{T}, \\
         \text{\term{Boundary Conditions}} &\qfor \pqty{\vb{x}, t} \in \partial \Omega \times \oointv{0}{T}, \\
-        \text{\term{Initial Conditions}} &\qfor \pqty{\vb{x}, t} \in \Omega \times \Bqty{0}.
+        \text{\term{Initial Conditions}} &\qfor \pqty{\vb{x}, t} \in \Omega \times \set{0}.
     \end{align}
 \end{subequations}
 
@@ -25,7 +25,7 @@ Note the following observation. For an IBVP problem, we can break this up into s
     \begin{align}
         Q \varphi_1 \pqty{\vb{x}, t} = 0 &\qfor \pqty{\vb{x}, t}, \\
         \text{Boundary Conditions} = 0 &\qfor \pqty{\vb{x}, t} \in \partial \Omega \times \oointv{0}{T}, \\
-        \text{Initial Conditions} &\qfor \pqty{\vb{x}, t} \in \Omega \times \Bqty{0}.
+        \text{Initial Conditions} &\qfor \pqty{\vb{x}, t} \in \Omega \times \set{0}.
     \end{align}
 \end{subequations}
 and
@@ -33,7 +33,7 @@ and
     \begin{align}
         Q \varphi_2 \pqty{\vb{x}, t} = 0 &\qfor \pqty{\vb{x}, t}, \\
         \text{Boundary Conditions} &\qfor \pqty{\vb{x}, t} \in \partial \Omega \times \oointv{0}{T}, \\
-        \text{Initial Conditions} = 0 &\qfor \pqty{\vb{x}, t} \in \Omega \times \Bqty{0}.
+        \text{Initial Conditions} = 0 &\qfor \pqty{\vb{x}, t} \in \Omega \times \set{0}.
     \end{align}
 \end{subequations}
 then by linearity, the function \(\varphi = \varphi_1 + \varphi_2\) solves our original IBVP.
@@ -140,7 +140,7 @@ We want
     f\pqty{x} = \varphi\pqty{x, 1} = \sum_{n = 1}^{\infty} A_N \sin \pqty{n \pi x} \sinh \pqty{n \pi}.
 \end{equation}
 
-Since from Sturm--Liouville theory, the \(\Bqty{X_n}\) satisfy the Sturm--Liouville problem, the orthogonality equation
+Since from Sturm--Liouville theory, the \(\set{X_n}\) satisfy the Sturm--Liouville problem, the orthogonality equation
 \begin{equation}
     \inner{X_n}{X_m} = \int_{0}^{1} \sin \pqty{n \pi x} \sin \pqty{m \pi x} \dd{x} = \frac{1}{2} \kronecker_{nm}.
 \end{equation}
@@ -689,7 +689,7 @@ Consider the IBVP given by
     \begin{align}
         \varphi_t - \kappa \laplacian \varphi = 0 &\qfor \pqty{\vb{x}, t} \in \Omega \times \oointv{0}{\plusinfty}, \\
         \varphi\pqty{\vb{x}, t} = 0 &\qfor \pqty{\vb{x}, t} \in \partial \Omega \times \oointv{0}{\plusinfty}, \\
-        \varphi\pqty{\vb{x}, 0} = f\pqty{\vb{x}} &\qfor \pqty{\vb{x}, t} \in \Omega \times \Bqty{0}.
+        \varphi\pqty{\vb{x}, 0} = f\pqty{\vb{x}} &\qfor \pqty{\vb{x}, t} \in \Omega \times \set{0}.
     \end{align}
 \end{subequations}
 

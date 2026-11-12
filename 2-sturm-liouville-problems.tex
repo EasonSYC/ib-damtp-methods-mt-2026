@@ -11,7 +11,7 @@ This is equivalent, in matrix notation, saying that \(A = A\hermitian\). Hermiti
 \begin{enumerate}[label=(\roman*)]
     \item Eigenvalues of Hermitian maps are real.
     \item Eigenvectors of Hermitian maps corresponding to distinct eigenvalues are orthogonal.
-    \item There exists a set \(\Bqty{\vb{y}_n}_{n = 1}^{N}\) of eigenvectors such that every \(\vb{x} \in V_N\) can be written as
+    \item There exists a set \(\set{\vb{y}_n}_{n = 1}^{N}\) of eigenvectors such that every \(\vb{x} \in V_N\) can be written as
     \begin{subequations}
         \begin{equation}
             \vb{x} = \sum_{n = 1}^{N} \hat{x}_n \vb{y}_n
@@ -46,14 +46,14 @@ and we write
     for all \(y_1, y_2 \in V\).
 \end{definition}
 
-We say \(\pqty{\lambda, y} \in \CC \times \pqty{V \setminus \Bqty{0}}\) is an \term{eigenvalue-eigenfunction pair} for \(L\), if \(Ly = \lambda_y\).
+We say \(\pqty{\lambda, y} \in \CC \times \pqty{V \setminus \set{0}}\) is an \term{eigenvalue-eigenfunction pair} for \(L\), if \(Ly = \lambda_y\).
 
 \begin{proposition}[Properties of Self-Adjoint Operators]
     If \(L\) is self-adjoint on \(\pqty{V, \inner[w]{\cdot}{\cdot}}\), then:
     \begin{enumerate}[label=(\roman*)]
         \item eigenvalues of \(L\) are real;
         \item eigenfunctions of \(L\) corresponding to distinct eigenvalues are orthogonal with respect to \(\inner[w]{\cdot}{\cdot}\);
-        \item there exists a set \(\Bqty{y_n}_{n = 1}^{\infty}\) of eigenfunctions such that every \(f \in V\) can be written as
+        \item there exists a set \(\set{y_n}_{n = 1}^{\infty}\) of eigenfunctions such that every \(f \in V\) can be written as
         \begin{equation}
             f = \sum_{n = 1}^{\infty} \hat{f}_n y_n,
         \end{equation}
@@ -125,7 +125,7 @@ on \(a < x < b\).
 We will impose boundary conditions by forcing \(y\) to belong to some vector space \(V\).
 
 \begin{definition}[Singular and Non-Singular Endpoints]
-    Given a Sturm--Liouville operator on \(\oointv{a}{b}\), we say an endpoint \(c \in \Bqty{a, b}\) is \term{singular} if \(p\pqty{c} = 0\), and \term{non-singular} otherwise.
+    Given a Sturm--Liouville operator on \(\oointv{a}{b}\), we say an endpoint \(c \in \set{a, b}\) is \term{singular} if \(p\pqty{c} = 0\), and \term{non-singular} otherwise.
 \end{definition}
 
 We will only specify boundary conditions at non-singular endpoints. At non-singular endpoints, we will impose real, homogeneous boundary conditions of the form
@@ -174,9 +174,9 @@ We equip \(V\) with an inner product \(\inner[w]{\cdot}{\cdot}\), where \(w\) is
     \end{subequations}
     where \(W\) is the \term{Wronskian} of \(y_1\) and \(\conjugate{y_2}\) (recall from \textit{IA Differential Equations}).
 
-    Now assume \(y_1, y_2 \in V\). If \(c \in \Bqty{a, b}\) is singular, then \(p \pqty{c} = 0\), i.e., the right-hand side of \eqref{eq:sturm-liouville-wronskian} vanishes at \(x = c\).
+    Now assume \(y_1, y_2 \in V\). If \(c \in \set{a, b}\) is singular, then \(p \pqty{c} = 0\), i.e., the right-hand side of \eqref{eq:sturm-liouville-wronskian} vanishes at \(x = c\).
 
-    If \(c \in \Bqty{a, b}\) is non-singular, they behave boundary conditions of the form
+    If \(c \in \set{a, b}\) is non-singular, they behave boundary conditions of the form
     \begin{equation}
         \alpha_c y\pqty{c} + \beta_c y'\pqty{c} = 0,
     \end{equation}
@@ -198,7 +198,7 @@ Note that we can assume elements of \(V\) are real without loss of generality, s
     \inner[w]{f}{g} = \int_{a}^{b} f\pqty{x} g\pqty{x} w\pqty{x} \dd{x}.
 \end{equation}
 
-Since \(L\) is self-adjoint on \(\pqty{V, \inner[w]{\cdot}{\cdot}}\), we know there is some set of eigenfunction/eigenvalue pairs \(\pqty{\lambda_n, y_n}_{n = 1}^{\infty} \in \RR \times \pqty{V \setminus \Bqty{0}}\), such that \(L y_n = \lambda_n y_n\), and that
+Since \(L\) is self-adjoint on \(\pqty{V, \inner[w]{\cdot}{\cdot}}\), we know there is some set of eigenfunction/eigenvalue pairs \(\pqty{\lambda_n, y_n}_{n = 1}^{\infty} \in \RR \times \pqty{V \setminus \set{0}}\), such that \(L y_n = \lambda_n y_n\), and that
 \begin{equation}
     \int_{a}^{b} y_m\pqty{x} y_n\pqty{x} w\pqty{x} \dd{x} = 0
 \end{equation}
@@ -465,7 +465,7 @@ where \(C = C\pqty{N, \lambda}\). Write
     y_0 = \sum_{n \geq N} A_n x^{2n} + \sum_{n > N} A_n x^{2n}.
 \end{equation}
 
-In the latter sum, all \(\Bqty{A_n}\) have the same sign so take positive without loss of generality, then
+In the latter sum, all \(\set{A_n}\) have the same sign so take positive without loss of generality, then
 \begin{subequations}
     \begin{align}
         \sum_{n > N} A_n x^{2n} &\geq C \sum_{n > N} \frac{x^{2n}}{n} \\
@@ -558,7 +558,7 @@ By orthogonality, we get
 
 \subsection{Homogeneous Problems}
 
-Consider problems of the form \(L y = f\) where \(L\) is a Sturm--Liouville operator. By absorbing into \(f\) if necessary, we can assume \(w = 1\). Without loss of generality, let \(V\) be an appropriate subspace of \(\contClass{2}\pqty{\ccintv{a}{b}}\), so that \(L\) is self-adjoint on \(\pqty{V, \inner{\cdot}{\cdot}}\). Let \(\Bqty{y_k}\) be normalised (i.e., \(\norm{y_k} = 1\)) be eigenfunctions of \(L\) with \(L y_k = \lambda_k y_k\). If \(f \in V\), by completeness, write
+Consider problems of the form \(L y = f\) where \(L\) is a Sturm--Liouville operator. By absorbing into \(f\) if necessary, we can assume \(w = 1\). Without loss of generality, let \(V\) be an appropriate subspace of \(\contClass{2}\pqty{\ccintv{a}{b}}\), so that \(L\) is self-adjoint on \(\pqty{V, \inner{\cdot}{\cdot}}\). Let \(\set{y_k}\) be normalised (i.e., \(\norm{y_k} = 1\)) be eigenfunctions of \(L\) with \(L y_k = \lambda_k y_k\). If \(f \in V\), by completeness, write
 \begin{equation}
     y = \sum_k A_k y_k, \quad f = \sum_k B_k y_k
 \end{equation}
