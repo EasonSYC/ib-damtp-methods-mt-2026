@@ -52,13 +52,13 @@ in this section.
 
     For \eqref{eq:fourier-poly}, we have
     \begin{subequations}
-        \begin{align*}
+        \begin{align}
             i^k \pqty{\dv{\lambda}}^k \hat{f}\pqty{\lambda} &= i^k \pqty{\dv{\lambda}}^k \int f\pqty{x} e^{-i \lambda x} \dd{x} \\
             &= \pqty{i \dv{\lambda}}^k \int f\pqty{x} e^{-i \lambda x} \dd{x} \\
             &= \int f\pqty{x} \pqty{i \dv{\lambda}}^k e^{-i \lambda x} \dd{x} \\
             &= \int f\pqty{x} x^k e^{-i \lambda x} \dd{x} \\
             &= \fourier[x][\lambda] \bqty{x^k f\pqty{x}},
-        \end{align*}
+        \end{align}
     \end{subequations}
     by differentiating under the integral.
 \end{proof}
@@ -102,10 +102,10 @@ To find \(y = y\pqty{x}\), we would need to invert the Fourier transform.
 
     Using this, we have
     \begin{subequations}
-        \begin{align*}
+        \begin{align}
             \frac{1}{2\pi} \int_{-n}^{n} e^{i \lambda x} \hat{f}\pqty{\lambda} \dd{\lambda} - f\pqty{x} &= \int \frac{\sin \pqty{n y}}{\pi y} \bqty{f\pqty{x + y} - f\pqty{x}} \dd{y} \\
             &= \int \sin\pqty{ny} F\pqty{x, y} \dd{y},
-        \end{align*}
+        \end{align}
     \end{subequations}
     where we define the new function as
     \begin{equation}
@@ -114,10 +114,10 @@ To find \(y = y\pqty{x}\), we would need to invert the Fourier transform.
 
     Using integration by parts, we may concludes that
     \begin{subequations}
-        \begin{align*}
+        \begin{align}
             \int \sin\pqty{ny} F\pqty{x, y} \dd{y} &= \frac{1}{n} \int \cos\pqty{ny} \dv{y} F\pqty{x, y} \dd{y} \\
             &\to 0
-        \end{align*}
+        \end{align}
     \end{subequations}
     as \(n \to \infty\), by the \autoref{thm:riemann-lebesgue-lemma} (Riemann--Lebesgue Lemma).
 \end{proof}
@@ -128,6 +128,7 @@ If we remove the limiting process, we have the \emph{formal} formula
 \end{equation}
 and the Dirac \(\diracdelta\) function therefore satisfies
 \begin{equation}
+    \label{eq:dirac-delta-fourier}%
     \diracdelta\pqty{x - y} = \frac{1}{2\pi} \int e^{i \lambda \pqty{x - y}} \dd{\lambda}.
 \end{equation}
 
@@ -141,12 +142,12 @@ and the Dirac \(\diracdelta\) function therefore satisfies
 \begin{proof}
     We have
     \begin{subequations}
-        \begin{align*}
+        \begin{align}
             \frac{1}{2\pi} \int \hat{f}\pqty{\lambda} \conjugate{\hat{g}\pqty{\lambda}} \dd{\lambda} &= \frac{1}{2\pi} \int \bqty{\int e^{-i \lambda y} f\pqty{y} \dd{y}} \bqty{\int e^{i \lambda z} \conjugate{g\pqty{x}} \dd{z}} \dd{\lambda} \\
             &= \iint f\pqty{y} \conjugate{g\pqty{x}} \bqty{\frac{1}{2\pi} \int e^{i \lambda \pqty{x - y}} \dd{\lambda}} \dd{\pqty{x, y}} \\
             &= \iint f\pqty{y} \conjugate{g\pqty{x}} \diracdelta\pqty{x - y} \dd{\pqty{x, y}} \\
             &= \int f\pqty{x} \conjugate{g\pqty{x}} \dd{x}.
-        \end{align*}
+        \end{align}
     \end{subequations}
 \end{proof}
 
@@ -160,6 +161,7 @@ and the Dirac \(\diracdelta\) function therefore satisfies
 Note that \(f \convolution g = g \convolution f\).
 
 \begin{proposition}[Convolution Theorem]
+    \label{prop:convolution-theorem}%
     We have
     \begin{equation}
         \fourier[x][\lambda] \bqty{f \convolution g\pqty{x}} = \hat{f}\pqty{\lambda} \hat{g}\pqty{\lambda}.
@@ -169,12 +171,188 @@ Note that \(f \convolution g = g \convolution f\).
 \begin{proof}
     We have
     \begin{subequations}
-        \begin{align*}
+        \begin{align}
             \fourier[x][\lambda] \bqty{f \convolution g\pqty{x}} &= \int e^{- i \lambda x} \bqty{\int f\pqty{x - y} g\pqty{y} \dd{y}} \dd{x} \\
             &= \int \bqty{\int f\pqty{x - y} g\pqty{y} e^{- i \lambda x} \dd{x}} \dd{y} \\
             &= \int \pqty{\int f\pqty{x} g\pqty{y} e^{- i \lambda \pqty{x + y}} \dd{x}} \dd{y} \\
             &= \int f\pqty{x} e^{- i \lambda x} \dd{x} \int g\pqty{y} e^{- i \lambda y} \dd{y} \\
             &= \hat{f}\pqty{\lambda} \hat{g}\pqty{\lambda}.
-        \end{align*}
+        \end{align}
     \end{subequations}
 \end{proof}
+
+\subsection{Important Examples of Fourier Transforms}
+
+\paragraph{Exponentials.} Take \(f\pqty{x} = H\pqty{x} \exp\pqty{- \sigma x}\) where \(\Re\pqty{\sigma} > 0\), where \(H\pqty{x}\) is the Heaviside step function, then
+\begin{equation}
+    \hat{f}\pqty{\lambda} = \int_{0}^{\plusinfty} e^{-\pqty{\sigma + i \lambda}} x \dd{x} = \frac{1}{\sigma + i \lambda}.
+\end{equation}
+
+Note that \(\hat{f}\pqty{\lambda} \to 0\) as \(\abs{\lambda} \to \infty\), as expected from the Riemann--Lebesgue lemma. From the inversion formula, we may conclude that
+\begin{subequations}
+    \begin{align}
+        H\pqty{x} e^{-\sigma x} &= \frac{1}{2\pi} \int \frac{e^{i \lambda x}}{\sigma + i \lambda} \dd{\lambda} \\
+        &= \frac{1}{2 \pi i} \int \frac{e^{i \lambda x}}{\lambda - i \sigma} \dd{\lambda}.
+    \end{align}
+\end{subequations}
+
+As we will see in \textit{IB Complex Analysis} or \textit{IB Complex Methods}, we can integrate the right-hand side using contour integration. We could also differentiate both sides by \(\pqty{-\pdv*{\sigma}}^k\) to obvain
+\begin{equation}
+    H\pqty{x} x^k e^{- \sigma x} = \frac{k!}{2 \pi} \int \frac{e^{i \pi x}}{\pqty{\sigma + i \lambda}^{k + 1}} \dd{\lambda}.
+\end{equation}
+
+\paragraph{Gaussians.} Let \(f\pqty{x} = \flatfrac{e^{- \flatfrac{x^2}{2}}}{\sqrt{2 \pi}}\). Directly computing the Fourier transform, we get
+\begin{equation}
+    \hat{f}\pqty{\lambda} = \int \frac{1}{\sqrt{2 \pi}} e^{- i \lambda x - \flatfrac{x^2}{2}} \dd{x}
+\end{equation}
+but this is hard to compute without knowing complex integration.
+
+\small
+
+By completing the square, we have
+\begin{subequations}
+    \begin{align}
+        \hat{f}\pqty{\lambda} &= \frac{1}{\sqrt{2 \pi}} \int e^{- \flatfrac{x^2}{2} - i \lambda x} \dd{x} \\
+        &= \frac{1}{\sqrt{2 \pi}} \int e^{- \flatfrac{\pqty{x + i \lambda}^2}{2}} e^{- \flatfrac{\lambda^2}{2}} \dd{x} \\
+        &= e^{- \flatfrac{\lambda^2}{2}} \frac{1}{\sqrt{2 \pi}} \int e^{- \flatfrac{\pqty{x + i \lambda}^2}{2}} \dd{x} \\
+        &= e^{- \flatfrac{\lambda^2}{2}},
+    \end{align}
+\end{subequations}
+using the integration formula
+\begin{equation}
+    \int_{\minusinfty}^{\plusinfty} \exp\pqty{- \frac{\alpha}{2} \pqty{k - \gamma}^2} \dd{k} = \sqrt{\frac{2 \pi}{\alpha}},
+\end{equation}
+which holds for any \(\gamma\) and complex \(\alpha\) with \(\Re\pqty{\alpha} > 0\).
+
+\normalsize
+
+Instead, note that \(f\) satisfies the differential equation
+\begin{equation}
+    \pqty{\dv{x}} f = - x f,
+\end{equation}
+and by taking Fourier transforms of both sides, we have
+\begin{equation}
+    \pqty{i \lambda} \hat{f} = - \pqty{i \dv{\lambda}} \hat{f},
+\end{equation}
+which simplifies to
+\begin{equation}
+    \pqty{\dv{\lambda}} \hat{f} = - \lambda \hat{f}.
+\end{equation}
+
+This solves to \(\hat{f}\pqty{\lambda} = \hat{f} \pqty{0} e^{-\flatfrac{\lambda^2}{2}}\). But note \(\hat{f}\pqty{0} = \int f\pqty{x} \dd{x} = 1\), so \(\hat{f}\pqty{\lambda} = e^{-\flatfrac{\lambda^2}{2}}\). We also discovered that \(f\) is an eigenfunction of the Fourier transform, with eigenvalue \(\sqrt{2 \pi}\).
+
+\paragraph{Dirac \(\diracdelta\) Function.} Consider the Dirac \(\diracdelta\) function, and note
+\begin{equation}
+    \hat{\delta} = \int e^{- i \lambda x} \diracdelta\pqty{x} \dd{x} = 1.
+\end{equation}
+
+USing the inversion formula, we get
+\begin{equation}
+    \diracdelta\pqty{x} = \frac{1}{2 \pi} \int e^{i \lambda x} \dd{\lambda},
+\end{equation}
+which is consistent with what we see in \eqref{eq:dirac-delta-fourier}.
+
+\subsection{Vanishing Initial Value Problems}
+
+Consider the initial value problem on \(t > 0\) with
+\begin{subequations}
+    \begin{align}
+        Ly = f &\qfor t > 0, \\
+        y = 0 &\qfor t = 0, \\
+        \dot{y} = 0 &\qfor t = 0,
+    \end{align}
+\end{subequations}
+where \(L\) is a second-order differential operator of the form
+\begin{equation}
+    L = \dv[2]{t} + \beta \dv{t} + \gamma.
+\end{equation}
+
+We would like to use Fourier transform, and hence we extend functions \(y, f\) to the region \(t < 0\) by setting them to be identically zero.
+
+When doing Fourier transform with time variable, it is common to conduct \(\fourier[t][\omega]\). Then, we have
+\begin{equation}
+    \bqty{\pqty{i \omega}^2 + \beta \pqty{i \omega} + \gamma} \hat{y}\pqty{\omega} = \hat{f}\pqty{\omega},
+\end{equation}
+for all \(\omega \in \RR\). Hence,
+\begin{equation}
+    \hat{y} \pqty{\omega} = \frac{\hat{f}\pqty{\omega}}{P\pqty{\omega}} \qfor P\pqty{\omega} = \pqty{i \omega}^2 + \beta \pqty{i \omega} + \gamma.
+\end{equation}
+
+We can factorise \(P\pqty{\omega} = \pqty{i \omega + \sigma_1} \pqty{i \omega + \sigma_2}\) for some \(\sigma_1, \sigma_2\). We assume that \(\sigma_1 \neq \sigma_2\) and \(\Re\pqty{\sigma_{1, 2}} > 0\). Then, conducing partial fractions gives
+\begin{subequations}
+    \begin{align}
+        \frac{1}{P\pqty{\omega}} &= \frac{1}{\pqty{i \omega + \sigma_1} \pqty{i \omega + \sigma_2}} \\ 
+        &= \frac{1}{\sigma_2 - \sigma_1} \bqty{\frac{1}{i \omega + \sigma_1} - \frac{1}{i \omega + \sigma_2}} \\
+        &= \frac{1}{\sigma_2 - \sigma_1} \fourier[t][\omega] \bqty{H\pqty{t} e^{- \sigma_1 t} - H\pqty{t} e^{- \sigma_2 t}},
+    \end{align}
+\end{subequations}
+where we did indeed use the fact that \(\Re\pqty{\sigma_{1, 2}} > 0\)
+
+The function defined as
+\begin{equation}
+    R\pqty{t} = H\pqty{t} \bqty{\frac{e^{- \sigma_1 t} - e^{- \sigma_2 t}}{\sigma_2 - \sigma_1}}
+\end{equation}
+is known as the \term{response function} associated with the differential operator \(L\). In the degenerate case where \(\sigma_1 = \sigma_2 = \sigma\), using detuning by setting \(\sigma_1 = \sigma\) and \(\sigma_2 = \sigma + \epsilon\) and taking the limit as \(\epsilon \to 0\), we have
+\begin{equation}
+    R\pqty{t} = H\pqty{t} t e^{- \sigma t},
+\end{equation}
+and we have
+\begin{equation}
+    \hat{y}\pqty{\omega} = \hat{R}\pqty{\omega} \hat{f}\pqty{\omega}.
+\end{equation}
+
+By \autoref{prop:convolution-theorem} (Convolution Theorem), we have
+\begin{equation}
+    y\pqty{t} = \pqty{R \convolution f} \pqty{t} = \int_{0}^{t} R\pqty{t - \tau} f\pqty{\tau} \dd{\tau},
+\end{equation}
+and therefore \(R\pqty{t - \tau} = G\pqty{t, \tau}\) is the Green's function associated with the IVP for \(L\). If we take an \term{impulsive forcing} \(f\pqty{t} = \diracdelta\pqty{t}\), then the solution is
+\begin{equation}
+    y\pqty{t} = \int_{0}^{t} R\pqty{t - \tau} \diracdelta\pqty{\tau} \dd{\tau} = R\pqty{t},
+\end{equation}
+hence the name response function.
+
+\begin{example}[Damped Harmonic Oscillator]
+    Consider a damped, simple harmonic oscillator with a forcing \(f\pqty{t}\) for \(t > 0\), with initial value problem (in suitable units)
+    \begin{subequations}
+        \begin{align*}
+            \ddot{y} + 2 \gamma \dot{y} + y = f & \qfor t > 0, \\
+            y = 0 & \qfor t = 0, \\
+            \dot{y} = 0 & \qfor t = 0,
+        \end{align*}
+    \end{subequations}
+    where \(\gamma > 0\) is the damping term. Taking Fourier transforms, we have
+    \begin{equation}
+        \hat{y}\pqty{\omega} = \frac{\hat{f}\pqty{\omega}}{P\pqty{\omega}} \qwhere P\pqty{\omega} = \pqty{i \omega + \gamma - \sqrt{\gamma^2 - 1}}\pqty{i \omega + \gamma + \sqrt{\gamma^2 - 1}}.
+    \end{equation}
+
+    Denote
+    \begin{equation}
+        \sigma_{\pm} = \gamma \pm \sqrt{\gamma^2 - 1},
+    \end{equation}
+    then note \(\Re\pqty{\sigma_{\pm}} > 0\) since \(\gamma > 0\). We conduct casework based on the value of \(\gamma\).
+
+    \begin{subequations}
+    \begin{enumerate}[label=(\roman*)]
+        \item If \(\gamma > 1\), then
+        \begin{equation}
+            R\pqty{t} = H\pqty{t} \exp\pqty{- \gamma t} \frac{\sinh\pqty{t \sqrt{\gamma^2 - 1}}}{\sqrt{\gamma^2 - 1}}.
+        \end{equation}
+
+        This is known as \term{overdamping}.
+
+        \item If \(0 < \gamma < 1\), then
+        \begin{equation}
+            R\pqty{t} = H\pqty{t} \exp\pqty{- \gamma t} \frac{\sin\pqty{t \sqrt{1 - \gamma^2}}}{\sqrt{1 - \gamma^2}}.
+        \end{equation}
+
+        This is known as \term{underdamping}.
+
+        \item If \(\gamma = 1\), then
+        \begin{equation}
+            R\pqty{t} = H\pqty{t} t e^{- t}.
+        \end{equation}
+
+        This is known as \term{critical damping}.
+    \end{enumerate}
+    \end{subequations}
+\end{example}
