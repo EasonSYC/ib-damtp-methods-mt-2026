@@ -23,6 +23,7 @@ in this section.
     \begin{itemize}
         \item \textbf{Differentiation and Multiplying by Polynomials.} We have
         \begin{subequations}
+            \label{eq:fourier-diff-poly}%
             \begin{align}
                 \fourier[x][\lambda] \bqty{\pqty{\dv{x}}^k f\pqty{x}} &= \pqty{i \lambda}^k \hat{f}\pqty{\lambda}, \label{eq:fourier-diff}\\
                 \fourier[x][\lambda] \bqty{x^k f\pqty{x}} &= i^k \pqty{\dv{\lambda}}^k \hat{f}\pqty{\lambda}. \label{eq:fourier-poly}
@@ -31,6 +32,7 @@ in this section.
     
         \item \textbf{Shift and Phase Change.} We have
         \begin{subequations}
+            \label{eq:fourier-shift-phase}%
             \begin{align}
                 \fourier[x][\lambda] \bqty{f\pqty{x - a}} &= e^{-i \lambda a} \hat{f}\pqty{\lambda}, \\
                 \fourier[x][\lambda] \bqty{e^{- i a x} f\pqty{x}} &= \hat{f}\pqty{\lambda + a}.
@@ -79,6 +81,7 @@ which simply solves to
 To find \(y = y\pqty{x}\), we would need to invert the Fourier transform.
 
 \begin{proposition}[Inversion Formula for the Fourier Transform]
+    \label{prop:inversion-formula-fourier-transform}%
     We have the inversion formula for the Fourier transform, given by
     \begin{equation}
         f\pqty{x} = \frac{1}{2 \pi} \int \hat{f}\pqty{\lambda} e^{i \lambda x} \dd{\lambda}.
@@ -133,6 +136,7 @@ and the Dirac \(\diracdelta\) function therefore satisfies
 \end{equation}
 
 \begin{proposition}[Parseval's Theorem]
+    \label{prop:parsevals-theorem-fourier-transform}%
     We have
     \begin{equation}
         \int f\pqty{x} \conjugate{g\pqty{x}} \dd{x} = \frac{1}{2\pi} \int \hat{f}\pqty{\lambda} \conjugate{\hat{g}\pqty{\lambda}} \dd{\lambda}.
@@ -246,7 +250,7 @@ This solves to \(\hat{f}\pqty{\lambda} = \hat{f} \pqty{0} e^{-\flatfrac{\lambda^
     \hat{\delta} = \int e^{- i \lambda x} \diracdelta\pqty{x} \dd{x} = 1.
 \end{equation}
 
-USing the inversion formula, we get
+Using the inversion formula, we get
 \begin{equation}
     \diracdelta\pqty{x} = \frac{1}{2 \pi} \int e^{i \lambda x} \dd{\lambda},
 \end{equation}
@@ -356,3 +360,185 @@ hence the name response function.
     \end{enumerate}
     \end{subequations}
 \end{example}
+
+\subsection{Some Neat Applications}
+
+\subsubsection{Poisson Summation Formula}
+
+\begin{proposition}[Poisson Summation Formula]
+    We have the identity
+    \begin{equation}
+        \sum_{n \in \ZZ} f\pqty{x + n} = \sum_{n \in \ZZ} \hat{f}\pqty{2 n \pi} \exp\pqty{2 \pi i n x}.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Note both sizes are \(1\)-periodic functions in \(x\). Let the left-hand side be \(F\) and right-hand side be \(G\), then clearly, \(\hat{G}_n = \hat{f} \pqty{2 \pi n}\) for all \(n \in \ZZ\), where \(\hat{G}_n\) are the Fourier coefficients of \(G\).
+    
+    Note the Fourier coefficients of \(F\) is given by
+    \begin{subequations}
+        \begin{align}
+            \hat{F}_n &= \int_{0}^{1} e^{- 2\pi i n x} F \pqty{x} \dd{x} \\
+            &= \sum_{m \in \ZZ} \int_{0}^{1} e^{- 2\pi i n x} f\pqty{x + m} \dd{x} \\
+            &= \sum_{m \in \ZZ} \int_{m}^{m + 1} e^{- 2\pi i n y} f\pqty{y} \dd{y} \\
+            &= \int e^{- 2\pi i n y} f\pqty{y} \dd{y} \\
+            &= \hat{f} \pqty{2 \pi n},
+        \end{align}
+    \end{subequations}
+    by using the change of variables \(y = x + m\). Hence, \(\hat{F}_n = \hat{G}_n\) for all \(n \in \ZZ\), and since both \(F\) and \(G\) are \(1\)-periodic, we conclude that \(F = G\).
+\end{proof}
+
+This is often seen in the form
+\begin{equation}
+    \sum_{n \in \ZZ} f\pqty{n} = \sum_{n \in \ZZ} \hat{f}\pqty{2 n \pi},
+\end{equation}
+
+\begin{example}
+    Let \(f\pqty{x} = H\pqty{x} x e^{- \sigma x}\) for \(Re \sigma > 0\), then \(\hat{f} \pqty{\lambda} = \frac{1}{\pqty{\sigma + i \lambda}^2}\). Hence, we have
+    \begin{equation}
+        \sum_{n \in \ZZ} \pqty{2 \pi i n + \sigma}^{-2} = \sum_{n = 1}^{\infty} e^{- \sigma n} = \frac{4}{\sinh^2 \pqty{\flatfrac{\sigma}{2}}}.
+    \end{equation}
+\end{example}
+
+\subsubsection{Heisenberg's Uncertainty Principle}
+
+\begin{proposition}[Heisenberg's Uncertainty Principle]
+    If \(\int \abs{\psi}^2 \dd{x} = 1\), then
+    \begin{equation}
+        \pqty{\int x^2 \abs{\psi}^2 \dd{x}} \pqty{\int \lambda^2 \abs{\hat{\psi}}^2 \dd{\lambda}} \geq \frac{\pi}{2}.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Using integration by parts, assuming boundary conditions allows us to do so, we have
+    \begin{subequations}
+        \begin{align}
+            1 &= \int \abs{\psi}^2 \dd{x} \\
+            &= - \int x \dv{x} \pqty{\psi \conjugate{\psi}} \dd{x} \\
+            &= - \int x \pqty{\psi \conjugate{\psi}' + \psi' \conjugate{\psi}} \dd{x}.
+        \end{align}
+    \end{subequations}
+
+    Using the triangular inequality and the Cauchy--Schwarz inequality, we have
+    \begin{equation}
+        1 \leq 2 \int \abs{x} \abs{\psi} \abs{\psi'} \dd{x} \leq 2 \pqty{\int \abs{x}^2 \abs{\psi}^2 \dd{x}}^{\flatfrac{1}{2}} \pqty{\int \abs{\psi'}^2 \dd{x}}^{\flatfrac{1}{2}}.
+    \end{equation}
+
+    Recall Parseval's formula for Fourier transforms in \autoref{prop:parsevals-theorem-fourier-transform} that gives
+    \begin{equation}
+        \int \abs{f}^2 \dd{x} = \frac{1}{2 \pi} \int \abs{\hat{f}}^2 \dd{\lambda},
+    \end{equation}
+    and if \(f = \psi'\), we have \(hat{f} \pqty{\lambda} = i \lambda \hat{\psi} \pqty{\lambda}\). Hence, we have
+    \begin{equation}
+        1 \leq 2 \pqty{\int x^2 \abs{\psi}^2 \dd{x}}^{\flatfrac{1}{2}} \pqty{\frac{1}{2 \pi} \int \lambda^2 \abs{\hat{\psi}}^2 \dd{\lambda}}^{\flatfrac{1}{2}},
+    \end{equation}
+    so the result follows.
+\end{proof}
+
+Recall the Fourier transformation rules of translations in \eqref{eq:fourier-shift-phase}, which states that
+\begin{equation}
+    \fourier[x][\lambda] \bqty{f\pqty{x - a}} = e^{- i \lambda a} \hat{f}\pqty{\lambda} \qand \fourier[x][\lambda] \bqty{e^{- i a x} f\pqty{x}} = \hat{f}\pqty{\lambda + a},
+\end{equation}
+so if we replace \(\psi\) by \(e^{- i x \lambda_0} \psi\pqty{x + x_0}\), the Fourier transform transforms like \(\hat{\psi}\pqty{\lambda + \lambda_0} e^{i x_0 \lambda}\). Hence, the inequality now reads
+\begin{equation}
+    \pqty{\int x^2 \pqty{\psi \pqty{x + x_0}}^2 \dd{x}} \pqty{\int \lambda^2 \pqty{\hat{\psi}\pqty{\lambda + \lambda_0}}^2 \dd{\lambda}} \geq \frac{\pi}{2},
+\end{equation}
+and a change of variables gives
+\begin{equation}
+    \pqty{\int \pqty{x - x_0}^2 \abs{\psi}^2 \dd{x}} \pqty{\int \pqty{\lambda - \lambda_0}^2 \abs{\hat{\psi}}^2 \dd{\lambda}} \geq \frac{\pi}{2}.
+\end{equation}
+
+To interpret this physically, the first term clearly corresponds to the uncertainty of the position, and the Fourier transform of the wavefunction in the position space would be the wavefunction in the \term{momentum space}, (ignoring constants), where the wavefunction is interpreted as the probability amplitude for observing the particle at a given momentum. Hence, the second term corresponds to the uncertainty of the momentum. Therefore, this is Heisenberg's uncertainty principle, stated as integrals.
+
+\subsubsection{Fourier Series and Fourier Transforms}
+
+Let \(\functiondomain{f}{\RR}{\CC}\) be a function vanishing outside \(\oointv{-L}{L}\). For \(x \in \oointv{-L}{L}\), we have the Fourier series representation
+\begin{equation}
+    f\pqty{x} = \sum_{n \in \ZZ} \hat{f}_n e^{\flatfrac{i \pi n x}{L}}
+\end{equation}
+where the Fourier coefficients are given by
+\begin{subequations}
+    \begin{align*}
+        \hat{f}_n &= \frac{1}{2L} \int_{-L}^{L} f\pqty{x} e^{- \flatfrac{i \pi n x}{L}} \dd{x} \\
+        &= \frac{1}{2L} \int f\pqty{x} e^{- \flatfrac{i \pi n x}{L}} \dd{x} \\
+        &= \frac{1}{2L} \hat{f}\pqty{\flatfrac{\pi n}{L}},
+    \end{align*}
+\end{subequations}
+and we set \(\lambda_n = \flatfrac{\pi n}{L}\). Writing \(\var{\lambda} = \flatfrac{\pi}{L}\), we have
+\begin{equation}
+    f\pqty{x} = \frac{1}{2\pi} \sum_{n \in \ZZ} \hat{f}\pqty{\lambda_n} e^{i \lambda_n x} \var{\lambda},
+\end{equation}
+and taking \(L \to \infty\) with \(\var{\lambda} \to 0\), we have
+\begin{equation}
+    f\pqty{x} = \frac{1}{2\pi} \int \hat{f}\pqty{\lambda} e^{i \lambda x} \dd{\lambda},
+\end{equation}
+recovering the inversion formula for Fourier transforms seen in \autoref{prop:inversion-formula-fourier-transform}.
+
+In addition, from Parseval's theorem for Fourier series in \eqref{eq:parsevals-theorem-1}, we have
+\begin{subequations}
+    \begin{align}
+        \int_{-L}^{L} \abs{f\pqty{x}}^2 \dd{x} &= 2 L \sum_{n \in \ZZ} \abs{\hat{f}_n}^2 \\
+        &= 2 L \sum_{n \in \ZZ} \frac{\abs{\hat{f}\pqty{\lambda_n}}^2}{4 L^2} \\
+        &= \frac{1}{2 \pi} \sum_{n \in \ZZ} \abs{\hat{f}\pqty{\lambda_n}}^2 \var{\lambda}.
+    \end{align}
+\end{subequations}
+
+Again, taking the limit gives us
+\begin{equation}
+    \int \abs{f\pqty{x}}^2 \dd{x} = \frac{1}{2 \pi} \int \abs{\hat{f}\pqty{\lambda}}^2 \dd{\lambda},
+\end{equation}
+recovering Parseval's theorem for Fourier transforms, as stated in \autoref{prop:parsevals-theorem-fourier-transform}.
+
+\subsubsection{Central Limit Theorem}
+
+Let \(X_1, X_2, \ldots\) be independent and identically distributed with mean \(\mu = 0\) and variance \(\sigma^2 = 1\). Define
+\[
+    S_n = \frac{X_1 + \dots + X_n}{\sqrt{n}}.
+\]
+
+Let the probability density function of \(S_n\) be \(f_n\pqty{x}\). Then, we have
+\begin{subequations}
+    \begin{align}
+        \hat{f}_n\pqty{\lambda} &= \Expt\pqty{e^{- i \lambda S_N}} \\
+        &= \Expt\pqty{e^{- i \lambda \flatfrac{\pqty{X_1 + \cdots + X_n}}{\sqrt{n}}}} \\
+        &= \Expt\pqty{e^{- i \lambda \flatfrac{X_1}{\sqrt{n}}}} \cdots \Expt\pqty{e^{- i \lambda \flatfrac{X_n}{\sqrt{n}}}}
+        &= \Expt\pqty{e^{- i \lambda \flatfrac{X_1}{\sqrt{n}}}}^n \\
+        &= \bqty{\Expt\pqty{1 - \frac{i \lambda X_1}{\sqrt{n}} - \frac{\lambda^2 X_1^2}{2n} + \littleO\pqty{\frac{1}{n}}}}^n \\
+        &= \bqty{1 + 0 - \frac{\lambda^2}{2n} + \littleO\pqty{\frac{1}{n}}}^n \\
+        &\to e^{- \flatfrac{\lambda^2}{2}} \qas n \to \infty,
+    \end{align}
+\end{subequations}
+so by the Fourier inversion theorem, we have
+\begin{equation}
+    \lim_{n \to \infty} f_n\pqty{x} = \frac{1}{\sqrt{2 \pi}} e^{- \flatfrac{x^2}{2}},
+\end{equation}
+which means that the distribution of \(S_n\) converges in distribution to \(\Normal\pqty{0, 1}\) as \(n \to \infty\). The Fourier transform of a probability desnsity function is known as the \term{characteristic function} of the distribution.
+
+\subsubsection{PDEs in Multiple Variables (Non-Examinable)}
+
+\smallskip
+
+We saw that Fourier transforms are useful in solving ODEs in one variable, that \eqref{eq:fourier-diff-poly} is very useful:
+\begin{equation}
+    p\pqty{\dv{x}} y = f \implies \hat{y} \pqty{\lambda} = \frac{\hat{f}\pqty{\lambda}}{p\pqty{i \lambda}}.
+\end{equation}
+
+Likewise, we may define the Fourier transform in multiple variables for \(\functiondomain{f}{\RR^n}{\CC}\) as
+\begin{equation}
+    \hat{f}\pqty{\vb*{\lambda}} = \int e^{- i \vb*{\lambda} \vdot \vb{x}} f\pqty{\vb{x}} \dd{\vb{x}},
+\end{equation}
+where \(\functiondomain{\hat{f}}{\RR^n}{\CC}\), and the integral is over \(\RR^n\). We similarly have the relation
+\begin{equation}
+    p\pqty{\grad} y = f \implies \hat{y} \pqty{\vb*{\lambda}} = \frac{\hat{f}\pqty{\vb*{\lambda}}}{p\pqty{i \vb*{\lambda}}},
+\end{equation}
+where \(p\pqty{\grad}\) is a polynomial in the gradient operator \(\grad = \pqty{\pdv{x_1}, \ldots, \pdv{x_n}}\), i.e., we have
+\begin{equation}
+    p\pqty{\pdv{x_1}, \ldots, \pdv{x_n}} y = f \implies \hat{y} \pqty{\lambda_1, \ldots, \lambda_n} = \frac{\hat{f}\pqty{\lambda_1, \ldots, \lambda_n}}{p\pqty{i \lambda_1, \ldots, i \lambda_n}}.
+\end{equation}
+
+We may similarly obtain the inversion formula to obtain
+\begin{equation}
+    y\pqty{\vb{x}} = \frac{1}{\pqty{2 \pi}^n} \int e^{i \vb*{\lambda} \vdot \vb{x}} \hat{y}\pqty{\vb*{\lambda}} \dd{\vb*{\lambda}} = \frac{1}{\pqty{2 \pi}^n} \int e^{i \vb*{\lambda} \vdot \vb{x}} \frac{\hat{f}\pqty{\vb*{\lambda}}}{p\pqty{i \vb*{\lambda}}} \dd{\vb*{\lambda}}.
+\end{equation}
+
+Unfortunately, we have not solved all PDEs in multiple variables, because this integral might have \term{poles} in the integrand, introduced by the zeroes of \(p\pqty{i \vb*{\lambda}}\).
