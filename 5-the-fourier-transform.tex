@@ -542,3 +542,157 @@ We may similarly obtain the inversion formula to obtain
 \end{equation}
 
 Unfortunately, we have not solved all PDEs in multiple variables, because this integral might have \term{poles} in the integrand, introduced by the zeroes of \(p\pqty{i \vb*{\lambda}}\).
+
+\subsection{Discrete Fourier Transform}
+
+Given a sequence of complex numbers \(\set{X_n}_{n = 0}^{N - 1}\), we define their \term{Discrete Fourier Transform (DFT)} as the sequence \(\set{\hat{X}_k}_{k = 0}^{N - 1}\) given by
+\begin{equation}
+    \hat{X}_k = \sum_{n = 0}^{N - 1} X_n e^{- \flatfrac{2 \pi i n k}{N}}.
+\end{equation}
+
+Often, the set of numbers \(\set{X_n}_{n = 0}^{N - 1}\) is the result of evaluating a \(2\pi\)-periodic function \(f\) at the points \(x_n = \flatfrac{2 \pi n}{N}\), and \(X_n = f\pqty{x_n}\). If we set \(\var{x} = x_{n + 1} - x_n = \flatfrac{2 \pi}{N}\), then we have
+\begin{subequations}
+    \begin{align}
+        \hat{X}_k &= N \frac{1}{2\pi} \sum_{n = 0}^{N - 1} f\pqty{x_n} e^{- i k x_n} \var{x} \\
+        &\approx N \frac{1}{2\pi} \int_{0}^{2 \pi} f\pqty{x} e^{- i k x} \dd{x} \\
+        &= N \hat{f}\pqty{k},
+    \end{align}
+\end{subequations}
+and hence if \(N \gg 1\), we have
+\begin{equation}
+    \hat{f}_k \approx \frac{1}{N} \hat{X}_k.
+\end{equation}
+
+It turns out we can exactly recover the sequence \(\set{X_n}_{n = 0}^{N - 1}\) from the sequence \(\set{\hat{X}_k}_{k = 0}^{N - 1}\), just like the continuous Fourier transform.
+
+\begin{proposition}[Inverse Discrete Fourier Transform]
+    We have
+    \begin{equation}
+        X_n = \frac{1}{N} \sum_{k = 0}^{N - 1} \hat{X}_k e^{\flatfrac{2 \pi i n k}{N}}.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    By direct computation, we have
+    \begin{subequations}
+        \begin{align}
+            \frac{1}{N} \sum_{k = 0}^{N - 1} \hat{X}_k e^{\flatfrac{2 \pi i n k}{N}} &= \frac{1}{N} \sum_{k = 0}^{N - 1} \bqty{\sum_{m = 0}^{N - 1} X_m e^{- \flatfrac{2 \pi i m k}{N}}} e^{\flatfrac{2 \pi i n k}{N}} \\
+            &= \frac{1}{N} \sum_{m = 0}^{N - 1} X_m \bqty{\sum_{k = 0}^{N - 1} e^{\flatfrac{2 \pi i k (n - m)}{N}}}.
+        \end{align}
+    \end{subequations}
+    
+    If we set \(\omega_N = e^{\flatfrac{2 \pi i}{N}}\), then we have for \(n \neq m\), that
+    \begin{equation}
+        \sum_{k = 0}^{N - 1} \pqty{\omega_N}^{k (n - m)} = \frac{1 - \pqty{\omega_N}^{N (n - m)}}{1 - \pqty{\omega_N}^{n - m}} = 0,
+    \end{equation}
+    and clearly if \(n = m\), the same sum evaluates to \(N\). Therefore, the expression is equal to
+    \begin{equation}
+        \frac{1}{N} \sum_{m = 0}^{N - 1} X_m N \delta_{nm} = X_n,
+    \end{equation}
+    as desired.
+\end{proof}
+
+Alternatively, thinking of vectors, we have
+\begin{equation}
+    \vb{X} = \pmqty{X_0 \\ \vdots \\ X_{n - 1}} \in \CC^N \implies \hat{X} = \pmqty{\hat{X}_0 \\ \vdots \\ \hat{X}_{n - 1}} = \fourier \vb{X} \in \CC^N,
+\end{equation}
+where \(\functiondomain{\fourier}{\CC}{\CC}\) is linear, with matrix representation \({\fourier}_{k, n} = e^{\flatfrac{2 \pi i k n}{N}}\). Then our previous computation shows that
+\begin{equation}
+    \fourier\hermitian \fourier = \fourier \fourier\hermitian = N I_N.
+\end{equation}
+
+If we define the matrix \(U = \pqty{\frac{1}{\sqrt{N}}} \fourier\), then \(U\) is unitary, and we have \(U\hermitian U = U U\hermitian = I_N\).
+
+\begin{example}
+    Take \(X_n = \binom{N - 1}{n}\) for \(n = 0, \ldots, N - 1\). Then, we have
+    \begin{equation}
+        \hat{X}_k = \sum_{n = 0}^{N - 1} \binom{N - 1}{n} e^{- \flatfrac{2 \pi i n k}{N}} = \pqty{1 + e^{- \flatfrac{2 \pi i k}{N}}}^{N - 1}.
+    \end{equation}
+\end{example}
+
+\begin{proposition}[Parseval's Theorem for Discrete Fourier Transform]
+    We have
+    \begin{equation}
+        \sum_{n = 0}^{N - 1} X_n \conjugate{Y_n} = \frac{1}{N} \sum_{k = 0}^{N - 1} \hat{X}_k \conjugate{\hat{Y}_k},
+    \end{equation}
+    and in particular,
+    \begin{equation}
+        \sum_{n = 0}^{N - 1} \abs{X_n}^2 = \frac{1}{N} \sum_{k = 0}^{N - 1} \abs{\hat{X}_k}^2.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Using the definition of inner product
+    \begin{equation}
+        \vb{X} \vdot \vb{Y} = \vb{Y} \hermitian \vb{X} = \sum_{n = 0}^{N - 1} X_n \conjugate{Y_n},
+    \end{equation}
+    we see that
+    \begin{subequations}
+        \begin{align}
+            \frac{1}{N} \sum_{k = 0}^{N - 1} \hat{X}_k \conjugate{\hat{Y}_k} &= \pqty{\frac{1}{\sqrt{N}} \fourier \vb{X}} \vdot \pqty{\frac{1}{\sqrt{N}} \fourier \vb{Y}} \\
+            &= \pqty{U \vb{X}} \vdot \pqty{U \vb{Y}} \\
+            &= \vb{X} \vdot \vb{Y} \\
+            &= \sum_{n = 0}^{N - 1} X_n \conjugate{Y_n},
+        \end{align}
+    \end{subequations}
+    as desired.
+\end{proof}
+
+\begin{example}
+    Using \(X_n = \binom{N - 1}{n}\) from the previous example, we see that
+    \begin{subequations}
+        \begin{align}
+            \sum_{n = 0}^{N - 1} \binom{N - 1}{n}^2 &= \frac{1}{N} \sum_{k = 0}^{N - 1} \pqty{1 + e^{- \flatfrac{2 \pi i k}{N}}}^{N - 1} \pqty{1 + e^{\flatfrac{2 \pi i k}{N}}}^{N - 1} \\
+            &= \frac{1}{N} \sum_{k = 0}^{N - 1} \pqty{2 \cos \pqty{\frac{\pi k}{N}}}^{2N - 2}.
+        \end{align}
+    \end{subequations}
+
+    Using combinatorial arguments, we recall that
+    \begin{equation}
+        \sum_{n = 0}^{N - 1} \binom{N - 1}{n}^2 = \sum_{n = 0}^{N - 1} \binom{N - 1}{n} \binom{N - 1}{N - 1 - n} = \binom{2 N - 2}{N - 1},
+    \end{equation}
+    and set \(N - 1 = M\), we obtain the result
+    \begin{equation}
+        \frac{1}{2^{2M}} \binom{2M}{M} = \frac{1}{M + 1} \sum_{k = 0}^{M} \cos^{2M} \pqty{\frac{\pi k}{M + 1}}.
+    \end{equation}
+
+    Recall from \textit{IA Probability} that the left-hand side approaches \(\flatfrac{1}{\sqrt{\pi M}}\) as \(M \to \infty\), and hence we have
+    \begin{equation}
+        \sum_{k = 0}^{M} \cos^{2M} \pqty{\frac{\pi k}{M + 1}} \to \sqrt{\frac{M}{\pi}}.
+    \end{equation}
+\end{example}
+
+We may similarly take the \term{convolution} of the two sequences by
+\begin{equation}
+    \pqty{X \convolution Y}_n = \sum_{m = 0}^{N - 1} X_{\pqty{n - m} \bmod N} Y_m,
+\end{equation}
+for \(0 \leq n < N\).
+
+\begin{proposition}[Convolution Theorem for Discrete Fourier Transform]
+    We have
+    \begin{equation}
+        \bqty{\fourier \pqty{X \convolution Y}}_k = \hat{X}_k \hat{Y}_k.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    We have
+    \begin{subequations}
+        \begin{align}
+            \bqty{\fourier \pqty{X \convolution Y}}_k &= \sum_{n = 0}^{N - 1} \pqty{X \convolution Y}_n e^{- \flatfrac{2 \pi i n k}{N}} \\
+            &= \sum_{n = 0}^{N - 1} \bqty{\sum_{m = 0}^{N - 1} X_{\pqty{n - m} \bmod N} Y_m} e^{- \flatfrac{2 \pi i n k}{N}} \\
+            &= \sum_{m = 0}^{N - 1} Y_m \bqty{\sum_{n = 0}^{N - 1} X_{\pqty{n - m} \bmod N} e^{- \flatfrac{2 \pi i n k}{N}}} \\
+            &= \sum_{m = 0}^{N - 1} Y_m e^{- \flatfrac{2 \pi i m k}{N}} \bqty{\sum_{n = 0}^{N - 1} X_{\pqty{n - m} \bmod N} e^{- \flatfrac{2 \pi i (n - m) k}{N}}} \\
+            &= \sum_{m = 0}^{N - 1} Y_m e^{- \flatfrac{2 \pi i m k}{N}} \bqty{\sum_{n = 0}^{N - 1} X_n e^{- \flatfrac{2 \pi i n k}{N}}} \\
+            &= \hat{X}_k \hat{Y}_k,
+        \end{align}
+    \end{subequations}
+\end{proof}
+
+\small
+
+Na\"ively, there is a \(\bigO\pqty{N^2}\) algorithm to compute the Discrete Fourier Transform, but there is a much faster algorithm known as the \term{Fast Fourier Transform (FFT)} that computes the DFT in \(\bigO\pqty{N \log N}\) time, due to Gauss. Recently, there has been an \href{https://github.com/openai/math/blob/main/preprints/An-explicit-power-saving-for-the-exact-discrete-Fourier-transform-September-25-2026/main.pdf}{OpenAI paper} that claims to have a classical algorithm that computes this in \(\bigO\pqty{N \pqty{\log N}^{1 - \epsilon}}\) time with \(\epsilon = 10^{-13}\).
+
+A \term{Quantum Fast Fourier Transform (QFFT)} is also possible, which is a quantum algorithm that computes the DFT in \(\bigO\pqty{\log^2 N}\) time, and there is \href{https://arxiv.org/abs/2611.06341}{another paper paper} that claims to improve this to \(\bigO\pqty{\log N \log \log N}\) time.
+
+\normalsize
