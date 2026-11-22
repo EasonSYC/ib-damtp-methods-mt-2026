@@ -1,0 +1,144 @@
+\section{PDEs on Unbounded Domains}
+
+Hadamard (1902) famously declared that a partial-differential equation problem is well-posed if the following conditions are satisfied:
+\begin{enumerate}[label=(\roman*)]
+    \item A solution exists.
+    \item The solution is unique.
+    \item The solution depends continuously on the given data (for example, boundary and initial conditions).
+\end{enumerate}
+
+(i) and (ii) are self-explanatory, but (iii) is more subtle. In an abstract sense, the solution to a problem, say with boundary data in \(X\) and solutions in \(Y\), defines a map \(\functiondomain{S_t}{X}{Y}\), where \(t\) is the time-parameter. To talk about continuity, we require a norm/metric/topology on \(X\) and \(Y\) to measure ``closeness''.
+
+\begin{example}[Well-posedness of an ODE]
+    Consider the differential equation with initial condition
+    \begin{equation}
+        \dv{x}{t} = -x \qand x\pqty{0} = x_0 \in \RR.
+    \end{equation}
+
+    The solution we obtain is \(X_0 \pqty{t} = x_0 e^{-t}\). If there is another solution with initial data \(x_1\), then \(X_1 \pqty{t} = x_1 e^{-t}\), then we note
+    \begin{equation}
+        \norm[\infty]{X_1 - X_0} = \sup_{t > 0} \abs{x_1 e^{-t} - x_0 e^{-t}} = \abs{x_1 - x_0}.
+    \end{equation}
+
+    Therefore, if \(x_1\) and \(x_2\) are close on \(\RR\) with respect to the Euclidean metric, then \(X_0\) and \(X_1\) are close with respect to the \(\ell_{\infty}\) (supremum) norm. This is an example of a well-posed problem.
+\end{example}
+
+\begin{example}[Backwards Heat Equation]
+    Consider the \term{backward heat equatino} which is an IBVP on \(\Omega = \oointv{0}{\pi}\), given by
+    \begin{subequations}
+        \begin{align}
+            \varphi_t + \varphi_xx = 0 &\qfor \pqty{x, t} \in \Omega \times \oointv{0}{\plusinfty}, \\
+            \varphi = f &\qfor \pqty{x, t} \in \Omega \times \set{0}, \\
+            \varphi = 0 &\qfor \pqty{x, t} \in \partial \Omega \times \oointv{0}{\plusinfty}.
+        \end{align}
+    \end{subequations}
+
+    If \(f\pqty{x} = 0\), we obtain the solution \(\varphi\pqty{x, t} = 0\). However, if \(f\pqty{X} = f_n\pqty{x} = \frac{1}{n} \sin\pqty{nx}\) for some \(n \in \NN\), then we obtain the solution
+    \begin{equation}
+        \varphi_n\pqty{x, t} = \frac{1}{n} e^{n^2 t} \sin\pqty{nx}.
+    \end{equation}
+
+    Note that
+    \begin{equation}
+        \norm[\infty]{f - f_n} = \sup_{x \in \Omega} \abs{0 - \frac{1}{n} \sin\pqty{n x}} = \frac{1}{n} \to 0 \qas n \to \infty,
+    \end{equation}
+    while at all times \(T > 0\), we have
+    \begin{equation}
+        \norm[\infty]{\varphi\pqty{\cdot, T} - \varphi_n\pqty{\cdot, T}} = \sup_{x \in \Omega} \abs{0 - \frac{1}{n} e^{n^2 T} \sin\pqty{nx}} = \frac{1}{n} e^{n^2 T} \to \infty \qas n \to \infty.
+    \end{equation}
+
+    Therefore, \(S_T \bqty{f - f_n} \notto 0\) even though \(f - f_n \to 0\) under the supremum norm. Therefore, \(S_T\) is not continuous, and the backward heat equation is an example of an ill-posed problem, even locally in time.
+\end{example}
+
+To avoid such technicalities issue, we take ``well-posedness'' to mean (i) and (ii), and that if we ``wobble'' initial conditions/boundary condition a little, then solutions should only ``wobble'' a little.
+
+\subsection{Method of Characteristics}
+
+We consider the first-order PDE in \(\RR^2\) of the form
+\begin{equation}
+    a\pqty{x, y} \pdv{u}{x} + b\pqty{x, y} \pdv{u}{y} = c\pqty{x, y, u} \qfor \pqty{x, y} \in \RR^2.
+\end{equation}
+
+Such form is known as \term{quasi-linear}. Notice the left-hand side is a directional derivative \(\vb{v} \vdot \grad\) where \(\vb{v}\pqty{x, y} = \pmqty{a & b}\transpose\). Assume the ``initial data'' is defined on some curve \(C\), i.e., \(\rightbar{u}{C} = f\) where \(f\) is known. To solve, we consider the \term{characteristic curves} of \(\vb{v}\), i.e., curves where \(\dot{\vb{x}} = \vb{v}\):
+\begin{equation}
+    \dv{x}{t} = a\pqty{x, y} \qand \dv{y}{t} = b\pqty{x, y}.
+\end{equation}
+
+This is known as the \term{characteristic equations}. Suppose now we have found \(x = x\pqty{t}, y = y\pqty{t}\) such that \(\pqty{x\pqty{0}, y\pqty{0}} \in C\). Then defining \(z = \pqty{t} = u\pqty{x\pqty{t}, y\pqty{t}}\), we have
+\begin{subequations}
+    \begin{align}
+        \dv{z}{t} &= \dv{x}{y} \pdv{u}{x} + \dv{y}{t} \pdv{u}{y} \\
+        &= a\pdv{u}{x} + b\pdv{u}{y} \\
+        &= c\pqty{x, y, z},
+    \end{align}
+\end{subequations}
+and we also have the initial condition \(z\pqty{0} = f\pqty{x\pqty{0}, y\pqty{0}}\).
+
+To find \(y\) at \(x, y\), we find the characteristic curve that goes through the point \(\pqty{x, y}\) and trace it back to \(C\) along a curve (a length \(t\)), and see how far along \(C\) we are (a length \(s\)). We have correspondence \(\pqty{x, y} \leftrightarrow \pqty{s, t}\), as shown in \autoref{fig:method-of-characteristics}.
+
+\begin{figure}[ht!]
+    \centering
+    %%% TikZ adapted by Claude
+    \begin{tikzpicture}[x=1cm,y=1cm]
+        % level curves: one cubic Bezier each, so they are perfectly smooth
+        \draw[line width=0.4pt] (1.10,4.38) .. controls (1.35,3.00) and (1.30,1.20) .. (1.10,0.35);
+        \draw[line width=0.4pt] (2.32,4.38) .. controls (2.55,3.00) and (2.40,1.30) .. (1.90,0.35);
+        \draw[line width=0.4pt] (3.53,4.38) .. controls (3.75,3.00) and (3.60,1.30) .. (3.12,0.35);
+        \draw[line width=0.4pt] (5.14,4.38) .. controls (5.35,3.20) and (5.10,1.60) .. (4.32,0.35);
+
+        % level curve through (x,y) and the foot point on C (smooth joint at the foot point)
+        \draw[line width=0.5pt]
+            (6.76,4.38) .. controls (6.72,3.30) and (6.42,2.39) .. (6.15,1.75)
+                        .. controls (5.88,1.11) and (5.70,0.80) .. (5.55,0.35);
+
+        \draw[line width=0.5pt] (8.35,4.38)  .. controls (7.90,3.20)  and (7.20,1.60) .. (6.75,0.35);
+        \draw[line width=0.4pt] (9.56,4.38)  .. controls (9.00,3.20)  and (8.30,1.60) .. (7.95,0.35);
+        \draw[line width=0.3pt] (10.77,4.38) .. controls (10.20,3.00) and (9.50,1.40) .. (9.15,0.35);
+
+        % curve C: Bezier chain with matching tangents at every joint
+        \draw[thick]
+            (0.70,1.98) .. controls (1.50,2.25) and (1.90,2.43) .. (2.65,2.43)
+                        .. controls (3.80,2.43) and (4.95,2.11) .. (6.15,1.75)
+                        .. controls (7.05,1.48) and (7.30,1.50) .. (8.20,1.50)
+                        .. controls (9.20,1.50) and (10.00,1.75) .. (10.77,1.98);
+        \node at (10.8,1.35) {\(C\)};
+
+        % foot point on C and the point (x,y)
+        \fill (6.15,1.75) circle (1.5pt);
+        \fill (6.76,4.38) circle (1.5pt);
+        \node[right] at (6.85,4.38) {\(\pqty{x, y}\)};;
+
+        % arrow s along C
+        \draw[-{Stealth[length=3mm]}] (5.17,2.15) -- (6.12,1.92);
+        \node at (5.65,2.40) {\(s\)};
+
+        % arrow t along the level curve
+        \draw[-{Stealth[length=3mm]}] (6.35,1.95) -- (6.85,3.75);
+        \node at (6.85,2.85) {\(t\)};
+
+    \end{tikzpicture}
+    \caption{Change of Coordinates in Method of Characteristics}
+    \label{fig:method-of-characteristics}%
+\end{figure}
+
+\begin{example}
+    Consider the PDE
+    \begin{equation}
+        \pdv{u}{x} + \pdv{u}{y} = u, \quad u\pqty{x, 0} = f\pqty{x}.
+    \end{equation}
+
+    We have \(C = \set{\pqty{s, 0}}{s \in \RR}\) is the \(x\)-axis re-parameterised by \(s\). The characteristic equations are
+    \begin{equation}
+        \dv{x}{t} = 1 \qand \dv{y}{t} = 1,
+    \end{equation}
+    and imposing \(x\pqty{t} = s, y\pqty{t} = 0\), we  get the solution \(x = s + t, y = t\).
+
+    Suppose \(z\pqty{t} = u\pqty{x\pqty{t}, y\pqty{t}}\). Then we have \(\dv*{z}{t} = z\), which solves to \(z\pqty{t} = z_0 e^t\). Imposing the initial condition \(z\pqty{0} = u\pqty{s, 0} = f\pqty{s}\), we get \(z\pqty{t} = f\pqty{s} e^t\).
+
+    Hence, we have \(z\pqty{t, s} = f\pqty{s} e^t\) and \(x = s + t, y = t\). Solving for \(s\) and \(t\) in terms of \(x\) and \(y\), we have \(s = x - y, t = y\). Therefore, the solution is
+    \begin{equation}
+        u\pqty{x, y} = z\pqty{t, s} = f\pqty{x - y} e^y.
+    \end{equation}
+\end{example}
+
+We do not want the characteristic curves to be tangent to \(C\), so we require \(\vb{n} \vdot \vb{v} \neq 0\) along \(C\), where \(\vb{n}\) is the normal vector to \(C\). If \(\vb{n} \vdot \vb{v} = 0\) at some point on \(C\), then the characteristic curve through that point is tangent to \(C\), and therefore this change of coordinates is degenerate.
