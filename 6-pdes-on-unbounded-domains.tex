@@ -1,5 +1,7 @@
 \section{PDEs on Unbounded Domains}
 
+\subsection{Well-Posedness}
+
 Hadamard (1902) famously declared that a partial-differential equation problem is well-posed if the following conditions are satisfied:
 \begin{enumerate}[label=(\roman*)]
     \item A solution exists.
@@ -142,3 +144,213 @@ To find \(y\) at \(x, y\), we find the characteristic curve that goes through th
 \end{example}
 
 We do not want the characteristic curves to be tangent to \(C\), so we require \(\vb{n} \vdot \vb{v} \neq 0\) along \(C\), where \(\vb{n}\) is the normal vector to \(C\). If \(\vb{n} \vdot \vb{v} = 0\) at some point on \(C\), then the characteristic curve through that point is tangent to \(C\), and therefore this change of coordinates is degenerate.
+
+\subsection{Classification of Second Order Linear PDEs}
+
+We study a problem of the form \(L u = g\) in \(\RR^2\), where \(L\) is a second-order linear differential operator of the form
+\begin{equation}
+    L = a \pdv[2]{x} + 2 b \pdv{}{x}{y} + c \pdv[2]{y} + d \pdv{x} + e \pdv{y} + f u,
+\end{equation}
+where \(a, b, c, d, e\) and \(f\) are functions of \(x\) and \(y\). This is as general as we get.
+
+We want to find a change of variables \(\pqty{x, y} \mapsto \pqty{\xi, \eta}\) where \(\eta = \eta\pqty{x, y}\) and \(\xi = \xi\pqty{x, y}\) such that the operator \(L\) is simplified. Write \(\pqty{x, y} = \pqty{x_1, x_2}\) and \(\pqty{\xi, \eta} = \pqty{\xi_1, \xi_2}\). Then we have
+\begin{equation}
+    L = \sum_{i, j = 1}^{2} a_{ij} \pdv[2]{}{x_i}{x_j} + \text{lower order derivatives},
+\end{equation}
+where the matrix (albeit having two contravariant indices) is given by
+\[
+    \pqty{a_{ij} \pqty{x, y}}_{ij} = \pmqty{a & b \\ b & c}.
+\]
+
+\begin{proposition}[Change of Variables]
+    Write \(U\pqty{\xi, \eta} = u\pqty{x, y}\). Then under change of variables \(\pqty{x, y} \mapsto \pqty{\xi, \eta}\), \(L\) transforms into the following
+    \begin{equation}
+        \tilde{L} = \sum_{i, j = 1}^2 A_{pq} \pdv[2]{}{\xi_p}{\xi_q} + \text{lower order derivatives},
+    \end{equation}
+    where the matrix \(A\) is given by
+    \begin{equation}
+        A_{pq} = \sum_{i, j = 1}^{2} a_{ij} \pdv{\xi_p}{x_i} \pdv{\xi_q}{x_j}.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Using the summation convention, by the chain rule, we have
+    \begin{equation}
+        \pdv{u}{x_i} = \pdv{\xi_p}{x_i} \pdv{U}{\xi_q},
+    \end{equation}
+    so
+    \begin{subequations}
+        \begin{align}
+            a_{ij} \pdv[2]{u}{x_i}{x_j} &= a_{ij} \pdv{\xi_p}{x_i} \pdv{\xi_q}{x_j} \pdv[2]{U}{\xi_p}{\xi_q} + a_{ij} \pdv[2]{\xi_p}{x_i}{x_j} \pdv{U}{\xi_p} + \text{lower order derivatives} \\
+            &= A_{pq} \pdv[2]{U}{\xi_p}{\xi_q} + \text{lower order derivatives},
+        \end{align}
+    \end{subequations}
+    and hence we are done.
+\end{proof}
+
+We may now read off the components of the matrix \(A\) as
+\begin{subequations}
+    \begin{align}
+        A_{11} &= a \xi_x^2 + 2 b \xi_x \xi_y + c \xi_y^2, \\
+        A_{12} &= a \xi_x \eta_x + b \pqty{\xi_x \eta_y + \xi_y \eta_x} + c \xi_y \eta_y, \\
+        A_{21} &= a \xi_x \eta_x + b \pqty{\xi_x \eta_y + \xi_y \eta_x} + c \xi_y \eta_y, \\
+        A_{22} &= a \eta_x^2 + 2 b \eta_x \eta_y + c \eta_y^2.
+    \end{align}
+\end{subequations}
+
+Now, we note that we can make \(A_{11} = 0\) (respectively, \(A_{22} = 0\)) by choosing
+\begin{equation}
+    M = \frac{\xi_x}{\xi_y} \qand N = \frac{\eta_x}{\eta_y}
+\end{equation}
+to satisfy the following quadratic equations
+\begin{equation}
+    a z^2 + 2 b z + c = 0.
+\end{equation}
+
+Equivalently, we have
+\begin{equation}
+    z = \frac{-b \pm \sqrt{b^2 - a c}}{a}.
+\end{equation}
+
+Suppose we have chosen \(M, N\) such that this is satisfied. We call the family of curves
+\begin{subequations}
+    \begin{align}
+        \xi\pqty{x, y} &= \text{constant}, \\
+        \eta\pqty{x, y} &= \text{constant},
+    \end{align}
+\end{subequations}
+the \term{characteristic curves} of the PDE.
+
+On a characteristic curve, we implicitly get a function \(y = y\pqty{x}\), for example, \(\xi\pqty{x, y\pqty{x}} = \text{constant}\). Differentiating with respect to \(x\), we get
+\begin{equation}
+    \xi_x + \dv{y}{x} \xi_y = 0
+\end{equation}
+which means along the characteristic curve, we have
+\begin{equation}
+    \dv{y}{x} = - \frac{\xi_x}{\xi_y} = -M.
+\end{equation}
+
+So characteristic curves satisfy
+\begin{equation}
+    \dv{y}{x} = - \bqty{\frac{-b \pm \sqrt{b^2 - a c}}{a}}.
+\end{equation}
+
+This gives the following classification of PDEs.
+
+\begin{itemize}
+    \item If \(b^2 - ac < 0\), we say the PDE is \term{elliptic}, and there are no real characteristic curves.
+    \item If \(b^2 - ac = 0\), we say the PDe is \term{parabolic}, and there is one family of characteristic curves.
+    \item If \(b^2 - ac > 0\), we say the PDE is \term{hyperbolic}, and there are two families of characteristic curves.
+\end{itemize}
+
+\begin{examples}[Classification of PDEs]
+    \begin{itemize}
+        \item Laplace's equations are elliptic.
+        \item The heat equation is parabolic.
+        \item The wave equation is hyperbolic.
+    \end{itemize}
+\end{examples}
+
+In a hyperbolic region of \(\pqty{x, y}\)-plane, the PDE is equivalent to
+\begin{equation}
+    \pdv{U}{\xi}{\eta} + \text{lower order derivatives} = G\pqty{\xi, \eta}.
+\end{equation}
+
+This is when we say a PDE is in \term{canonical form}.
+
+\begin{example}[Wave Eqaution]
+    Consider the wave equation when \(c = 1\), which reads
+    \begin{equation}
+        \pdv[2]{u}{x} - \pdv[2]{u}{y} = 0.
+    \end{equation}
+
+    We have \(a = 1, b = 0, c = -1\), and \(b^2 - ac = 1 > 0\). So the wave equation is globally hyperbolic. To find characteristic coordinates, we solve
+    \begin{equation}
+        \dv{y}{x} = - \bqty{\frac{-0 \pm \sqrt{0^2 + 1}}{1}} = \mp 1.
+    \end{equation}
+
+    Hence, \(x \pm y = \text{constant}\) are the characteristic curves. We take \(\xi = x + y\) and \(\eta = x - y\), and in these coordinates, the wave equation reads
+    \begin{equation}
+        4 \pdv{U}{\xi}{\eta} = 0,
+    \end{equation}
+    then \(U\pqty{\xi, \eta} = F\pqty{\xi} + G\pqty{\eta}\) for some functions \(F\) and \(G\).
+
+    Equivalently, we have
+    \begin{equation}
+        u\pqty{x, y} = A \pqty{x + y} + B \pqty{x - y}.
+    \end{equation}
+
+    The system of equations
+    \begin{subequations}
+        \begin{align}
+            u_{tt} - u_{xx} = 0 &\qfor \pqty{x, t} \in \RR \times \oointv{0}{\plusinfty}, \\
+            u = f &\qfor \pqty{x, t} \in \RR \times \set{0}, \\
+            u_t = g &\qfor \pqty{x, t} \in \RR \times \set{0},
+        \end{align}
+    \end{subequations}
+    gives
+    \begin{equation}
+        A\pqty{x} + B\pqty{x} = f\pqty{x} \qand A'\pqty{x} - B'\pqty{x} = g\pqty{x}.
+    \end{equation}
+
+    We solve to obtain
+    \begin{equation}
+        u\pqty{x, t} = \frac{1}{2} \bqty{f\pqty{x + t} + f\pqty{x - t}} + \frac{1}{2} \int_{x - t}^{x + t} g\pqty{s} \dd{s},
+    \end{equation}
+\end{example}
+
+\begin{example}[PDE behaving Differently in Different Regions]
+    Consider the PDE
+    \begin{equation}
+        xy \pdv[2]{u}{x} - \pdv[2]{u}{y} = 0.
+    \end{equation}
+
+    We have \(a = xy, b = 0, c = -1\), and \(b^2 - ac = xy\). So the PDE is hyperbolic in the region
+    \begin{equation}
+        \set{\pqty{x, y} \in \RR^2}{xy > 0} = \set{\pqty{x, y} \in \RR^2}{x, y > 0} \cup \set{\pqty{x, y} \in \RR^2}{x, y < 0}.
+    \end{equation}
+    
+    To obtain the characteristic coordinates in the hyperbolic region, solve
+    \begin{subequations}
+        \begin{align}
+            \dv{y}{x} &= - \bqty{\frac{-b \mp \sqrt{b^2 - ac}}{a}} \\
+            &= \pm \frac{1}{\sqrt{xy}}.
+        \end{align}
+    \end{subequations}
+    
+    In the region where \(x, y > 0\), we get
+    \begin{equation}
+        \frac{1}{3} y^{\flatfrac{3}{2}} \pm x^{\flatfrac{1}{2}} = \text{constant},
+    \end{equation}
+    so we take
+    \begin{subequations}
+        \begin{align}
+            \xi &= \frac{1}{3} y^{\flatfrac{3}{2}} + x^{\flatfrac{1}{2}}, \\
+            \eta &= \frac{1}{3} y^{\flatfrac{3}{2}} - x^{\flatfrac{1}{2}}.
+        \end{align}
+    \end{subequations}
+\end{example}
+
+\small
+
+We discuss weak solutions to PDEs. Consider the wave equation
+\begin{equation}
+    f_{xx} - f_{tt} = 0 \qfor \RR^2,
+\end{equation}
+and hence \(\varphi\pqty{f_{xx} - f_{tt}} = 0\) for all \(\varphi \in \contClass{\infty} \pqty{\RR^2}\). Integrating gives
+\begin{equation}
+    \iint \varphi\pqty{f_{xx} - f_{tt}} \dd{x} \dd{t} = 0,
+\end{equation}
+and integrating by parts gives
+\begin{equation}
+    \iint \pqty{\pqty{-1}^2 \varphi_{xx} f - \pqty{-1}^2 \varphi_{tt} f} \dd{x} \dd{t} = 0,
+\end{equation}
+so we have
+\begin{equation}
+    \iint_{\RR} \pqty{\varphi_{xx} - \varphi_{tt}} f \dd{x} \dd{t} = 0,
+\end{equation}
+for all \(\varphi \in \contClass{\infty} \pqty{\RR^2}\). We can try \(f = H\pqty{x - t} + H\pqty{x + t}\).
+
+This tells us that we may wish to solve PDEs in a ``larger domain'' where we talk about weak solutions, which may tell us more about the behaviour of the original PDE.
+
+\normalsize
