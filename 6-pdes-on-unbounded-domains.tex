@@ -354,3 +354,268 @@ for all \(\varphi \in \contClass{\infty} \pqty{\RR^2}\). We can try \(f = H\pqty
 This tells us that we may wish to solve PDEs in a ``larger domain'' where we talk about weak solutions, which may tell us more about the behaviour of the original PDE.
 
 \normalsize
+
+\subsection{Higher Dimensional Fourier Transform}
+
+For a function \(\functiondomain{f}{\RR^n}{\CC}\), we define its \term{Fourier transform} and its inverse as
+\begin{equation}
+    \hat{f} \pqty{\vb*{\lambda}} = \int e^{- i \vb*{\lambda} \vdot \vb{x}} f\pqty{\vb{x}} \dd[n]{\vb{x}}
+\end{equation}
+and
+\begin{equation}
+    f\pqty{\vb{x}} = \frac{1}{\pqty{2 \pi}^n} \int e^{i \vb*{\lambda} \vdot \vb{x}} \hat{f}\pqty{\vb*{\lambda}} \dd[n]{\vb*{\lambda}},
+\end{equation}
+where \(\vb{x}, \vb*{\lambda} \in \RR^n\), and the integral is over all of \(\RR^n\).
+
+We may similarly define the \term{convolution} as
+\begin{equation}
+    f \convolution g\pqty{\vb{x}} = \int f\pqty{\vb{x} - \vb{y}} g\pqty{\vb{y}} \dd[n]{\vb{y}},
+\end{equation}
+and we also have the \term{convolution theorem}
+\begin{equation}
+    \fourier[\vb{x}][\vb*{\lambda}] \bqty{f \convolution g \pqty{\vb{x}}} = \hat{f} \pqty{\vb*{\lambda}} \hat{g} \pqty{\vb*{\lambda}}.
+\end{equation}
+
+We have
+\begin{equation}
+    \fourier[\vb{x}][\vb*{\lambda}] \bqty{\pqty{\pdv{x_1}}^{\alpha_1} \pqty{\pdv{x_2}}^{\alpha_2} \cdots \pqty{\pdv{x_n}}^{\alpha_n} f\pqty{\vb{x}}} = \pqty{i \lambda_1}^{\alpha_1} \pqty{i \lambda_2}^{\alpha_2} \cdots \pqty{i \lambda_n}^{\alpha_n} \hat{f}\pqty{\vb*{\lambda}}.
+\end{equation}
+
+\begin{example}
+    If we consider the Laplacian operator
+    \begin{equation}
+        \laplacian = \pqty{\pqty{\pdv{x_1}}^2 + \pqty{\pdv{x_2}}^2 + \cdots + \pqty{\pdv{x_n}}^2},
+    \end{equation}
+    then
+    \begin{subequations}
+        \begin{align}
+            \fourier[\vb{x}][\vb*{\lambda}] \bqty{\laplacian f\pqty{\vb{x}}} &= \bqty{\pqty{i \lambda_1}^2 + \pqty{i \lambda_2}^2 + \cdots + \pqty{i \lambda_n}^2} \hat{f}\pqty{\vb*{\lambda}} \\
+            &= - \bqty{\lambda_1^2 + \lambda_2^2 + \cdots + \lambda_n^2} \hat{f}\pqty{\vb*{\lambda}} \\
+            &= - \norm{\vb*{\lambda}}^2 \hat{f}\pqty{\vb*{\lambda}}.
+        \end{align}
+    \end{subequations}
+\end{example}
+
+We have a higher dimensional version of the \term{Dirac \(\diracdelta\)} function, which is defined in \(\RR^n\) as \(\diracdelta^n \pqty{\vb{x}} = 0\) if \(\vb{x} \neq \vb{0}\), and for all \(\epsilon > 0\), we have
+\begin{equation}
+    \int_{\abs{\vb{x}} < \epsilon} \diracdelta^n \pqty{\vb{x}} \dd[n]{\vb{x}} = 1.
+\end{equation}
+
+In other words, we have
+\begin{equation}
+    \diracdelta^n \pqty{\vb{x}} = \prod_{j = 1}^{n} \diracdelta\pqty{x_j}.
+\end{equation}
+
+Some choose to omit the superscript \(n\) and simply write \(\diracdelta\pqty{\vb{x}}\) instead of \(\diracdelta^n\pqty{\vb{x}}\).
+
+The Fourier transform of the Dirac \(\diracdelta\) function satisfies \(\hat{\diracdelta}^n \pqty{\vb*{\lambda}} = 1\), and hence, by the inversion theorem,
+\begin{equation}
+    \diracdelta^n \pqty{\vb{x}} = \frac{1}{\pqty{2 \pi}^n} \int e^{i \vb*{\lambda} \vdot \vb{x}} \dd[n]{\vb*{\lambda}}.
+\end{equation}
+
+Recall that the Gaussian is an eigenfunction of the Fourier transform, that if
+\begin{equation}
+    g\pqty{x} = \frac{1}{\sqrt{2 \pi}} e^{- \frac{x^2}{2}},
+\end{equation}
+then
+\begin{equation}
+    \hat{g}\pqty{\lambda} = \frac{1}{\sqrt{2 \pi}} e^{- \frac{\lambda^2}{2}}.
+\end{equation}
+
+We attempt to compute the Fourier transform of the \(n\)-dimensional Gaussian.
+ 
+\begin{proposition}[Fourier Transform of \(n\)-Dimensional Gaussian]
+    Suppose
+    \begin{equation}
+        g\pqty{\vb{x}} = \frac{1}{\pqty{2 \pi}^{\flatfrac{n}{2}}} \exp\pqty{- \frac{\abs{\vb{x}}^2}{2}},
+    \end{equation}
+    then we have
+    \begin{equation}
+        \hat{g} \pqty{\vb*{\lambda}} = \exp\pqty{- \frac{\abs{\vb*{\lambda}}^2}{2}}.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Note that we may separate \(g\pqty{\vb{x}}\) into a product as
+    \begin{equation}
+        g\pqty{\vb{x}} = \bqty{\frac{1}{\sqrt{2 \pi}} e^{- \flatfrac{x_1^2}{2}}} \bqty{\frac{1}{\sqrt{2 \pi}} e^{- \flatfrac{x_2^2}{2}}} \cdots \bqty{\frac{1}{\sqrt{2 \pi}} e^{- \flatfrac{x_n^2}{2}}}.
+    \end{equation}
+
+    Then, doing the integral by components, we have
+    \begin{subequations}
+        \begin{align}
+            \hat{g}\pqty{\vb*{\lambda}} &= \int \dd{x_1} \int \dd{x_2} \cdots \int \dd{x_n} e^{- i \pqty{\lambda_1 x_1 + \lambda_2 x_2 + \cdots + \lambda_n x_n}} g\pqty{\vb{x}} \\
+            &= \bqty{\frac{1}{\sqrt{2 \pi}} \int e^{- i \lambda_1 x_1} e^{- \flatfrac{x_1^2}{2}} \dd{x_1}} \bqty{\frac{1}{\sqrt{2 \pi}} \int e^{- i \lambda_2 x_2} e^{- \flatfrac{x_2^2}{2}} \dd{x_2}} \cdots \bqty{\frac{1}{\sqrt{2 \pi}} \int e^{- i \lambda_n x_n} e^{- \flatfrac{x_n^2}{2}} \dd{x_n}} \\
+            &= \bqty{\exp\pqty{-\frac{\lambda_1^2}{2}}} \bqty{\exp\pqty{-\frac{\lambda_2^2}{2}}} \cdots \bqty{\exp\pqty{-\frac{\lambda_n^2}{2}}} \\
+            &= \exp\pqty{- \frac{\abs{\vb*{\lambda}}^2}{2}}.
+        \end{align}
+    \end{subequations}
+\end{proof}
+
+\subsection{The Green's Function for the Heat Equation on \(\RR^n\)}
+
+Suppose we want to solve the heat equation with forcing on \(\RR^n\)
+\begin{subequations}
+    \begin{align}
+        u_t - \kappa \laplacian u = F\pqty{\vb{x}, t} &\qfor \pqty{\vb{x}, t} \in \RR^n \times \oointv{0}{\plusinfty}, \\
+        u\pqty{\vb{x}, 0} = f\pqty{\vb{x}} &\qfor \vb{x} \in \RR^n.
+    \end{align}
+\end{subequations}
+
+We split the problem as follows.
+\begin{enumerate}[label=(\alph*)]
+    \item Problem with \textbf{zero forcing} \(F = 0\) and \textbf{arbitrary initial condition} \(f\).
+    \item Problem with \textbf{arbitrary forcing} \(F\) and \textbf{zero initial condition} \(f = 0\).
+\end{enumerate}
+
+To solve, we make use of the so-called \term{Heat-Kernel}
+\begin{equation}
+    K_t \pqty{\vb{x}} = \frac{1}{\pqty{4 \pi \kappa t}^{\flatfrac{n}{2}}} \exp\pqty{- \frac{\abs{\vb{x}}^2}{4 \kappa t}}.
+\end{equation}
+
+Note that for \(\vb{x} \neq \vb{0}\), we have
+\begin{equation}
+    \lim_{t \to 0^+} K_t \pqty{\vb{x}} = 0.
+\end{equation}
+
+\begin{proposition}[Fourier Transform of Heat Kernel]
+    For each \(t > 0\), we have
+    \[
+        \hat{K}_t \pqty{\vb*{\lambda}} = \exp\pqty{- \kappa t \abs{\vb*{\lambda}}^2}.
+    \]
+\end{proposition}
+
+\begin{proof}
+    We have by definition that
+    \begin{subequations}
+        \begin{align}
+            \hat{K}_t \pqty{\vb*{\lambda}} &=\frac{1}{\pqty{4 \pi \kappa t}^{\flatfrac{n}{2}}} \int e^{- i \vb*{\lambda} \vdot \vb{x}} \exp\pqty{- \frac{\abs{\vb{x}}^2}{4 \kappa t}} \dd[n]{\vb{x}} \\
+            &= \frac{\pqty{2 \kappa t}^{\flatfrac{n}{2}}}{\pqty{4 \pi \kappa t}^{\flatfrac{n}{2}}} \int e^{- i \vb*{\lambda} \vdot \pqty{\sqrt{2 \kappa t} \vb{x}'}} \exp\pqty{- \frac{\abs{\vb{x}'}^2}{2}} \dd[n]{\vb{x}'} && \vb{x} = \sqrt{2 \kappa t} \vb{x}' \\
+            &= \frac{1}{\pqty{2 \pi}^{\flatfrac{n}{2}}} \int e^{- i \pqty{\sqrt{2 \kappa t} \vb*{\lambda}} \vdot \vb{x}'} \exp\pqty{- \frac{\abs{\vb{x}'}^2}{2}} \dd[n]{\vb{x}'} \\
+            &= \hat{g} \pqty{\sqrt{2 \kappa t} \vb*{\lambda}} \\
+            &= \exp\pqty{- \frac{\abs{\sqrt{2 \kappa t} \vb*{\lambda}}^2}{2}} \\
+            &= \exp\pqty{- \kappa t \abs{\vb*{\lambda}}^2},
+        \end{align}
+    \end{subequations}
+    as required.
+\end{proof}
+
+\begin{remark}
+    Note that we have
+    \begin{equation}
+        \hat{K}_t \pqty{\vb{0}} = 1 = \int K_t \pqty{\vb{x}} \dd[n]{\vb{x}},
+    \end{equation}
+    so for all \(t > 0\), we have
+    \begin{equation}
+        \int K_t \pqty{\vb{x}} \dd[n]{\vb{x}} = 1.
+    \end{equation}
+
+    This means that when \(t \to 0^+\), the heat kernel \(K_t\) converges to the Dirac \(\diracdelta\) function.
+\end{remark}
+
+\begin{proposition}[Solution to Heat Equation with Zero Forcing]
+    The solution to the zero forcing case of the heat equation, (a) above, is given by
+    \begin{equation}
+        u\pqty{\vb{x}, t} = \pqty{K_t \convolution f} \pqty{\vb{x}} = \int K_t \pqty{\vb{x} - \vb{y}} f\pqty{\vb{y}} \dd[n]{\vb{y}}.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    By taking the Fourier transform, the unforced initial value problem reads
+    \begin{subequations}
+        \begin{align}
+            \hat{u}_t + \kappa \abs{\vb*{\lambda}}^2 \hat{u} &= 0, \\
+            \hat{u} \pqty{\vb*{\lambda}, 0} &= \hat{f} \pqty{\vb*{\lambda}},
+        \end{align}
+    \end{subequations}
+    where
+    \begin{equation}
+        \hat{u} \pqty{\vb*{\lambda}, t} = \int e^{- i \vb*{\lambda} \vdot \vb{x}} u\pqty{\vb{x}, t} \dd[n]{\vb{x}}
+    \end{equation}
+    is the Fourier transform of \(u\pqty{\vb{x}, t}\) with respect to \(\vb{x}\).
+
+    Solving this ordinary differential equation gives
+    \begin{subequations}
+        \begin{align}
+            \hat{u} \pqty{\vb*{\lambda}, t} &= \hat{u} \pqty{\vb*{\lambda}, 0} e^{- \kappa t \abs{\vb*{\lambda}}^2} \\
+            &= \hat{f} \pqty{\vb*{\lambda}} e^{- \kappa t \abs{\vb*{\lambda}}^2} \\
+            &= \hat{f} \pqty{\vb*{\lambda}} \hat{K}_t \pqty{\vb*{\lambda}}.
+        \end{align}
+    \end{subequations}
+
+    By the convolution theorem, we have
+    \begin{equation}
+        u \pqty{\vb{x}, t} = \pqty{K_t \convolution f} \pqty{\vb{x}}
+    \end{equation}
+\end{proof}
+
+\begin{proposition}[Solution to Heat Equation with Forcing]
+    The solution to the forced case of the heat equation, (b) above, is given by
+    \begin{equation}
+        u\pqty{\vb{x}, t} = \int_{0}^{t} \dd{s} \int \dd[n]{\vb{y}} K_{t - s} \pqty{\vb{x} - \vb{y}} F\pqty{\vb{y}, s} = \int_{0}^{t} \dd{s} \pqty{K_{t - s} \convolution F\pqty{\cdot, s}} \pqty{\vb{x}}.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Taking the Fourier transform, the forced initial value problem with zero initial value reads
+    \begin{subequations}
+        \begin{align}
+            \hat{u}_t + \kappa \abs{\vb*{\lambda}}^2 \hat{u} &= \hat{F} \pqty{\vb*{\lambda}, t}, \\
+            \hat{u} \pqty{\vb*{\lambda}, 0} &= 0.
+        \end{align}
+    \end{subequations}
+
+    Using an integrating factor, the ordinary differential equation is
+    \begin{equation}
+        \pdv{t} \bqty{e^{\kappa \abs{\vb*{\lambda}}^2 t} \hat{u}} = e^{\kappa \abs{\vb*{\lambda}}^2 t} \hat{F} \pqty{\vb*{\lambda}, t},
+    \end{equation}
+    and integrating over \(\oointv{0}{t}\) gives
+    \begin{equation}
+        e^{\kappa \pqty{\vb*{\lambda}}^2 t} \hat{u} \pqty{\vb*{\lambda}, t} - \hat{u} \pqty{\vb*{\lambda}, 0} = \int_{0}^{t} e^{\kappa \abs{\vb*{\lambda}}^2 s} \hat{F} \pqty{\vb*{\lambda}, s} \dd{s},
+    \end{equation}
+    and since the initial data is zero, we have
+    \begin{subequations}
+        \begin{align}
+            \hat{u} \pqty{\vb*{\lambda}, t} &= \int_{0}^{t} e^{- \kappa \abs{\vb*{\lambda}}^2 \pqty{t - s}} \hat{F} \pqty{\vb*{\lambda}, s} \dd{s} \\
+            &= \int_{0}^{t} \hat{K}_{t - s} \pqty{\vb*{\lambda}} \hat{F} \pqty{\vb*{\lambda}, s} \dd{s}.
+        \end{align}
+    \end{subequations}
+
+    Using the convolution theorem, we obtain the result as desired.
+\end{proof}
+
+This allows us to solve the whole problem by simply adding the two solutions together.
+
+Now, define
+\begin{equation}
+    G\pqty{\vb{x}, t; \vb{y}, s} = H\pqty{t - s} K_{t - s} \pqty{\vb{x} - \vb{y}},
+\end{equation}
+where \(H\) is the Heaviside step function. Also, set \(F\pqty{\vb{x}, t} = 0\) for \(t < 0\). Then the solution to (b) is therefore exactly
+\begin{equation}
+    u \pqty{\vb{x}, t} = \int \dd{s} \int \dd[n]\pqty{\vb{y}} G\pqty{\vb{x}, t; \vb{y}, s} F\pqty{\vb{y}, s}.
+\end{equation}
+
+Therefore, \(G\) is the \term{(Dirichlet) Green's function} for the heat equation on \(\RR^n\). In particular, it satisfies that
+\begin{equation}
+    G_t - \kappa \laplacian G = \diracdelta^n \pqty{\vb{x} - \vb{y}} \diracdelta\pqty{t - s},
+\end{equation}
+or equivalently, taking the Fourier transform, we have
+\begin{equation}
+    \hat{G}_t + \kappa \abs{\vb*{\lambda}}^2 \hat{G} = \exp\pqty{- i \vb*{\lambda} \vdot \vb{y}} \diracdelta\pqty{t - s}.
+\end{equation}
+
+Indeed, we have
+\begin{subequations}
+    \begin{align}
+        \hat{G}\pqty{\vb*{\lambda}, t; \vb{y}, s} &= \fourier[\vb{x}][\vb*{\lambda}] \bqty{H\pqty{t - s} K_{t - s} \pqty{\vb{x} - \vb{y}}} \\
+        &= H\pqty{t - s} e^{- i \vb*{\lambda} \vdot \vb{y}} \fourier[\vb{x}][\vb*{\lambda}] \bqty{K_{t - s} \pqty{\vb{x}}} \\
+        &= H\pqty{t - s} e^{- i \vb*{\lambda} \vdot \vb{y}} \exp\pqty{- \kappa \pqty{t - s} \abs{\vb*{\lambda}}^2}.
+    \end{align}
+\end{subequations}
+
+Clearly, if \(s > t\) and if \(s < t\), the equation is satisfies, and we have
+\begin{equation}
+    \rightbar{\hat{G}\pqty{\vb*{\lambda}, t; \vb{y}, s}}_{t = s^-}^{t = s^+} = \exp\pqty{- i \vb*{\lambda} \vdot \vb{y}}.
+\end{equation}
+
+This matches the jump condition by taking integral over \(t \in \oointv{s - \epsilon}{s + \epsilon}\) over the transformed equation, and taking \(\epsilon \to 0\).
